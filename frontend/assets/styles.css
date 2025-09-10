@@ -1,0 +1,162 @@
+/* 
+Estilos personalizados para AstroTech
+====================================
+
+Este archivo contiene los estilos CSS personalizados para la aplicación
+AstroTech, incluyendo variables CSS, animaciones y diseño responsivo.
+
+VARIABLES CSS:
+- Colores corporativos (naranja y negro)
+- Sombras y transiciones
+- Espaciado y tipografía
+
+ANIMACIONES:
+- fadeInUp: Animación de entrada desde abajo
+- pulse: Efecto de pulso para elementos destacados
+- Transiciones suaves para hover effects
+
+DISEÑO RESPONSIVO:
+- Breakpoints para móviles, tablets y desktop
+- Grid layouts adaptativos
+- Tipografía escalable
+
+COMPONENTES ESTILIZADOS:
+- Hero section con efectos visuales
+- Selector de vehículos con animaciones
+- Cards y contenedores con sombras
+- Botones con efectos hover
+
+INTEGRACIÓN:
+- Se importa en app.py como stylesheet
+- Complementa los estilos por defecto de Reflex
+- Variables CSS para fácil personalización
+
+PRÓXIMOS PASOS:
+- Implementar estilos específicos por componente
+- Añadir más animaciones
+- Optimizar para rendimiento
+- Añadir modo claro/oscuro
+*/
+
+/* Variables CSS personalizadas */
+:root {
+  --primary-orange: #FF6B35;
+  --primary-black: #1A1A1A;
+  --secondary-black: #2D2D2D;
+  --white: #FFFFFF;
+  --light-gray: #F5F5F5;
+  --dark-gray: #666666;
+  --border-gray: #E0E0E0;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.2);
+  --transition: all 0.3s ease;
+}
+
+/* TODO: Implementar estilos globales */
+/* body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--primary-black);
+  color: var(--white);
+  line-height: 1.6;
+} */
+
+/* TODO: Implementar animaciones personalizadas */
+/* @keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.2); opacity: 0.2; }
+  100% { transform: scale(1); opacity: 0.7; }
+} */
+
+/* TODO: Implementar scroll suave */
+/* html {
+  scroll-behavior: smooth;
+} */
+
+/* TODO: Implementar estilos para componentes específicos */
+/* .vehicle-selector-step {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.hero-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(255, 140, 90, 0.15) 50%, rgba(255, 159, 122, 0.1) 100%);
+  border-radius: 20px;
+}
+
+.hero-image::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  right: 15%;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse 3s infinite;
+} */
+
+/* TODO: Implementar diseño responsivo */
+/* @media (max-width: 768px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .benefits-grid,
+  .services-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .hero {
+    padding: 100px 0 60px;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+} */
