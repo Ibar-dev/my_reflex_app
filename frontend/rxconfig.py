@@ -17,4 +17,5 @@ config = rx.Config(
     deploy_url="http://localhost:3000",
     # Configuración de desarrollo
     env=rx.Env.DEV,
+    disable_plugins=["reflex.plugins.sitemap.SitemapPlugin"],
 )

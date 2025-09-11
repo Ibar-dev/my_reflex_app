@@ -24,18 +24,73 @@ DEPENDENCIAS:
 
 import reflex as rx
 
-# TODO: Importar estado global cuando esté implementado
-# from state.global_state import GlobalState
+# Estado local simple para el menú móvil
+class _HeaderState(rx.State):
+    pass
 
-def header() -> rx.Component:
+
+def _nav_link(text: str, href: str, active: bool = False) -> rx.Component:
+    return rx.link(
+        text,
+        href=href,
+        class_name=f"nav-link{' active' if active else ''}",
+    )
+
+
+def _nav_menu(active_key: str, display: str = "flex") -> rx.Component:
+    return rx.hstack(
+        _nav_link("Inicio", "/", active=active_key == "home"),
+        _nav_link("Servicios", "/services", active=active_key == "services"),
+        _nav_link("Acerca de", "/about", active=active_key == "about"),
+        _nav_link("Contacto", "/contact", active=active_key == "contact"),
+        spacing="7",
+        display=display,
+        align="center",
+    )
+
+
+def header(active: str = "home") -> rx.Component:
     """
     Header con navegación principal
     
     Returns:
         rx.Component: Componente de header con navegación
     """
-    # TODO: Implementar header completo
-    pass
+    return rx.box(
+        # Barra fija superior
+        rx.container(
+            rx.hstack(
+                # Logo / Marca
+                rx.link(
+                    rx.text(
+                        "AstroTech",
+                        color="#FF6B35",
+                        font_weight="800",
+                        font_size="1.4rem",
+                        letter_spacing="0.6px",
+                        class_name="brand",
+                    ),
+                    href="/",
+                    _hover={"text_decoration": "none"},
+                ),
+
+                # Menú principal (desktop)
+                _nav_menu(active_key=active, display={"base": "none", "md": "flex"}),
+                align="center",
+                justify="between",
+            ),
+            max_width="1140px",
+            px="24px",
+            height="70px",
+        ),
+        position="sticky",
+        top="0",
+        z_index="1000",
+        bg="linear-gradient(180deg, #202020 0%, #1A1A1A 100%)",
+        border_bottom="1px solid",
+        border_color="#262626",
+        box_shadow="0 1px 0 rgba(255,255,255,0.06)",
+    )
 
 # TODO: Implementar funciones auxiliares del header
 # - Logo de la empresa

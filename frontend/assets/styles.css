@@ -52,16 +52,16 @@ PRÓXIMOS PASOS:
   --transition: all 0.3s ease;
 }
 
-/* TODO: Implementar estilos globales */
-/* body {
-  font-family: 'Inter', sans-serif;
+/* Estilos globales */
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
   background-color: var(--primary-black);
   color: var(--white);
   line-height: 1.6;
-} */
+}
 
-/* TODO: Implementar animaciones personalizadas */
-/* @keyframes fadeInUp {
+/* Animaciones personalizadas */
+@keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(30px);
@@ -74,17 +74,17 @@ PRÓXIMOS PASOS:
 
 @keyframes pulse {
   0% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.2); opacity: 0.2; }
+  50% { transform: scale(1.08); opacity: 0.35; }
   100% { transform: scale(1); opacity: 0.7; }
-} */
+}
 
-/* TODO: Implementar scroll suave */
-/* html {
+/* Scroll suave */
+html {
   scroll-behavior: smooth;
-} */
+}
 
-/* TODO: Implementar estilos para componentes específicos */
-/* .vehicle-selector-step {
+/* Estilos para componentes específicos */
+.vehicle-selector-step {
   animation: fadeInUp 0.5s ease-out;
 }
 
@@ -107,14 +107,15 @@ PRÓXIMOS PASOS:
 .hero-image::after {
   content: '';
   position: absolute;
-  top: 15%;
-  right: 15%;
-  width: 80px;
-  height: 80px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  bottom: -10px;
+  left: 10%;
+  right: 10%;
+  height: 30px;
+  background: radial-gradient(closest-side, rgba(255, 107, 53, 0.35), transparent 70%);
+  filter: blur(8px);
   border-radius: 50%;
   animation: pulse 3s infinite;
-} */
+}
 
 /* TODO: Implementar diseño responsivo */
 /* @media (max-width: 768px) {
@@ -160,3 +161,57 @@ PRÓXIMOS PASOS:
     font-size: 2rem;
   }
 } */
+
+/* Navegación superior: enlaces con subrayado animado */
+.nav-link {
+  position: relative;
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+  padding-bottom: 8px; /* espacio para el subrayado */
+  transition: var(--transition);
+}
+
+.nav-link:hover { color: var(--primary-orange); }
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 2px; /* pequeño offset del borde inferior */
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-orange);
+  transition: width 0.22s ease;
+}
+
+.nav-link:hover::after { width: 100%; }
+
+.nav-link.active {
+  color: var(--primary-orange);
+}
+
+.nav-link.active::after {
+  width: 38%;
+}
+
+.nav-link:focus-visible {
+  outline: none;
+  text-decoration: none;
+  box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.35);
+  border-radius: 4px;
+}
+
+/* Marca AstroTech: tipografía y sutil realce */
+.brand {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+}
+
+/* Utilidades para hero (opcional) */
+.hero-wrap {
+  padding-top: 90px;
+}
