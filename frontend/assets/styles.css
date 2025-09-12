@@ -38,7 +38,7 @@ PRÓXIMOS PASOS:
 - Añadir modo claro/oscuro
 */
 
-/* Variables CSS personalizadas */
+/* Variables CSS personalizadas - Basadas en mockup */
 :root {
   --primary-orange: #FF6B35;
   --primary-black: #1A1A1A;
@@ -49,6 +49,7 @@ PRÓXIMOS PASOS:
   --border-gray: #E0E0E0;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.2);
+  --shadow-glow: 0 20px 40px rgba(255, 107, 53, 0.3);
   --transition: all 0.3s ease;
 }
 
@@ -78,9 +79,103 @@ body {
   100% { transform: scale(1); opacity: 0.7; }
 }
 
+@keyframes speedLines {
+  0% { transform: translateX(-100px); opacity: 0; }
+  50% { opacity: 0.6; }
+  100% { transform: translateX(100px); opacity: 0; }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px rgba(255, 107, 53, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.6), 0 0 30px rgba(255, 107, 53, 0.3); }
+  100% { box-shadow: 0 0 5px rgba(255, 107, 53, 0.2); }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Scroll suave */
 html {
   scroll-behavior: smooth;
+}
+
+/* Efectos adicionales para componentes */
+.benefit-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.benefit-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 107, 53, 0.05), transparent);
+  transform: rotate(-45deg);
+  transition: all 0.6s ease;
+  opacity: 0;
+}
+
+.benefit-card:hover::before {
+  opacity: 1;
+  transform: rotate(-45deg) translateX(100%);
+}
+
+/* Animación de entrada escalonada para tarjetas */
+.benefit-card:nth-child(1) { animation-delay: 0.1s; }
+.benefit-card:nth-child(2) { animation-delay: 0.2s; }
+.benefit-card:nth-child(3) { animation-delay: 0.3s; }
+.benefit-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Efectos para el selector de vehículos */
+.vehicle-selector-step {
+  animation: slideInUp 0.6s ease-out forwards;
+}
+
+/* Efectos para botones con glow */
+.fuel-btn:hover,
+.brand-btn:hover,
+.model-btn:hover,
+.year-btn:hover {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Efectos para formularios */
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2) !important;
+  transform: translateY(-2px);
+}
+
+/* Efectos para enlaces del footer */
+.footer a {
+  position: relative;
+  overflow: hidden;
+}
+
+.footer a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.footer a:hover::before {
+  left: 100%;
 }
 
 /* Estilos para componentes específicos */
@@ -107,18 +202,56 @@ html {
 .hero-image::after {
   content: '';
   position: absolute;
-  bottom: -10px;
-  left: 10%;
-  right: 10%;
-  height: 30px;
-  background: radial-gradient(closest-side, rgba(255, 107, 53, 0.35), transparent 70%);
-  filter: blur(8px);
+  top: 15%;
+  right: 15%;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
   border-radius: 50%;
   animation: pulse 3s infinite;
 }
 
-/* TODO: Implementar diseño responsivo */
-/* @media (max-width: 768px) {
+/* Efectos adicionales para el hero */
+.hero-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(255, 140, 90, 0.15) 50%, rgba(255, 159, 122, 0.1) 100%);
+  border-radius: 20px;
+  z-index: 1;
+}
+
+/* Líneas de velocidad animadas */
+.hero-image .speed-line {
+  position: absolute;
+  top: 20%;
+  left: -100px;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  animation: speedLines 2s infinite;
+}
+
+.hero-image .speed-line:nth-child(2) {
+  top: 40%;
+  animation-delay: 0.5s;
+}
+
+.hero-image .speed-line:nth-child(3) {
+  top: 60%;
+  animation-delay: 1s;
+}
+
+/* Diseño responsivo completo */
+@media (max-width: 768px) {
   .hero-container {
     grid-template-columns: 1fr;
     text-align: center;
@@ -142,6 +275,15 @@ html {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+  
+  .vehicle-selector-container {
+    padding: 2rem 1rem;
+  }
+  
+  .fuel-options {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -160,7 +302,11 @@ html {
   .section-title {
     font-size: 2rem;
   }
-} */
+  
+  .vehicle-selector-container {
+    padding: 1.5rem 1rem;
+  }
+}
 
 /* Navegación superior: enlaces con subrayado animado */
 .nav-link {
