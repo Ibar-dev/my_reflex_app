@@ -361,3 +361,8 @@ textarea:focus {
 .hero-wrap {
   padding-top: 90px;
 }
+
+/* Ajuste de scroll */
+.scroll-target {
+  scroll-margin-top: 70px; /* Ajuste para header fijo */
+}

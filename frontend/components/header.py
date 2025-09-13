@@ -34,15 +34,16 @@ def _nav_link(text: str, href: str, active: bool = False) -> rx.Component:
         text,
         href=href,
         class_name=f"nav-link{' active' if active else ''}",
+        on_click=rx.call_script(f"document.getElementById('{href[1:]}').scrollIntoView({{ behavior: 'smooth' }});"),
     )
 
 
 def _nav_menu(active_key: str, display: str = "flex") -> rx.Component:
     return rx.hstack(
-        _nav_link("Inicio", "/", active=active_key == "home"),
-        _nav_link("Servicios", "/services", active=active_key == "services"),
-        _nav_link("Acerca de", "/about", active=active_key == "about"),
-        _nav_link("Contacto", "/contact", active=active_key == "contact"),
+        _nav_link("Inicio", "#inicio", active=active_key == "home"),
+        _nav_link("Servicios", "#servicios", active=active_key == "services"),
+        _nav_link("Acerca de", "#acerca", active=active_key == "about"),
+        _nav_link("Contacto", "#contacto", active=active_key == "contact"),
         spacing="7",
         display=display,
         align="center",
@@ -70,7 +71,7 @@ def header(active: str = "home") -> rx.Component:
                         letter_spacing="0.6px",
                         class_name="brand",
                     ),
-                    href="/",
+                    href="/#inicio",
                     _hover={"text_decoration": "none"},
                 ),
 

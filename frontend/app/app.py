@@ -19,10 +19,10 @@ def index() -> rx.Component:
     """Página principal completa con todos los componentes"""
     return rx.box(
         header(active="home"),
-        hero(),
-        vehicle_selector(),
-        benefits(),
-        services(),
+        rx.box(hero(), class_name="section scroll-target", id="inicio"),
+        rx.box(vehicle_selector(), class_name="scroll-target", id="selector"),
+        rx.box(benefits(), class_name="scroll-target", id="beneficios"),
+        rx.box(services(), class_name="scroll-target", id="servicios"),
         rx.box(
             rx.container(
                 rx.vstack(
@@ -77,10 +77,11 @@ def index() -> rx.Component:
                 py="20"
             ),
             bg="#1A1A1A",
+            class_name="scroll-target",
             id="acerca"
         ),
-        faq(),
-        contact(),
+        rx.box(faq(), class_name="scroll-target", id="faq"),
+        rx.box(contact(), class_name="scroll-target", id="contacto"),
         footer(),
         bg="#1A1A1A",
         min_height="100vh",
