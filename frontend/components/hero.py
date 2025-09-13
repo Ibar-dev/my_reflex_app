@@ -11,68 +11,68 @@ import reflex as rx
 
 def hero() -> rx.Component:
     return rx.box(
-        # Fondo degradado y espacio para la barra fija
         rx.container(
             rx.grid(
-                # Columna izquierda: contenido
+                # Columna izquierda: contenido de texto
                 rx.vstack(
                     rx.heading(
-                        "Potencia el coche de tus sueños",
+                        "Potencia el coche de tus sueños", 
+                        size="8", 
                         color="white",
-                        line_height="1.05",
-                        letter_spacing="-0.8px",
-                        font_size={"base": "2.8rem", "md": "3.6rem", "lg": "4.2rem"},
                         font_weight="800",
-                        animation="fadeInUp 0.6s ease-out",
+                        line_height="1.2",
+                        mb="4"
                     ),
                     rx.text(
-                        "Reprogramación profesional de ECU para aumentar la potencia y reducir el consumo de combustible. Servicio garantizado con más de 10 años de experiencia.",
-                        color="rgba(255,255,255,0.88)",
-                        font_size={"base": "1rem", "md": "1.05rem", "lg": "1.08rem"},
-                        line_height="1.7",
-                        max_width="56ch",
-                        animation="fadeInUp 0.7s ease-out",
+                        "Reprogramación ECU profesional para maximizar el rendimiento de tu vehículo sin comprometer su fiabilidad.",
+                        color="#CCCCCC",
+                        font_size="1.1rem",
+                        mb="8"
                     ),
-                    rx.hstack(
-                        rx.link(
-                            rx.button(
-                                "SELECCIONA TU VEHÍCULO",
-                                bg="#FF6B35",
-                                color="white",
-                                size="3",
-                                border_radius="10px",
-                                px="18px",
-                                _hover={"bg": "#e55a2b", "transform": "translateY(-2px)"},
-                                transition="all 0.2s ease",
-                            ),
-                            href="/services",  # Temporal hasta tener el selector
-                            _hover={"text_decoration": "none"},
-                        ),
-                        mt="5",
-                        animation="fadeInUp 0.8s ease-out",
+                    rx.button(
+                        "Selecciona tu vehículo",
+                        size="3",
+                        px="8",
+                        py="6",
+                        bg="#FF6B35",
+                        color="white",
+                        _hover={"bg": "#FF5A1F"},
+                        on_click=rx.redirect("/#selector")
                     ),
                     spacing="6",
                     align="start",
-                    max_width="640px",
+                    justify="center",
+                    height="100%",
+                    padding_y="2rem",
+                    class_name="fade-in-up"
                 ),
-                # Columna derecha: placeholder en blanco para imagen futura
+                # Columna derecha: imagen
                 rx.box(
-                    width="100%",
-                    height={"base": "280px", "md": "340px", "lg": "380px"},
-                    bg="#2D2D2D",
-                    border_radius="20px",
-                    box_shadow="0 20px 40px rgba(255, 107, 53, 0.25)",
-                    class_name="hero-image",
+                    rx.image(
+                        src="/centralita-coche.jpg", 
+                        width="100%", 
+                        height="auto",
+                        border_radius="20px",
+                        box_shadow="0 10px 30px rgba(0, 0, 0, 0.3)"
+                    ),
+                    display="flex",
+                    align_items="center",
+                    justify_content="center",
+                    height="100%",
+                    padding_y="2rem",
+                    class_name="hero-image fade-in-up"
                 ),
-                columns={"base": "1", "md": "1", "lg": "2"},
-                gap={"base": "8", "lg": "12"},
-                align="center",
+                columns={"base": "1", "md": "2"},
+                spacing="8",
+                width="100%",
+                height="100%"
             ),
             max_width="1200px",
-            px={"base": "20px", "md": "24px"},
-            py={"base": "16", "md": "18", "lg": "24"},
-            min_height={"lg": "560px"},
+            height="100%"
         ),
-        bg="linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%)",
-        pt="90px",  # separa del header fijo
+        bg="linear-gradient(45deg, #1A1A1A 0%, #2D2D2D 100%)",
+        padding_x="1rem",
+        padding_y="4rem",
+        width="100%",
+        class_name="parallax-section"
     )

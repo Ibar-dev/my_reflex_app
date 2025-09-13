@@ -18,7 +18,7 @@ class FAQState(rx.State):
             self.expanded_items.append(item_id)
 
 def faq_item(question: str, answer: str, item_id: int) -> rx.Component:
-    """Item individual de FAQ"""
+    """Item individual de FAQ con animaciones mejoradas"""
     is_expanded = FAQState.expanded_items.contains(item_id)
     
     return rx.box(
@@ -29,15 +29,15 @@ def faq_item(question: str, answer: str, item_id: int) -> rx.Component:
                     question,
                     size="4",
                     color="white",
-                    text_align="left"
+                    text_align="left",
+                    font_weight="600"
                 ),
-                rx.text(
-                    "+",
-                    font_size="1.5rem",
-                    font_weight="bold",
+                rx.icon(
+                    "chevron-down",
+                    size=24,
                     color="#FF6B35",
-                    transform=rx.cond(is_expanded, "rotate(45deg)", "rotate(0deg)"),
-                    transition="transform 0.3s ease"
+                    transform=rx.cond(is_expanded, "rotate(180deg)", "rotate(0deg)"),
+                    transition="transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
                 ),
                 justify="between",
                 align="center",
@@ -45,38 +45,49 @@ def faq_item(question: str, answer: str, item_id: int) -> rx.Component:
             ),
             bg="transparent",
             border="none",
-            p="6",
+            p="8",
             width="100%",
             text_align="left",
-            _hover={"bg": "#2D2D2D"},
+            _hover={"bg": "rgba(255, 107, 53, 0.05)"},
             transition="all 0.3s ease",
-            on_click=FAQState.toggle_faq(item_id)
+            on_click=FAQState.toggle_faq(item_id),
+            cursor="pointer"
         ),
         
-        # Respuesta expandible
+        # Respuesta expandible con animación mejorada
         rx.box(
-            rx.text(
-                answer,
-                color="#666666",
-                line_height="1.6",
-                p="6",
-                pt="0"
+            rx.box(
+                rx.text(
+                    answer,
+                    color="#CCCCCC",
+                    line_height="1.7",
+                    font_size="0.95rem"
+                ),
+                p="8",
+                pt="0",
+                opacity=rx.cond(is_expanded, "1", "0"),
+                transition="opacity 0.3s ease 0.1s"
             ),
-            max_height=rx.cond(is_expanded, "200px", "0px"),
+            max_height=rx.cond(is_expanded, "300px", "0px"),
             overflow="hidden",
-            transition="max-height 0.3s ease"
+            transition="max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
         ),
         
-        bg="#1A1A1A",
-        border_radius="10px",
-        mb="4",
-        border="1px solid #666666",
-        box_shadow="0 4px 6px rgba(0, 0, 0, 0.1)",
+        bg="#2D2D2D",
+        border_radius="15px",
+        mb="6",
+        border="1px solid #404040",
+        box_shadow="0 4px 15px rgba(0, 0, 0, 0.15)",
+        _hover={
+            "box_shadow": "0 8px 25px rgba(255, 107, 53, 0.1)",
+            "border_color": "#FF6B35"
+        },
+        transition="all 0.3s ease",
         overflow="hidden"
     )
 
 def faq() -> rx.Component:
-    """Sección de preguntas frecuentes"""
+    """Sección de preguntas frecuentes mejorada y centrada"""
     return rx.box(
         rx.container(
             rx.vstack(
@@ -85,39 +96,49 @@ def faq() -> rx.Component:
                     size="8",
                     color="white",
                     text_align="center",
-                    mb="12"
+                    mb="16",
+                    font_weight="700"
                 ),
-                rx.vstack(
-                    faq_item(
-                        "¿Es seguro reprogramar mi vehículo?",
-                        "Sí, es completamente seguro. Utilizamos equipos profesionales y seguimos protocolos estrictos. Además, guardamos una copia de seguridad de la configuración original.",
-                        1
+                rx.center(
+                    rx.vstack(
+                        faq_item(
+                            "¿Es seguro reprogramar mi vehículo?",
+                            "Sí, es completamente seguro. Utilizamos equipos profesionales y seguimos protocolos estrictos. Además, guardamos una copia de seguridad de la configuración original para poder revertir los cambios si es necesario.",
+                            1
+                        ),
+                        faq_item(
+                            "¿Cuánto tiempo tarda el proceso?",
+                            "El proceso completo suele durar entre 2-4 horas, dependiendo del modelo del vehículo y la complejidad de la reprogramación. Incluye diagnóstico previo, backup de seguridad, reprogramación y pruebas finales.",
+                            2
+                        ),
+                        faq_item(
+                            "¿Afecta la garantía del fabricante?",
+                            "La reprogramación puede afectar la garantía del fabricante en ciertos aspectos relacionados con el motor. Sin embargo, ofrecemos nuestra propia garantía completa y el proceso es completamente reversible.",
+                            3
+                        ),
+                        faq_item(
+                            "¿Qué vehículos pueden ser reprogramados?",
+                            "Trabajamos con la mayoría de marcas europeas y asiáticas desde el año 2000 en adelante. Utiliza nuestro selector de vehículos para verificar la compatibilidad de tu modelo específico.",
+                            4
+                        ),
+                        faq_item(
+                            "¿Qué beneficios obtendré inmediatamente?",
+                            "Notarás una mejora inmediata en la respuesta del acelerador, mayor potencia en adelantamientos y una conducción más suave. Los beneficios de consumo se aprecian tras los primeros 500km.",
+                            5
+                        ),
+                        spacing="4",
+                        width="100%",
+                        max_width="900px"
                     ),
-                    faq_item(
-                        "¿Cuánto tiempo tarda el proceso?",
-                        "El proceso completo suele durar entre 2-4 horas, dependiendo del modelo del vehículo. Incluye diagnóstico, backup, reprogramación y pruebas.",
-                        2
-                    ),
-                    faq_item(
-                        "¿Afecta la garantía del fabricante?",
-                        "La reprogramación puede afectar la garantía del fabricante. Sin embargo, ofrecemos nuestra propia garantía y el proceso es completamente reversible.",
-                        3
-                    ),
-                    faq_item(
-                        "¿Qué vehículos pueden ser reprogramados?",
-                        "Trabajamos con la mayoría de marcas europeas y asiáticas desde el año 2000. Consulta nuestro selector de vehículos para verificar compatibilidad.",
-                        4
-                    ),
-                    spacing="0",
-                    width="100%",
-                    max_width="800px"
+                    width="100%"
                 ),
-                spacing="8",
-                align="center"
+                spacing="6",
+                align="center",
+                width="100%"
             ),
             max_width="1200px",
-            px="6",
-            py="20"
+            px={"base": "6", "md": "8"},
+            py={"base": "16", "md": "24"}
         ),
-        bg="#2D2D2D"
+        bg="#1A1A1A"
     )

@@ -24,33 +24,48 @@ DEPENDENCIAS:
 
 import reflex as rx
 
-# Estado local simple para el menú móvil
-class _HeaderState(rx.State):
-    pass
+# Estado para navegación activa y menú móvil
+class HeaderState(rx.State):
+    active_section: str = "inicio"
+    is_mobile_open: bool = False
+    
+    def toggle_mobile_menu(self):
+        self.is_mobile_open = not self.is_mobile_open
+    
+    def set_active_section(self, section: str):
+        self.active_section = section
 
 
-def _nav_link(text: str, href: str, active: bool = False) -> rx.Component:
+def _nav_link(text: str, href: str, section_id: str) -> rx.Component:
     return rx.link(
         text,
         href=href,
-        class_name=f"nav-link{' active' if active else ''}",
-        on_click=rx.call_script(f"document.getElementById('{href[1:]}').scrollIntoView({{ behavior: 'smooth' }});"),
+        class_name=rx.cond(
+            HeaderState.active_section == section_id,
+            "nav-link active",
+            "nav-link"
+        ),
+        on_click=[
+            HeaderState.set_active_section(section_id),
+            rx.call_script(f"document.getElementById('{href[1:]}').scrollIntoView({{ behavior: 'smooth' }});")
+        ],
     )
 
 
-def _nav_menu(active_key: str, display: str = "flex") -> rx.Component:
+def _nav_menu(display: str = "flex") -> rx.Component:
     return rx.hstack(
-        _nav_link("Inicio", "#inicio", active=active_key == "home"),
-        _nav_link("Servicios", "#servicios", active=active_key == "services"),
-        _nav_link("Acerca de", "#acerca", active=active_key == "about"),
-        _nav_link("Contacto", "#contacto", active=active_key == "contact"),
-        spacing="7",
+        _nav_link("Inicio", "#inicio", "inicio"),
+        _nav_link("Servicios", "#servicios", "servicios"),
+        _nav_link("Acerca de", "#acerca", "acerca"),
+        _nav_link("Contacto", "#contacto", "contacto"),
+        spacing="4",
         display=display,
         align="center",
+        margin_left="auto",  # Esto mueve el menú hacia la derecha
     )
 
 
-def header(active: str = "home") -> rx.Component:
+def header(active: str = "inicio") -> rx.Component:
     """
     Header con navegación principal
     
@@ -58,39 +73,33 @@ def header(active: str = "home") -> rx.Component:
         rx.Component: Componente de header con navegación
     """
     return rx.box(
-        # Barra fija superior
-        rx.container(
-            rx.hstack(
-                # Logo / Marca
-                rx.link(
-                    rx.text(
-                        "AstroTech",
-                        color="#FF6B35",
-                        font_weight="800",
-                        font_size="1.4rem",
-                        letter_spacing="0.6px",
-                        class_name="brand",
-                    ),
-                    href="/#inicio",
-                    _hover={"text_decoration": "none"},
+        rx.hstack(
+            rx.link(
+                rx.text(
+                    "AstroTech",
+                    color="#FF6B35",
+                    font_weight="800",
+                    font_size="1.4rem",
+                    letter_spacing="0.6px",
+                    class_name="brand",
                 ),
-
-                # Menú principal (desktop)
-                _nav_menu(active_key=active, display={"base": "none", "md": "flex"}),
-                align="center",
-                justify="between",
+                href="/#inicio",
+                _hover={"text_decoration": "none"},
             ),
-            max_width="1140px",
-            px="24px",
+            rx.spacer(),
+            _nav_menu(display={"base": "none", "md": "flex"}),
+            align="center",
+            width="100%",
+            padding_x="1.5rem",
             height="70px",
         ),
         position="sticky",
         top="0",
         z_index="1000",
         bg="linear-gradient(180deg, #202020 0%, #1A1A1A 100%)",
-        border_bottom="1px solid",
-        border_color="#262626",
+        border_bottom="1px solid #262626",
         box_shadow="0 1px 0 rgba(255,255,255,0.06)",
+        width="100%",
     )
 
 # TODO: Implementar funciones auxiliares del header

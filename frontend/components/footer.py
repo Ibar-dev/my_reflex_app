@@ -128,34 +128,42 @@ def footer() -> rx.Component:
                         ),
                         rx.hstack(
                             rx.link(
-                                "📘",
-                                href="#",
-                                font_size="1.5rem",
-                                _hover={"transform": "translateY(-3px)"},
+                                rx.icon("facebook", size=24, color="white"),
+                                href="https://facebook.com",
+                                _hover={
+                                    "transform": "translateY(-3px)",
+                                    "color": "#1877F2"
+                                },
                                 transition="all 0.3s ease"
                             ),
                             rx.link(
-                                "📷",
-                                href="#",
-                                font_size="1.5rem",
-                                _hover={"transform": "translateY(-3px)"},
+                                rx.icon("instagram", size=24, color="white"),
+                                href="https://instagram.com",
+                                _hover={
+                                    "transform": "translateY(-3px)",
+                                    "color": "#E4405F"
+                                },
                                 transition="all 0.3s ease"
                             ),
                             rx.link(
-                                "📺",
-                                href="#",
-                                font_size="1.5rem",
-                                _hover={"transform": "translateY(-3px)"},
+                                rx.icon("youtube", size=24, color="white"),
+                                href="https://youtube.com",
+                                _hover={
+                                    "transform": "translateY(-3px)",
+                                    "color": "#FF0000"
+                                },
                                 transition="all 0.3s ease"
                             ),
                             rx.link(
-                                "🐦",
-                                href="#",
-                                font_size="1.5rem",
-                                _hover={"transform": "translateY(-3px)"},
+                                rx.icon("twitter", size=24, color="white"),
+                                href="https://twitter.com",
+                                _hover={
+                                    "transform": "translateY(-3px)",
+                                    "color": "#1DA1F2"
+                                },
                                 transition="all 0.3s ease"
                             ),
-                            spacing="4"
+                            spacing="6"
                         ),
                         spacing="3",
                         align="start"
