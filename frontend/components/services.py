@@ -8,17 +8,21 @@ Tarjetas de servicios con efectos hover y diseño profesional.
 import reflex as rx
 
 def services() -> rx.Component:
-    """Sección de servicios con tarjetas estilizadas"""
+    """Sección de servicios con tarjetas estilizadas y centrado mejorado"""
     return rx.box(
         rx.container(
-            rx.vstack(
+            rx.center(
+                rx.vstack(
                 rx.heading(
                     "Nuestros Servicios",
                     size="8",
                     color="white",
                     text_align="center",
                     mb="16",
-                    font_weight="700"
+                    font_weight="700",
+                    bg_image="linear-gradient(45deg, #FF6B35, #FF8C42)",
+                    bg_clip="text",
+                    text_fill_color="transparent",
                 ),
                 rx.center(
                     rx.grid(
@@ -167,21 +171,28 @@ def services() -> rx.Component:
                             transition="all 0.4s ease"
                         ),
                         
-                        columns={"base": "1", "md": "2"},
-                        spacing={"base": "6", "md": "8"},
+                        columns={"base": "1", "md": "2", "lg": "4"},
+                        spacing="8",
                         width="100%",
                         class_name="fade-in-up",
-                        justify="center"
+                        justify="center",
+                        max_width="1200px",
+                        mx="auto"
                     ),
-                    width="100%"
+                    width="100%",
+                    mx="auto"
                 ),
-                spacing="6",
-                align="center",
+                    spacing="6",
+                    align="center",
+                    width="100%",
+                    max_width="1200px"
+                ),
                 width="100%"
             ),
-            max_width="1200px",
+            max_width="1400px",
             px={"base": "6", "md": "8"},
-            py={"base": "16", "md": "24"}
+            py={"base": "16", "md": "24"},
+            mx="auto"
         ),
         bg="#1A1A1A"
     )

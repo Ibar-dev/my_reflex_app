@@ -1,8 +1,9 @@
 """
-Aplicación ReproTuning - Reflex
+Aplicación AstroTech - Reprogramación ECU
 ===============================
 
-Aplicación completa de reprogramación ECU con componentes modernos y animaciones.
+Aplicación web moderna para servicios de reprogramación ECU con diseño profesional,
+animaciones suaves y experiencia de usuario optimizada.
 """
 
 import reflex as rx
@@ -15,255 +16,601 @@ from components.faq import faq
 from components.contact import contact
 from components.footer import footer
 
+# Estado global de la aplicación
+class AppState(rx.State):
+    """Estado global de la aplicación."""
+    show_scroll_top: bool = False
+
+    def toggle_scroll_top(self, show: bool):
+        """Muestra u oculta el botón de volver arriba."""
+        self.show_scroll_top = show
+
+# Estilos personalizados
+def custom_styles() -> dict:
+    """Estilos personalizados para toda la aplicación."""
+    return {
+        "global": {
+            "html, body": {
+                "scrollBehavior": "smooth",
+                "backgroundColor": "#121212",
+                "color": "white",
+                "fontFamily": "'Inter', sans-serif"
+            },
+            ".fade-in": {
+                "opacity": "0",
+                "animation": "fadeIn 0.8s ease forwards"
+            },
+            ".fade-in-up": {
+                "opacity": "0",
+                "transform": "translateY(20px)",
+                "animation": "fadeInUp 0.8s ease forwards"
+            },
+            ".fade-in-left": {
+                "opacity": "0",
+                "transform": "translateX(-20px)",
+                "animation": "fadeInLeft 0.8s ease forwards"
+            },
+            ".fade-in-right": {
+                "opacity": "0",
+                "transform": "translateX(20px)",
+                "animation": "fadeInRight 0.8s ease forwards"
+            },
+            ".hover-raise": {
+                "transition": "transform 0.3s ease, box-shadow 0.3s ease",
+            },
+            ".hover-raise:hover": {
+                "transform": "translateY(-5px)",
+                "boxShadow": "0 10px 20px rgba(0, 0, 0, 0.2)"
+            },
+            ".section": {
+                "scrollMarginTop": "80px",
+                "paddingTop": "100px",
+                "paddingBottom": "100px",
+                "display": "flex",
+                "justifyContent": "center",
+                "alignItems": "center",
+            },
+            ".gradient-text": {
+                "background": "linear-gradient(45deg, #FF6B35, #FF8C42)",
+                "backgroundClip": "text",
+                "WebkitBackgroundClip": "text",
+                "color": "transparent",
+                "WebkitTextFillColor": "transparent"
+            },
+            ".card-shadow": {
+                "boxShadow": "0 8px 30px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.06)"
+            },
+            "@keyframes fadeIn": {
+                "from": {"opacity": "0"},
+                "to": {"opacity": "1"}
+            },
+            "@keyframes fadeInUp": {
+                "from": {"opacity": "0", "transform": "translateY(20px)"},
+                "to": {"opacity": "1", "transform": "translateY(0)"}
+            },
+            "@keyframes fadeInLeft": {
+                "from": {"opacity": "0", "transform": "translateX(-20px)"},
+                "to": {"opacity": "1", "transform": "translateX(0)"}
+            },
+            "@keyframes fadeInRight": {
+                "from": {"opacity": "0", "transform": "translateX(20px)"},
+                "to": {"opacity": "1", "transform": "translateX(0)"}
+            },
+            "@keyframes pulse": {
+                "0%": {"transform": "scale(1)"},
+                "50%": {"transform": "scale(1.05)"},
+                "100%": {"transform": "scale(1)"}
+            },
+            "@media (max-width: 768px)": {
+                ".section": {
+                    "paddingTop": "60px",
+                    "paddingBottom": "60px",
+                    "paddingLeft": "1rem",
+                    "paddingRight": "1rem",
+                },
+                ".hero-title": {
+                    "fontSize": "2.5rem",
+                    "textAlign": "center",
+                },
+                ".benefit-card": {
+                    "minHeight": "250px",
+                    "padding": "1.5rem",
+                },
+                ".service-card": {
+                    "minHeight": "180px",
+                    "padding": "1.5rem",
+                }
+            }
+        }
+    }
+
+# Botón para volver arriba
+def scroll_to_top() -> rx.Component:
+    """Botón para volver al inicio de la página."""
+    return rx.cond(
+        AppState.show_scroll_top,
+        rx.button(
+            rx.icon("arrow-up", size=24),
+            position="fixed",
+            bottom="30px",
+            right="30px",
+            size="3",
+            border_radius="full",
+            bg="rgba(255, 107, 53, 0.9)",
+            color="white",
+            _hover={"bg": "#FF6B35", "transform": "translateY(-5px)"},
+            transition="all 0.3s ease",
+            z_index="999",
+            box_shadow="0 4px 20px rgba(255, 107, 53, 0.4)",
+            on_click=rx.redirect("/#"),
+            opacity={"base": "0.8", "_hover": "1"}
+        ),
+        rx.box()  # No mostrar nada si show_scroll_top es False
+    )
+
 def index() -> rx.Component:
-    """Página principal completa con todos los componentes"""
+    """Página principal completa con diseño moderno y consistente."""
     return rx.box(
-        # Header fuera del contenedor para que ocupe todo el ancho
+        # Header fijo en la parte superior
         header(),
-        rx.container(
-            rx.box(hero(), class_name="section scroll-target", id="inicio"),
-            rx.box(vehicle_selector(), class_name="scroll-target", id="selector"),
-            rx.box(benefits(), class_name="scroll-target", id="beneficios"),
-            rx.box(services(), class_name="scroll-target", id="servicios"),
-            rx.box(
+        
+        # Main content - Centralized layout
+        rx.center(
+            rx.vstack(
+                rx.box(
+                    hero(),
+                    class_name="section scroll-target",
+                    id="inicio",
+                    padding_top="0px",
+                    width="100%",
+                ),
+                rx.box(
+                    vehicle_selector(),
+                    class_name="section scroll-target",
+                    id="selector",
+                    width="100%",
+                ),
+                rx.box(
+                    benefits(),
+                    class_name="section scroll-target",
+                    id="beneficios",
+                    width="100%",
+                ),
+                rx.box(
+                    services(),
+                    class_name="section scroll-target",
+                    id="servicios",
+                    width="100%",
+                ),
+            
+                # Sección Acerca de con diseño moderno y fondo
+                rx.box(
+                # Background image with overlay and effects
+                rx.box(
+                    # Dark overlay with gradient
+                    rx.box(
+                        position="absolute",
+                        top="0",
+                        left="0",
+                        right="0",
+                        bottom="0",
+                        bg="linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(30, 30, 30, 0.9) 100%)",
+                        z_index="1",
+                    ),
+                    # Animated glow effect 1
+                    rx.box(
+                        position="absolute",
+                        top="20%",
+                        right="-20%",
+                        width="50%",
+                        height="50%",
+                        border_radius="full",
+                        bg="radial-gradient(circle, rgba(255,107,53,0.15) 0%, rgba(255,107,53,0) 70%)",
+                        z_index="1",
+                        animation="pulse 8s infinite ease-in-out",
+                    ),
+                    # Animated glow effect 2
+                    rx.box(
+                        position="absolute",
+                        bottom="-10%",
+                        left="-5%",
+                        width="40%",
+                        height="40%",
+                        border_radius="full",
+                        bg="radial-gradient(circle, rgba(255,140,66,0.1) 0%, rgba(255,140,66,0) 60%)",
+                        z_index="1",
+                        animation="pulse 10s infinite ease-in-out",
+                        animation_delay="2s",
+                    ),
+                    # Background image
+                    position="absolute",
+                    top="0",
+                    left="0",
+                    right="0",
+                    bottom="0",
+                    background_image="url('/images/centralita-coche.jpg')",
+                    background_size="cover",
+                    background_position="center",
+                    background_repeat="no-repeat",
+                    background_attachment="fixed",
+                    filter="blur(1px)",
+                    z_index="0",
+                    class_name="parallax-bg",
+                ),
+                
+                # Main content container
                 rx.container(
-                    rx.vstack(
+                    rx.center(
+                        rx.vstack(
                         rx.heading(
                             "¿Qué es la reprogramación ECU?",
                             size="8",
-                            color="white",
+                            color="#FF6B35",
+                            text_align="center",
+                            mb="6",
+                            font_weight="800",
+                            class_name="fade-in",
+                            position="relative",
+                            z_index="2",
+                            text_shadow="0 2px 4px rgba(0,0,0,0.8)"
+                        ),
+                        rx.text(
+                            "Optimización profesional del software para maximizar el rendimiento de tu vehículo",
+                            color="#CCCCCC",
+                            font_size="1.2rem",
                             text_align="center",
                             mb="12",
-                            font_weight="700"
+                            max_width="800px",
+                            class_name="fade-in",
+                            position="relative",
+                            z_index="2",
+                            text_shadow="0 1px 2px rgba(0,0,0,0.8)"
                         ),
+                        # Content section with single column layout
                         rx.center(
-                            rx.grid(
-                                # Columna de texto
+                            rx.vstack(
+                                rx.text(
+                                    "La reprogramación ECU (Unidad de Control del Motor) es un proceso técnico que consiste en modificar el software que controla el funcionamiento del motor de tu vehículo. Esta optimización permite:",
+                                    color="#CCCCCC",
+                                    mb="6",
+                                    line_height="1.7",
+                                    font_size="1.05rem",
+                                    class_name="fade-in-left",
+                                    max_width="800px",
+                                    text_align="center"
+                                ),
                                 rx.vstack(
-                                    rx.text(
-                                        "La reprogramación ECU (Unidad de Control del Motor) es un proceso técnico que consiste en modificar el software que controla el funcionamiento del motor de tu vehículo. Esta optimización permite:",
-                                        color="#CCCCCC",
-                                        mb="6",
-                                        line_height="1.7",
-                                        font_size="1.05rem"
+                                rx.hstack(
+                                    rx.box(
+                                        rx.icon("check", size=20, color="white"),
+                                        bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
+                                        border_radius="full",
+                                        p="2",
+                                        box_shadow="0 4px 10px rgba(255, 107, 53, 0.3)"
                                     ),
-                                    rx.vstack(
-                                        rx.hstack(
-                                            rx.icon("check_check", size=16, color="#FF6B35"),
-                                            rx.text("Aumentar la potencia del motor", color="white"),
-                                            spacing="3",
-                                            align="center"
-                                        ),
-                                        rx.hstack(
-                                            rx.icon("check_check", size=16, color="#FF6B35"),
-                                            rx.text("Reducir el consumo de combustible", color="white"),
-                                            spacing="3",
-                                            align="center"
-                                        ),
-                                        rx.hstack(
-                                            rx.icon("check_check", size=16, color="#FF6B35"),
-                                            rx.text("Mejorar la respuesta del acelerador", color="white"),
-                                            spacing="3",
-                                            align="center"
-                                        ),
-                                        rx.hstack(
-                                            rx.icon("check_check", size=16, color="#FF6B35"),
-                                            rx.text("Optimizar el par motor", color="white"),
-                                            spacing="3",
-                                            align="center"
-                                        ),
-                                        spacing="3",
-                                        align="start",
-                                        mb="6"
-                                    ),
-                                    rx.text(
-                                        "Nuestro equipo de técnicos especializados utiliza equipos de última generación para garantizar resultados óptimos y seguros para tu vehículo.",
-                                        color="#CCCCCC",
-                                        line_height="1.7",
-                                        font_weight="500"
-                                    ),
+                                    rx.text("Aumentar la potencia del motor", color="white", font_weight="500"),
                                     spacing="4",
-                                    align="start",
-                                    justify="center"
+                                    align="center",
+                                    class_name="fade-in-left"
                                 ),
-                                # Columna de imagen
-                                rx.box(
-                                    rx.center(
-                                        rx.vstack(
-                                            rx.icon("cpu", size=60, color="#FF6B35"),
-                                            rx.text(
-                                                "Imagen ECU",
-                                                color="#666666",
-                                                font_size="0.9rem",
-                                                text_align="center"
-                                            ),
-                                            spacing="4"
-                                        )
+                                rx.hstack(
+                                    rx.box(
+                                        rx.icon("check", size=20, color="white"),
+                                        bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
+                                        border_radius="full",
+                                        p="2",
+                                        box_shadow="0 4px 10px rgba(255, 107, 53, 0.3)"
                                     ),
-                                    height={"base": "300px", "md": "350px", "lg": "400px"},
-                                    bg="#2D2D2D",
-                                    border_radius="20px",
-                                    border="2px solid #404040",
-                                    box_shadow="0 10px 30px rgba(0, 0, 0, 0.3)",
-                                    position="relative",
-                                    overflow="hidden",
-                                    _before={
-                                        "content": "''",
-                                        "position": "absolute",
-                                        "top": "0",
-                                        "left": "0",
-                                        "right": "0",
-                                        "bottom": "0",
-                                        "background": "linear-gradient(45deg, transparent 40%, rgba(255, 107, 53, 0.05) 50%, transparent 60%)",
-                                        "z_index": "1"
-                                    }
+                                    rx.text("Reducir el consumo de combustible", color="white", font_weight="500"),
+                                    spacing="4",
+                                    align="center",
+                                    class_name="fade-in-left"
                                 ),
-                                columns={"base": "1", "lg": "2"},
-                                spacing={"base": "6", "lg": "8"},
+                                rx.hstack(
+                                    rx.box(
+                                        rx.icon("check", size=20, color="white"),
+                                        bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
+                                        border_radius="full",
+                                        p="2",
+                                        box_shadow="0 4px 10px rgba(255, 107, 53, 0.3)"
+                                    ),
+                                    rx.text("Mejorar la respuesta del acelerador", color="white", font_weight="500"),
+                                    spacing="4",
+                                    align="center",
+                                    class_name="fade-in-left"
+                                ),
+                                rx.hstack(
+                                    rx.box(
+                                        rx.icon("check", size=20, color="white"),
+                                        bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
+                                        border_radius="full",
+                                        p="2",
+                                        box_shadow="0 4px 10px rgba(255, 107, 53, 0.3)"
+                                    ),
+                                    rx.text("Optimizar el par motor", color="white", font_weight="500"),
+                                    spacing="4",
+                                    align="center",
+                                    class_name="fade-in-left"
+                                ),
+                                spacing="4",
                                 align="center",
-                                width="100%"
+                                mb="6",
+                                max_width="600px"
+                                ),
+                                rx.text(
+                                    "Nuestro equipo de técnicos especializados utiliza equipos de última generación para garantizar resultados óptimos y seguros para tu vehículo.",
+                                    color="#CCCCCC",
+                                    line_height="1.7",
+                                    font_weight="500",
+                                    class_name="fade-in-left",
+                                    max_width="800px",
+                                    text_align="center"
+                                ),
+                                spacing="4",
+                                align="center",
+                                width="100%",
+                                position="relative",
+                                z_index="2"
                             ),
                             width="100%"
                         ),
                         spacing="6",
                         align="center",
-                        width="100%"
+                        width="100%",
+                        class_name="scroll-target",
+                        id="acerca",
+                        position="relative",
+                        z_index="2"
+                        ),
+                        width="100%",
+                        max_width="1000px"
                     ),
                     max_width="1200px",
                     px={"base": "6", "md": "8"},
-                    py={"base": "16", "md": "24"}
+                    py={"base": "16", "md": "24"},
+                    position="relative",
+                    z_index="2",
+                    mx="auto"
                 ),
-                bg="#2D2D2D",
-                class_name="scroll-target",
-                id="acerca"
+                position="relative",
+                overflow="hidden",
+                min_height="100vh",
+                width="100%",
+                ),
+                
+                rx.box(
+                    faq(),
+                    class_name="section scroll-target",
+                    id="faq",
+                    width="100%",
+                ),
+                rx.box(
+                    contact(),
+                    class_name="section scroll-target",
+                    id="contacto",
+                    width="100%",
+                ),
+                footer(),
+                
+                # Botón para volver arriba
+                scroll_to_top(),
+                
+                spacing="0",
+                align="center",
+                width="100%",
             ),
-            rx.box(faq(), class_name="scroll-target", id="faq"),
-            rx.box(contact(), class_name="scroll-target", id="contacto"),
-            footer(),
-            spacing="8",
             width="100%",
-            max_width="1200px",
-            padding_x="1rem",
         ),
-        bg="#1A1A1A",
+        
+        bg="#121212",
         min_height="100vh",
-        display="flex",
-        justify_content="center",
-        align_items="center",
-        flex_direction="column",
+        width="100%",
     )
-
 
 def services_page() -> rx.Component:
-    """Página de servicios dedicada"""
+    """Página de servicios dedicada con diseño moderno."""
     return rx.box(
-        rx.container(
-            header(active="services"),
-            rx.box(height="70px"),  # Spacer for fixed header
-            services(),
-            rx.box(
-                rx.container(
-                    rx.vstack(
-                        rx.heading(
-                            "Proceso de Reprogramación",
-                            size="7",
-                            color="white",
-                            text_align="center",
-                            mb="8"
-                        ),
-                        rx.grid(
-                            rx.box(
-                                rx.vstack(
-                                    rx.text("1", font_size="2rem", color="#FF6B35", font_weight="bold"),
-                                    rx.heading("Diagnóstico", size="5", color="white"),
-                                    rx.text("Análisis completo del vehículo", color="#666666"),
-                                    spacing="3",
-                                    align="center"
-                                ),
-                                text_align="center",
-                                p="6",
-                                bg="#2D2D2D",
-                                border_radius="15px",
-                                border="1px solid #666666"
-                            ),
-                            rx.box(
-                                rx.vstack(
-                                    rx.text("2", font_size="2rem", color="#FF6B35", font_weight="bold"),
-                                    rx.heading("Backup", size="5", color="white"),
-                                    rx.text("Copia de seguridad original", color="#666666"),
-                                    spacing="3",
-                                    align="center"
-                                ),
-                                text_align="center",
-                                p="6",
-                                bg="#2D2D2D",
-                                border_radius="15px",
-                                border="1px solid #666666"
-                            ),
-                            rx.box(
-                                rx.vstack(
-                                    rx.text("3", font_size="2rem", color="#FF6B35", font_weight="bold"),
-                                    rx.heading("Reprogramación", size="5", color="white"),
-                                    rx.text("Optimización del software", color="#666666"),
-                                    spacing="3",
-                                    align="center"
-                                ),
-                                text_align="center",
-                                p="6",
-                                bg="#2D2D2D",
-                                border_radius="15px",
-                                border="1px solid #666666"
-                            ),
-                            rx.box(
-                                rx.vstack(
-                                    rx.text("4", font_size="2rem", color="#FF6B35", font_weight="bold"),
-                                    rx.heading("Verificación", size="5", color="white"),
-                                    rx.text("Pruebas y validación final", color="#666666"),
-                                    spacing="3",
-                                    align="center"
-                                ),
-                                text_align="center",
-                                p="6",
-                                bg="#2D2D2D",
-                                border_radius="15px",
-                                border="1px solid #666666"
-                            ),
-                            columns={"base": "1", "md": "2", "lg": "4"},
-                            spacing="6"
-                        ),
-                        spacing="8",
-                        align="center"
+        header(active="services"),
+        rx.box(height="70px"),  # Spacer for fixed header
+        services(),
+        rx.box(
+            rx.container(
+                rx.vstack(
+                    rx.heading(
+                        "Proceso de Reprogramación",
+                        size="7",
+                        color="white",
+                        text_align="center",
+                        mb="8",
+                        class_name="gradient-text fade-in"
                     ),
-                    max_width="1200px",
-                    px="6",
-                    py="20"
+                    rx.grid(
+                        rx.box(
+                            rx.vstack(
+                                rx.box(
+                                    rx.text("1", font_size="2rem", color="white", font_weight="bold"),
+                                    bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
+                                    width="50px",
+                                    height="50px",
+                                    display="flex",
+                                    align_items="center",
+                                    justify_content="center",
+                                    border_radius="full",
+                                    mb="4",
+                                ),
+                                rx.heading("Diagnóstico", size="5", color="white"),
+                                rx.text("Análisis completo del vehículo", color="#CCCCCC"),
+                                spacing="3",
+                                align="center",
+                                class_name="fade-in-up hover-raise"
+                            ),
+                            text_align="center",
+                            p="6",
+                            bg="linear-gradient(145deg, #252525, #1e1e1e)",
+                            border_radius="20px",
+                            border="1px solid #3d3d3d",
+                            box_shadow="0 15px 35px rgba(0, 0, 0, 0.3)",
+                        ),
+                        rx.box(
+                            rx.vstack(
+                                rx.box(
+                                    rx.text("2", font_size="2rem", color="white", font_weight="bold"),
+                                    bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
+                                    width="50px",
+                                    height="50px",
+                                    display="flex",
+                                    align_items="center",
+                                    justify_content="center",
+                                    border_radius="full",
+                                    mb="4",
+                                ),
+                                rx.heading("Backup", size="5", color="white"),
+                                rx.text("Copia de seguridad original", color="#CCCCCC"),
+                                spacing="3",
+                                align="center",
+                                class_name="fade-in-up hover-raise"
+                            ),
+                            text_align="center",
+                            p="6",
+                            bg="linear-gradient(145deg, #252525, #1e1e1e)",
+                            border_radius="20px",
+                            border="1px solid #3d3d3d",
+                            box_shadow="0 15px 35px rgba(0, 0, 0, 0.3)",
+                        ),
+                        rx.box(
+                            rx.vstack(
+                                rx.box(
+                                    rx.text("3", font_size="2rem", color="white", font_weight="bold"),
+                                    bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
+                                    width="50px",
+                                    height="50px",
+                                    display="flex",
+                                    align_items="center",
+                                    justify_content="center",
+                                    border_radius="full",
+                                    mb="4",
+                                ),
+                                rx.heading("Reprogramación", size="5", color="white"),
+                                rx.text("Optimización del software", color="#CCCCCC"),
+                                spacing="3",
+                                align="center",
+                                class_name="fade-in-up hover-raise"
+                            ),
+                            text_align="center",
+                            p="6",
+                            bg="linear-gradient(145deg, #252525, #1e1e1e)",
+                            border_radius="20px",
+                            border="1px solid #3d3d3d",
+                            box_shadow="0 15px 35px rgba(0, 0, 0, 0.3)",
+                        ),
+                        rx.box(
+                            rx.vstack(
+                                rx.box(
+                                    rx.text("4", font_size="2rem", color="white", font_weight="bold"),
+                                    bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
+                                    width="50px",
+                                    height="50px",
+                                    display="flex",
+                                    align_items="center",
+                                    justify_content="center",
+                                    border_radius="full",
+                                    mb="4",
+                                ),
+                                rx.heading("Verificación", size="5", color="white"),
+                                rx.text("Pruebas y validación final", color="#CCCCCC"),
+                                spacing="3",
+                                align="center",
+                                class_name="fade-in-up hover-raise"
+                            ),
+                            text_align="center",
+                            p="6",
+                            bg="linear-gradient(145deg, #252525, #1e1e1e)",
+                            border_radius="20px",
+                            border="1px solid #3d3d3d",
+                            box_shadow="0 15px 35px rgba(0, 0, 0, 0.3)",
+                        ),
+                        columns={"base": "1", "md": "2", "lg": "4"},
+                        spacing="6",
+                    ),
+                    spacing="8",
+                    align="center",
                 ),
-                bg="#1A1A1A"
+                max_width="1200px",
+                px="6",
+                py="20",
             ),
-            footer(),
             bg="#1A1A1A",
-            min_height="100vh",
-            display="flex",
-            justify_content="center",
-            align_items="center",
-            flex_direction="column",
+            class_name="section"
         ),
-        bg="#1A1A1A",
+        footer(),
+        bg="#121212",
         min_height="100vh",
-        display="flex",
-        justify_content="center",
-        align_items="center",
-        flex_direction="column",
+        width="100%",
     )
 
-
 def about_page() -> rx.Component:
-    """Página acerca de dedicada"""
+    """Página acerca de dedicada."""
     return rx.box(
-        rx.container(
-            header(active="about"),
-            rx.box(height="70px"),  # Spacer for fixed header
+        header(active="about"),
+        rx.box(height="70px"),  # Spacer for fixed header
+        # Main content with background image
+        rx.box(
+            # Background image with overlay and effects
             rx.box(
+                # Dark overlay with gradient
+                rx.box(
+                    position="absolute",
+                    top="0",
+                    left="0",
+                    right="0",
+                    bottom="0",
+                    bg="linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(30, 30, 30, 0.9) 100%)",
+                    z_index="1",
+                ),
+                # Animated glow effect 1
+                rx.box(
+                    position="absolute",
+                    top="20%",
+                    right="-20%",
+                    width="50%",
+                    height="50%",
+                    border_radius="full",
+                    bg="radial-gradient(circle, rgba(255,107,53,0.15) 0%, rgba(255,107,53,0) 70%)",
+                    z_index="1",
+                    animation="pulse 8s infinite ease-in-out",
+                ),
+                # Animated glow effect 2
+                rx.box(
+                    position="absolute",
+                    bottom="-10%",
+                    left="-5%",
+                    width="40%",
+                    height="40%",
+                    border_radius="full",
+                    bg="radial-gradient(circle, rgba(255,140,66,0.1) 0%, rgba(255,140,66,0) 60%)",
+                    z_index="1",
+                    animation="pulse 10s infinite ease-in-out",
+                    animation_delay="2s",
+                ),
+                # Background image
+                position="absolute",
+                top="0",
+                left="0",
+                right="0",
+                bottom="0",
+                background_image="url('/images/centralita-coche.jpg')",
+                background_size="cover",
+                background_position="center",
+                background_repeat="no-repeat",
+                background_attachment="fixed",
+                filter="blur(1px)",
+                z_index="0",
+                class_name="parallax-bg",
+            ),
+            
+            # Main content container
+            rx.box(
+                # Hero section
                 rx.container(
                     rx.vstack(
                         rx.heading(
@@ -271,94 +618,116 @@ def about_page() -> rx.Component:
                             size="8",
                             color="white",
                             text_align="center",
-                            mb="12"
-                        ),
-                        rx.grid(
-                            rx.vstack(
-                                rx.heading(
-                                    "Nuestra Experiencia",
-                                    size="6",
-                                    color="#FF6B35",
-                                    mb="6"
-                                ),
-                                rx.text(
-                                    "Con más de 10 años de experiencia en reprogramación ECU, hemos trabajado con miles de vehículos de todas las marcas principales. Nuestro equipo de técnicos certificados utiliza las herramientas más avanzadas del mercado.",
-                                    color="white",
-                                    line_height="1.6",
-                                    mb="6"
-                                ),
-                                rx.text(
-                                    "Garantizamos un servicio profesional, seguro y con resultados medibles. Cada reprogramación se realiza de forma personalizada según las características específicas de tu vehículo.",
-                                    color="#666666",
-                                    line_height="1.6"
-                                ),
-                                spacing="4",
-                                align="start"
-                            ),
-                            rx.box(
-                                height={"base": "300px", "md": "400px"},
-                                bg="#2D2D2D",
-                                border_radius="20px",
-                                box_shadow="0 20px 40px rgba(0, 0, 0, 0.2)",
-                                border="1px solid #666666"
-                            ),
-                            columns={"base": "1", "lg": "2"},
-                            spacing="9",
-                            align="center"
+                            mb="12",
+                            class_name="gradient-text fade-in",
+                            position="relative",
+                            z_index="2",
+                            text_shadow="0 2px 4px rgba(0,0,0,0.8)",
+                            font_weight="800"
                         ),
                         spacing="8",
-                        align="center"
+                        align="center",
+                        position="relative",
+                        z_index="2",
                     ),
                     max_width="1200px",
                     px="6",
-                    py="20"
+                    py={"base": "100px", "md": "150px"},
+                    position="relative",
+                    z_index="1",
                 ),
-                bg="#1A1A1A"
+                
+                # Content section with semi-transparent background
+                rx.box(
+                    rx.container(
+                        rx.vstack(
+                            rx.heading(
+                                "Nuestra Experiencia",
+                                size="6",
+                                color="#FF6B35",
+                                mb="6",
+                                class_name="fade-in-left",
+                                width="100%",
+                                text_align={"base": "center", "md": "left"}
+                            ),
+                            rx.text(
+                                "Con más de 10 años de experiencia en reprogramación ECU, hemos trabajado con miles de vehículos de todas las marcas principales. Nuestro equipo de técnicos certificados utiliza las herramientas más avanzadas del mercado.",
+                                color="white",
+                                line_height="1.6",
+                                mb="6",
+                                class_name="fade-in-left",
+                                width="100%"
+                            ),
+                            rx.text(
+                                "Garantizamos un servicio profesional, seguro y con resultados medibles. Cada reprogramación se realiza de forma personalizada según las características específicas de tu vehículo.",
+                                color="#CCCCCC",
+                                line_height="1.6",
+                                class_name="fade-in-left",
+                                width="100%"
+                            ),
+                            spacing="4",
+                            align="start",
+                            width="100%",
+                            max_width="800px",
+                            mx="auto"
+                        ),
+                        max_width="1200px",
+                        px="6",
+                        py="20",
+                        bg="rgba(26, 26, 26, 0.85)",
+                        borderRadius="lg",
+                        boxShadow="xl"
+                    ),
+                    position="relative",
+                    z_index="2"
+                ),
+                
+                # Benefits section with semi-transparent background
+                rx.box(
+                    benefits(),
+                    bg="rgba(18, 18, 18, 0.9)",
+                    py="12",
+                    position="relative",
+                    z_index="2"
+                ),
+                
+                # Footer
+                rx.box(
+                    footer(),
+                    position="relative",
+                    z_index="2"
+                ),
+                
+                position="relative",
+                z_index="2"
             ),
-            benefits(),
-            footer(),
-            bg="#1A1A1A",
             min_height="100vh",
-            display="flex",
-            justify_content="center",
-            align_items="center",
-            flex_direction="column",
+            width="100%",
+            position="relative",
+            overflow="hidden"
         ),
-        bg="#1A1A1A",
         min_height="100vh",
-        display="flex",
-        justify_content="center",
-        align_items="center",
-        flex_direction="column",
+        width="100%",
     )
-
 
 def contact_page() -> rx.Component:
-    """Página de contacto dedicada"""
+    """Página de contacto dedicada."""
     return rx.box(
-        rx.container(
-            header(active="contact"),
-            rx.box(height="70px"),  # Spacer for fixed header
-            contact(),
-            footer(),
-            bg="#1A1A1A",
-            min_height="100vh",
-            display="flex",
-            justify_content="center",
-            align_items="center",
-            flex_direction="column",
-        ),
-        bg="#1A1A1A",
+        header(active="contact"),
+        rx.box(height="70px"),  # Spacer for fixed header
+        contact(),
+        footer(),
+        bg="#121212",
         min_height="100vh",
-        display="flex",
-        justify_content="center",
-        align_items="center",
-        flex_direction="column",
+        width="100%",
     )
 
-
 # Crear la aplicación
-app = rx.App(stylesheets=["/styles.css"])
+app = rx.App(
+    stylesheets=["/styles.css"],
+    style=custom_styles(),
+)
+
 app.add_page(index, route="/", title="AstroTech - Potencia el coche de tus sueños")
 app.add_page(services_page, route="/services", title="Servicios - AstroTech")
 app.add_page(about_page, route="/about", title="Acerca de - AstroTech")
