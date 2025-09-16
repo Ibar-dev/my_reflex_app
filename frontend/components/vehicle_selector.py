@@ -173,115 +173,73 @@ def fuel_selection() -> rx.Component:
     """Paso 1: Selección de combustible con diseño mejorado."""
     return rx.center(
         rx.vstack(
-            # Título con gradiente y animación
             rx.heading(
                 "Elige el tipo de combustible de tu vehículo para continuar", 
-                size="5", 
+                size="4", 
                 color="white", 
                 text_align="center", 
-                margin_bottom="6",
+                margin_bottom="8",
                 font_weight="600",
                 class_name="fade-in",
             ),
-        rx.center(
             rx.hstack(
-                # Botón Diésel con efecto 3D y animación
                 rx.button(
                     rx.vstack(
-                        rx.box(
-                            rx.icon("fuel", size=80, color="#FF6B35"),
-                            mb="4",
-                            animation="pulse 3s infinite",
-                            p="3",
-                            border_radius="full",
-                            bg="rgba(255, 107, 53, 0.1)",
-                            box_shadow="0 0 30px rgba(255, 107, 53, 0.2)",
-                        ),
+                        rx.icon("fuel", size=60, color="#FF6B35"),
                         rx.text(
                             "Diésel", 
-                            font_weight="700", 
+                            font_weight="600", 
                             color="white", 
-                            font_size="1.25rem",
+                            font_size="1.1rem",
                         ),
-                        spacing="6",
+                        spacing="4",
                         align="center",
-                        width="100%",
                     ),
-                    bg="linear-gradient(145deg, #252525, #1e1e1e)",
-                    border="2px solid #3d3d3d",
-                    border_radius="30px",
-                    p="8",
-                    width={"base": "220px", "md": "240px"},
-                    height={"base": "250px", "md": "280px"},
+                    bg="#2D2D2D",
+                    border="2px solid #404040",
+                    border_radius="15px",
+                    p="6",
+                    width="180px",
+                    height="140px",
                     _hover={
                         "border_color": "#FF6B35",
-                        "transform": "translateY(-10px) scale(1.03)",
-                        "box_shadow": "0 15px 30px rgba(255, 107, 53, 0.4)",
-                        "bg": "linear-gradient(145deg, #272727, #1c1c1c)"
-                    },
-                    _active={
                         "transform": "translateY(-5px)",
-                        "box_shadow": "0 10px 15px rgba(255, 107, 53, 0.3)",
+                        "box_shadow": "0 10px 20px rgba(255, 107, 53, 0.3)",
                     },
-                    transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                    transition="all 0.3s ease",
                     on_click=lambda: VehicleState.select_fuel("diesel"),
-                    class_name="fuel-btn fade-in-up",
                 ),
-                # Botón Gasolina con efecto 3D y animación
                 rx.button(
                     rx.vstack(
-                        rx.box(
-                            rx.icon("fuel", size=80, color="#FF6B35"),
-                            mb="4",
-                            animation="pulse 3s infinite",
-                            animation_delay="1.5s",
-                            p="3",
-                            border_radius="full",
-                            bg="rgba(255, 107, 53, 0.1)",
-                            box_shadow="0 0 30px rgba(255, 107, 53, 0.2)",
-                        ),
+                        rx.icon("fuel", size=60, color="#FF6B35"),
                         rx.text(
                             "Gasolina", 
-                            font_weight="700", 
+                            font_weight="600", 
                             color="white", 
-                            font_size="1.25rem",
+                            font_size="1.1rem",
                         ),
-                        spacing="6",
+                        spacing="4",
                         align="center",
-                        width="100%",
                     ),
-                    bg="linear-gradient(145deg, #252525, #1e1e1e)",
-                    border="2px solid #3d3d3d",
-                    border_radius="30px",
-                    p="8",
-                    width={"base": "220px", "md": "240px"},
-                    height={"base": "250px", "md": "280px"},
+                    bg="#2D2D2D",
+                    border="2px solid #404040",
+                    border_radius="15px",
+                    p="6",
+                    width="180px",
+                    height="140px",
                     _hover={
                         "border_color": "#FF6B35",
-                        "transform": "translateY(-10px) scale(1.03)",
-                        "box_shadow": "0 15px 30px rgba(255, 107, 53, 0.4)",
-                        "bg": "linear-gradient(145deg, #272727, #1c1c1c)"
-                    },
-                    _active={
                         "transform": "translateY(-5px)",
-                        "box_shadow": "0 10px 15px rgba(255, 107, 53, 0.3)",
+                        "box_shadow": "0 10px 20px rgba(255, 107, 53, 0.3)",
                     },
-                    transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                    transition="all 0.3s ease",
                     on_click=lambda: VehicleState.select_fuel("gasolina"),
-                    class_name="fuel-btn fade-in-up",
-                    animation_delay="0.2s",
                 ),
-                spacing="8",
+                spacing="6",
                 justify="center",
-                wrap="wrap"
             ),
-            width="100%"
-            ),
-            spacing="8",
+            spacing="6",
             align="center",
-            class_name="vehicle-selector-step",
-            width="100%",
-            max_width="600px"
         ),
         width="100%"
     )

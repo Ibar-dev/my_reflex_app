@@ -164,11 +164,18 @@ def index() -> rx.Component:
                     padding_top="0px",
                     width="100%",
                 ),
-                rx.box(
-                    vehicle_selector(),
-                    class_name="section scroll-target",
-                    id="selector",
+                rx.center(
+                    rx.box(
+                        vehicle_selector(),
+                        class_name="section scroll-target",
+                        id="selector",
+                        width="100%",
+                        max_width="1200px",
+                        mx="auto"
+                    ),
                     width="100%",
+                    px={"base": "4", "md": "8"},
+                    py={"base": "12", "md": "16"}
                 ),
                 rx.box(
                     benefits(),
@@ -239,142 +246,110 @@ def index() -> rx.Component:
                 ),
                 
                 # Main content container
-                rx.container(
-                    rx.center(
+                rx.center(
+                    rx.box(
                         rx.vstack(
-                        rx.heading(
-                            "¿Qué es la reprogramación ECU?",
-                            size="8",
-                            color="#FF6B35",
-                            text_align="center",
-                            mb="6",
-                            font_weight="800",
-                            class_name="fade-in",
-                            position="relative",
-                            z_index="2",
-                            text_shadow="0 2px 4px rgba(0,0,0,0.8)"
-                        ),
-                        rx.text(
-                            "Optimización profesional del software para maximizar el rendimiento de tu vehículo",
-                            color="#CCCCCC",
-                            font_size="1.2rem",
-                            text_align="center",
-                            mb="12",
-                            max_width="800px",
-                            class_name="fade-in",
-                            position="relative",
-                            z_index="2",
-                            text_shadow="0 1px 2px rgba(0,0,0,0.8)"
-                        ),
-                        # Content section with single column layout
-                        rx.center(
-                            rx.vstack(
-                                rx.text(
-                                    "La reprogramación ECU (Unidad de Control del Motor) es un proceso técnico que consiste en modificar el software que controla el funcionamiento del motor de tu vehículo. Esta optimización permite:",
-                                    color="#CCCCCC",
-                                    mb="6",
-                                    line_height="1.7",
-                                    font_size="1.05rem",
-                                    class_name="fade-in-left",
-                                    max_width="800px",
-                                    text_align="center"
-                                ),
-                                rx.vstack(
-                                rx.hstack(
-                                    rx.box(
-                                        rx.icon("check", size=20, color="white"),
-                                        bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
-                                        border_radius="full",
-                                        p="2",
-                                        box_shadow="0 4px 10px rgba(255, 107, 53, 0.3)"
-                                    ),
-                                    rx.text("Aumentar la potencia del motor", color="white", font_weight="500"),
-                                    spacing="4",
-                                    align="center",
-                                    class_name="fade-in-left"
-                                ),
-                                rx.hstack(
-                                    rx.box(
-                                        rx.icon("check", size=20, color="white"),
-                                        bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
-                                        border_radius="full",
-                                        p="2",
-                                        box_shadow="0 4px 10px rgba(255, 107, 53, 0.3)"
-                                    ),
-                                    rx.text("Reducir el consumo de combustible", color="white", font_weight="500"),
-                                    spacing="4",
-                                    align="center",
-                                    class_name="fade-in-left"
-                                ),
-                                rx.hstack(
-                                    rx.box(
-                                        rx.icon("check", size=20, color="white"),
-                                        bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
-                                        border_radius="full",
-                                        p="2",
-                                        box_shadow="0 4px 10px rgba(255, 107, 53, 0.3)"
-                                    ),
-                                    rx.text("Mejorar la respuesta del acelerador", color="white", font_weight="500"),
-                                    spacing="4",
-                                    align="center",
-                                    class_name="fade-in-left"
-                                ),
-                                rx.hstack(
-                                    rx.box(
-                                        rx.icon("check", size=20, color="white"),
-                                        bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
-                                        border_radius="full",
-                                        p="2",
-                                        box_shadow="0 4px 10px rgba(255, 107, 53, 0.3)"
-                                    ),
-                                    rx.text("Optimizar el par motor", color="white", font_weight="500"),
-                                    spacing="4",
-                                    align="center",
-                                    class_name="fade-in-left"
-                                ),
-                                spacing="4",
-                                align="center",
-                                mb="6",
-                                max_width="600px"
-                                ),
-                                rx.text(
-                                    "Nuestro equipo de técnicos especializados utiliza equipos de última generación para garantizar resultados óptimos y seguros para tu vehículo.",
-                                    color="#CCCCCC",
-                                    line_height="1.7",
-                                    font_weight="500",
-                                    class_name="fade-in-left",
-                                    max_width="800px",
-                                    text_align="center"
-                                ),
-                                spacing="4",
-                                align="center",
-                                width="100%",
-                                position="relative",
-                                z_index="2"
+                            rx.heading(
+                                "¿Qué es la reprogramación ECU?",
+                                size="7",
+                                color="#FF6B35",
+                                text_align="center",
+                                mb="4",
+                                font_weight="700",
+                                class_name="fade-in",
                             ),
-                            width="100%"
+                            rx.text(
+                                "Optimización profesional del software para maximizar el rendimiento de tu vehículo",
+                                color="#CCCCCC",
+                                font_size="1.1rem",
+                                text_align="center",
+                                mb="6",
+                                line_height="1.6",
+                                class_name="fade-in",
+                            ),
+                            rx.text(
+                                "La reprogramación ECU (Unidad de Control del Motor) es un proceso técnico que consiste en modificar el software que controla el funcionamiento del motor de tu vehículo. Esta optimización permite:",
+                                color="#CCCCCC",
+                                mb="5",
+                                line_height="1.6",
+                                font_size="1rem",
+                                text_align="center"
+                            ),
+                            rx.vstack(
+                                rx.hstack(
+                                    rx.box(
+                                        rx.icon("check", size=18, color="white"),
+                                        bg="#FF6B35",
+                                        border_radius="full",
+                                        p="2",
+                                    ),
+                                    rx.text("Aumentar la potencia del motor", color="white", font_weight="500", font_size="0.95rem"),
+                                    spacing="3",
+                                    align="center",
+                                ),
+                                rx.hstack(
+                                    rx.box(
+                                        rx.icon("check", size=18, color="white"),
+                                        bg="#FF6B35",
+                                        border_radius="full",
+                                        p="2",
+                                    ),
+                                    rx.text("Reducir el consumo de combustible", color="white", font_weight="500", font_size="0.95rem"),
+                                    spacing="3",
+                                    align="center",
+                                ),
+                                rx.hstack(
+                                    rx.box(
+                                        rx.icon("check", size=18, color="white"),
+                                        bg="#FF6B35",
+                                        border_radius="full",
+                                        p="2",
+                                    ),
+                                    rx.text("Mejorar la respuesta del acelerador", color="white", font_weight="500", font_size="0.95rem"),
+                                    spacing="3",
+                                    align="center",
+                                ),
+                                rx.hstack(
+                                    rx.box(
+                                        rx.icon("check", size=18, color="white"),
+                                        bg="#FF6B35",
+                                        border_radius="full",
+                                        p="2",
+                                    ),
+                                    rx.text("Optimizar el par motor", color="white", font_weight="500", font_size="0.95rem"),
+                                    spacing="3",
+                                    align="center",
+                                ),
+                                spacing="3",
+                                align="center",
+                                mb="5",
+                            ),
+                            rx.text(
+                                "Nuestro equipo de técnicos especializados utiliza equipos de última generación para garantizar resultados óptimos y seguros para tu vehículo.",
+                                color="#CCCCCC",
+                                line_height="1.6",
+                                font_size="0.95rem",
+                                text_align="center"
+                            ),
+                            spacing="4",
+                            align="center",
+                            width="100%",
                         ),
-                        spacing="6",
-                        align="center",
+                        max_width="900px",
                         width="100%",
+                        mx="auto",
                         class_name="scroll-target",
                         id="acerca",
                         position="relative",
-                        z_index="2"
-                        ),
-                        width="100%",
-                        max_width="1000px"
+                        z_index="10",
                     ),
-                    max_width="1200px",
+                    width="100%",
                     px={"base": "6", "md": "8"},
-                    py={"base": "16", "md": "24"},
-                    position="relative",
-                    z_index="2",
-                    mx="auto"
+                    py={"base": "16", "md": "20"},
                 ),
                 position="relative",
                 overflow="hidden",
-                min_height="100vh",
+                min_height="80vh",
                 width="100%",
                 ),
                 
