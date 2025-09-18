@@ -9,10 +9,9 @@ import reflex as rx
 
 def services() -> rx.Component:
     """Sección de servicios con tarjetas estilizadas y centrado mejorado"""
-    return rx.box(
+    return rx.center(
         rx.container(
-            rx.center(
-                rx.vstack(
+            rx.vstack(
                 rx.heading(
                     "Nuestros Servicios",
                     size="8",
@@ -182,17 +181,16 @@ def services() -> rx.Component:
                     width="100%",
                     mx="auto"
                 ),
-                    spacing="6",
-                    align="center",
-                    width="100%",
-                    max_width="1200px"
-                ),
-                width="100%"
+                spacing="6",
+                align="center",
+                width="100%",
+                max_width="1200px"
             ),
             max_width="1400px",
             px={"base": "6", "md": "8"},
             py={"base": "16", "md": "24"},
             mx="auto"
         ),
+        width="100%",
         bg="#1A1A1A"
     )

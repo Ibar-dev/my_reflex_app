@@ -88,10 +88,9 @@ def faq_item(question: str, answer: str, item_id: int) -> rx.Component:
 
 def faq() -> rx.Component:
     """Sección de preguntas frecuentes mejorada y centrada"""
-    return rx.box(
+    return rx.center(
         rx.container(
-            rx.center(
-                rx.vstack(
+            rx.vstack(
                 rx.heading(
                     "Preguntas Frecuentes",
                     size="8",
@@ -137,17 +136,16 @@ def faq() -> rx.Component:
                     width="100%",
                     mx="auto"
                 ),
-                    spacing="6",
-                    align="center",
-                    width="100%",
-                    max_width="800px"
-                ),
-                width="100%"
+                spacing="6",
+                align="center",
+                width="100%",
+                max_width="900px"
             ),
-            max_width="1000px",
+            max_width="1200px",
             px={"base": "6", "md": "8"},
             py={"base": "16", "md": "24"},
             mx="auto"
         ),
+        width="100%",
         bg="#1A1A1A"
     )

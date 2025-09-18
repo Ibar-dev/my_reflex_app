@@ -63,9 +63,9 @@ def custom_styles() -> dict:
                 "boxShadow": "0 10px 20px rgba(0, 0, 0, 0.2)"
             },
             ".section": {
-                "scrollMarginTop": "80px",
-                "paddingTop": "100px",
-                "paddingBottom": "100px",
+                "scrollMarginTop": "70px",
+                "paddingTop": "80px",
+                "paddingBottom": "80px",
                 "display": "flex",
                 "justifyContent": "center",
                 "alignItems": "center",
@@ -103,22 +103,43 @@ def custom_styles() -> dict:
             },
             "@media (max-width: 768px)": {
                 ".section": {
-                    "paddingTop": "60px",
-                    "paddingBottom": "60px",
+                    "paddingTop": "40px",
+                    "paddingBottom": "40px",
                     "paddingLeft": "1rem",
                     "paddingRight": "1rem",
                 },
                 ".hero-title": {
-                    "fontSize": "2.5rem",
+                    "fontSize": "2.2rem !important",
                     "textAlign": "center",
+                    "lineHeight": "1.2",
+                },
+                ".hero-text": {
+                    "fontSize": "1rem !important",
+                    "textAlign": "center",
+                    "padding": "0 0.5rem",
                 },
                 ".benefit-card": {
-                    "minHeight": "250px",
-                    "padding": "1.5rem",
+                    "minHeight": "200px",
+                    "padding": "1rem",
+                    "margin": "0 0.5rem",
                 },
                 ".service-card": {
-                    "minHeight": "180px",
-                    "padding": "1.5rem",
+                    "minHeight": "160px",
+                    "padding": "1rem",
+                },
+                ".vehicle-selector": {
+                    "padding": "1rem !important",
+                    "margin": "0.5rem",
+                },
+                ".faq-container": {
+                    "padding": "1rem",
+                },
+                "h1, h2, h3": {
+                    "fontSize": "1.8rem !important",
+                    "textAlign": "center",
+                },
+                ".grid": {
+                    "gap": "1rem !important",
                 }
             }
         }
@@ -167,7 +188,7 @@ def index() -> rx.Component:
                 rx.center(
                     rx.box(
                         vehicle_selector(),
-                        class_name="section scroll-target",
+                        class_name="scroll-target",
                         id="selector",
                         width="100%",
                         max_width="1200px",
@@ -175,7 +196,7 @@ def index() -> rx.Component:
                     ),
                     width="100%",
                     px={"base": "4", "md": "8"},
-                    py={"base": "12", "md": "16"}
+                    py={"base": "6", "md": "8"}  # Reducido significativamente
                 ),
                 rx.box(
                     benefits(),
@@ -190,6 +211,9 @@ def index() -> rx.Component:
                     width="100%",
                 ),
             
+                # Espaciado adicional antes de la sección Acerca de
+                rx.box(height={"base": "3rem", "md": "4rem"}),
+                
                 # Sección Acerca de con diseño moderno y fondo
                 rx.box(
                 # Background image with overlay and effects
@@ -251,29 +275,31 @@ def index() -> rx.Component:
                         rx.vstack(
                             rx.heading(
                                 "¿Qué es la reprogramación ECU?",
-                                size="7",
+                                size="8",
                                 color="#FF6B35",
                                 text_align="center",
-                                mb="4",
+                                mb="6",
                                 font_weight="700",
                                 class_name="fade-in",
                             ),
                             rx.text(
                                 "Optimización profesional del software para maximizar el rendimiento de tu vehículo",
                                 color="#CCCCCC",
-                                font_size="1.1rem",
+                                font_size="1.3rem",
                                 text_align="center",
-                                mb="6",
+                                mb="8",
                                 line_height="1.6",
                                 class_name="fade-in",
+                                font_weight="500",
                             ),
                             rx.text(
                                 "La reprogramación ECU (Unidad de Control del Motor) es un proceso técnico que consiste en modificar el software que controla el funcionamiento del motor de tu vehículo. Esta optimización permite:",
                                 color="#CCCCCC",
-                                mb="5",
-                                line_height="1.6",
-                                font_size="1rem",
-                                text_align="center"
+                                mb="8",
+                                line_height="1.7",
+                                font_size="1.1rem",
+                                text_align="center",
+                                max_width="900px"
                             ),
                             rx.vstack(
                                 rx.hstack(
@@ -283,7 +309,7 @@ def index() -> rx.Component:
                                         border_radius="full",
                                         p="2",
                                     ),
-                                    rx.text("Aumentar la potencia del motor", color="white", font_weight="500", font_size="0.95rem"),
+                                    rx.text("Aumentar la potencia del motor", color="white", font_weight="500", font_size="1.05rem"),
                                     spacing="3",
                                     align="center",
                                 ),
@@ -294,7 +320,7 @@ def index() -> rx.Component:
                                         border_radius="full",
                                         p="2",
                                     ),
-                                    rx.text("Reducir el consumo de combustible", color="white", font_weight="500", font_size="0.95rem"),
+                                    rx.text("Reducir el consumo de combustible", color="white", font_weight="500", font_size="1.05rem"),
                                     spacing="3",
                                     align="center",
                                 ),
@@ -305,7 +331,7 @@ def index() -> rx.Component:
                                         border_radius="full",
                                         p="2",
                                     ),
-                                    rx.text("Mejorar la respuesta del acelerador", color="white", font_weight="500", font_size="0.95rem"),
+                                    rx.text("Mejorar la respuesta del acelerador", color="white", font_weight="500", font_size="1.05rem"),
                                     spacing="3",
                                     align="center",
                                 ),
@@ -316,26 +342,27 @@ def index() -> rx.Component:
                                         border_radius="full",
                                         p="2",
                                     ),
-                                    rx.text("Optimizar el par motor", color="white", font_weight="500", font_size="0.95rem"),
+                                    rx.text("Optimizar el par motor", color="white", font_weight="500", font_size="1.05rem"),
                                     spacing="3",
                                     align="center",
                                 ),
-                                spacing="3",
+                                spacing="4",
                                 align="center",
-                                mb="5",
+                                mb="8",
                             ),
                             rx.text(
                                 "Nuestro equipo de técnicos especializados utiliza equipos de última generación para garantizar resultados óptimos y seguros para tu vehículo.",
                                 color="#CCCCCC",
-                                line_height="1.6",
-                                font_size="0.95rem",
-                                text_align="center"
+                                line_height="1.7",
+                                font_size="1.1rem",
+                                text_align="center",
+                                max_width="800px"
                             ),
-                            spacing="4",
+                            spacing="6",
                             align="center",
                             width="100%",
                         ),
-                        max_width="900px",
+                        max_width="1000px",
                         width="100%",
                         mx="auto",
                         class_name="scroll-target",
@@ -345,11 +372,11 @@ def index() -> rx.Component:
                     ),
                     width="100%",
                     px={"base": "6", "md": "8"},
-                    py={"base": "16", "md": "20"},
+                    py={"base": "12", "md": "16"},  # Reducido padding vertical
                 ),
                 position="relative",
                 overflow="hidden",
-                min_height="80vh",
+                min_height="70vh",  # Reducido para menos espacio
                 width="100%",
                 ),
                 

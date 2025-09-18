@@ -759,7 +759,7 @@ def vehicle_details() -> rx.Component:
 
 def vehicle_selector() -> rx.Component:
     """Selector principal de vehículos con pasos dinámicos"""
-    return rx.box(
+    return rx.center(
         rx.container(
             rx.vstack(
                 rx.heading(
@@ -791,28 +791,27 @@ def vehicle_selector() -> rx.Component:
                                 )
                             )
                         ),
-                        bg="#1A1A1A",
+                        bg="linear-gradient(145deg, #252525, #1e1e1e)",  # Un solo fondo limpio
                         border_radius="20px",
                         p={"base": "8", "md": "12"},
-                        box_shadow="0 8px 25px rgba(0, 0, 0, 0.3)",
-                        border="1px solid #404040",
+                        box_shadow="0 15px 35px rgba(0, 0, 0, 0.3)",
+                        border="1px solid #3d3d3d",
                         max_width="900px",
                         width="100%",
-                        min_height="300px"
+                        min_height="350px"
                     ),
-                    width="100%",
-                    mx="auto"
+                    width="100%"
                 ),
                 spacing="6",
                 align="center",
-                width="100%",
-                mx="auto"
+                width="100%"
             ),
-            max_width="1000px",
+            max_width="1200px",
             mx="auto",
             px={"base": "6", "md": "8"},
-            py={"base": "16", "md": "20"}
+            py={"base": "8", "md": "12"}  # Reducido para menos espaciado
         ),
-        bg="#1A1A1A",
+        width="100%",
+        bg="#121212",  # Fondo principal único
         id="selector"
     )

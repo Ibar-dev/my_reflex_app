@@ -33,47 +33,48 @@ def benefits() -> rx.Component:
                 "opacity": "0.5",
             },
         ),
-        rx.container(
-            rx.vstack(
-                # Título con gradiente y animación
-                rx.heading(
-                    "Más potencia, menos consumo",
-                    size="8",
-                    color="white",
-                    text_align="center",
-                    mb="4",
-                    font_weight="800",
-                    bg_image="linear-gradient(45deg, #FF6B35, #FF8C42)",
-                    bg_clip="text",
-                    text_fill_color="transparent",
-                    class_name="fade-in",
-                ),
-                # Subtítulo con animación retrasada
-                rx.text(
-                    "Optimiza el rendimiento de tu vehículo con nuestra tecnología de reprogramación ECU",
-                    color="rgba(255, 255, 255, 0.8)",
-                    text_align="center",
-                    font_size="1.2rem",
-                    mb="16",
-                    max_width="800px",
-                    class_name="fade-in",
-                    animation_delay="0.2s",
-                    text_shadow="0 2px 4px rgba(0,0,0,0.2)",
-                ),
+        rx.center(
+            rx.container(
+                rx.vstack(
+                    # Título con gradiente y animación
+                    rx.heading(
+                        "Más potencia, menos consumo",
+                        size="8",
+                        color="white",
+                        text_align="center",
+                        mb="4",
+                        font_weight="800",
+                        bg_image="linear-gradient(45deg, #FF6B35, #FF8C42)",
+                        bg_clip="text",
+                        text_fill_color="transparent",
+                        class_name="fade-in",
+                    ),
+                    # Subtítulo con animación retrasada
+                    rx.text(
+                        "Optimiza el rendimiento de tu vehículo con nuestra tecnología de reprogramación ECU",
+                        color="rgba(255, 255, 255, 0.8)",
+                        text_align="center",
+                        font_size="1.2rem",
+                        mb="16",
+                        max_width="800px",
+                        class_name="fade-in",
+                        animation_delay="0.2s",
+                        text_shadow="0 2px 4px rgba(0,0,0,0.2)",
+                    ),
                 rx.center(
                     rx.grid(
                         # Tarjeta 1: Mayor Potencia - Con efecto de flotación y animación
                         rx.box(
                             rx.vstack(
-                                # Ícono simple sin efectos - mejor centrado
+                                # Ícono más compacto
                                 rx.center(
-                                    rx.icon("zap", size=60, color="#FF6B35"),
+                                    rx.icon("zap", size=50, color="#FF6B35"),
                                     width="100%",
-                                    height="80px",
+                                    height="60px",
                                     display="flex",
                                     align_items="center",
                                     justify_content="center",
-                                    mb="3",
+                                    mb="2",
                                     class_name="fade-in-up",
                                 ),
                                 # Título con gradiente
@@ -107,10 +108,10 @@ def benefits() -> rx.Component:
                             # Diseño de la tarjeta con efecto neumorfísmico
                             bg="linear-gradient(145deg, #202020, #1a1a1a)",
                             border_radius="30px",
-                            p="8",
-                            py="12",
+                            p="6",
+                            py="8",
                             border="1px solid #2c2c2c",
-                            min_height="280px",
+                            min_height="240px",
                             box_shadow="0 10px 25px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.06)",
                             _hover={
                                 "transform": "translateY(-15px)",
@@ -148,15 +149,15 @@ def benefits() -> rx.Component:
                         # Tarjeta 2: Menor Consumo - Con efecto de flotación y animación
                         rx.box(
                             rx.vstack(
-                                # Ícono simple sin efectos
+                                # Ícono más compacto
                                 rx.center(
-                                    rx.icon("dollar-sign", size=60, color="#FF6B35"),
+                                    rx.icon("dollar-sign", size=50, color="#FF6B35"),
                                     width="100%",
-                                    height="80px",
+                                    height="60px",
                                     display="flex",
                                     align_items="center",
                                     justify_content="center",
-                                    mb="3",
+                                    mb="2",
                                     class_name="fade-in-up",
                                     animation_delay="0.3s",
                                 ),
@@ -191,10 +192,10 @@ def benefits() -> rx.Component:
                             # Diseño de la tarjeta con efecto neumorfísmico
                             bg="linear-gradient(145deg, #202020, #1a1a1a)",
                             border_radius="30px",
-                            p="8",
-                            py="12",
+                            p="6",
+                            py="8",
                             border="1px solid #2c2c2c",
-                            min_height="280px",
+                            min_height="240px",
                             box_shadow="0 10px 25px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.06)",
                             _hover={
                                 "transform": "translateY(-15px)",
@@ -232,15 +233,15 @@ def benefits() -> rx.Component:
                         # Tarjeta 3: Proceso Reversible - Con efecto de flotación y animación
                         rx.box(
                             rx.vstack(
-                                # Ícono simple sin efectos
+                                # Ícono más compacto
                                 rx.center(
-                                    rx.icon("wrench", size=60, color="#FF6B35"),
+                                    rx.icon("wrench", size=50, color="#FF6B35"),
                                     width="100%",
-                                    height="80px",
+                                    height="60px",
                                     display="flex",
                                     align_items="center",
                                     justify_content="center",
-                                    mb="3",
+                                    mb="2",
                                     class_name="fade-in-up",
                                     animation_delay="0.6s",
                                 ),
@@ -275,10 +276,10 @@ def benefits() -> rx.Component:
                             # Diseño de la tarjeta con efecto neumorfísmico
                             bg="linear-gradient(145deg, #202020, #1a1a1a)",
                             border_radius="30px",
-                            p="8",
-                            py="12",
+                            p="6",
+                            py="8",
                             border="1px solid #2c2c2c",
-                            min_height="280px",
+                            min_height="240px",
                             box_shadow="0 10px 25px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.06)",
                             _hover={
                                 "transform": "translateY(-15px)",
@@ -316,15 +317,15 @@ def benefits() -> rx.Component:
                         # Tarjeta 4: Garantía Incluida - Con efecto de flotación y animación
                         rx.box(
                             rx.vstack(
-                                # Ícono simple sin efectos
+                                # Ícono más compacto
                                 rx.center(
-                                    rx.icon("shield-check", size=60, color="#FF6B35"),
+                                    rx.icon("shield-check", size=50, color="#FF6B35"),
                                     width="100%",
-                                    height="80px",
+                                    height="60px",
                                     display="flex",
                                     align_items="center",
                                     justify_content="center",
-                                    mb="3",
+                                    mb="2",
                                     class_name="fade-in-up",
                                     animation_delay="0.9s",
                                 ),
@@ -359,10 +360,10 @@ def benefits() -> rx.Component:
                             # Diseño de la tarjeta con efecto neumorfísmico
                             bg="linear-gradient(145deg, #202020, #1a1a1a)",
                             border_radius="30px",
-                            p="8",
-                            py="12",
+                            p="6",
+                            py="8",
                             border="1px solid #2c2c2c",
-                            min_height="280px",
+                            min_height="240px",
                             box_shadow="0 10px 25px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.06)",
                             _hover={
                                 "transform": "translateY(-15px)",
@@ -398,10 +399,11 @@ def benefits() -> rx.Component:
                         ),
                         
                         columns={"base": "1", "md": "2", "lg": "4"},
-                        spacing="8",
+                        spacing="6",
                         width="100%",
                         class_name="fade-in-up",
-                        justify="center"
+                        justify="center",
+                        max_width="1200px"
                     ),
                     width="100%"
                 ),
@@ -409,10 +411,12 @@ def benefits() -> rx.Component:
                 align="center",
                 width="100%"
             ),
-            max_width="1400px",
-            px={"base": "6", "md": "8"},
-            py={"base": "16", "md": "24"},
-            mx="auto"
+                max_width="1400px",
+                px={"base": "6", "md": "8"},
+                py={"base": "16", "md": "24"},
+                mx="auto"
+            ),
+            width="100%"
         ),
         bg="#1A1A1A"
     )

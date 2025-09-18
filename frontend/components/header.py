@@ -91,7 +91,7 @@ def header(active: str = "inicio") -> rx.Component:
             align="center",
             width="100%",
             padding_x="1.5rem",
-            height="70px",
+            height="70px",  # Aumentado para mejor proporción y visibilidad
         ),
         position="sticky",
         top="0",
@@ -100,6 +100,8 @@ def header(active: str = "inicio") -> rx.Component:
         border_bottom="1px solid #262626",
         box_shadow="0 1px 0 rgba(255,255,255,0.06)",
         width="100%",
+        min_height="70px",  # Altura mínima fija
+        max_height="70px",  # Altura máxima fija para evitar cambios de tamaño
     )
 
 # TODO: Implementar funciones auxiliares del header
