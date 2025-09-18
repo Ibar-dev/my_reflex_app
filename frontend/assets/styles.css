@@ -250,6 +250,22 @@ textarea:focus {
   animation-delay: 1s;
 }
 
+/* Estilos específicos para hero title */
+.hero-title {
+  font-size: 8rem !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.5) !important;
+  letter-spacing: -2px !important;
+}
+
+.hero-text {
+  font-size: 1.8rem !important;
+  font-weight: 500 !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4) !important;
+}
+
 /* Diseño responsivo completo */
 @media (max-width: 768px) {
   .hero-container {
@@ -259,11 +275,13 @@ textarea:focus {
   }
   
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 5rem !important;
+    font-weight: 800 !important;
+    line-height: 1.1 !important;
   }
   
   .hero-subtitle {
-    font-size: 1rem;
+    font-size: 1.4rem;
   }
   
   .benefits-grid,
@@ -296,7 +314,9 @@ textarea:focus {
   }
   
   .hero-title {
-    font-size: 2rem;
+    font-size: 4rem !important;
+    font-weight: 800 !important;
+    line-height: 1.1 !important;
   }
   
   .section-title {

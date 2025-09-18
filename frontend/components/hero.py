@@ -71,24 +71,26 @@ def hero() -> rx.Component:
                     # Título con gradiente
                     rx.box(
                         rx.hstack(
+                            # Título principal - Primera línea con gradiente
                             rx.text(
                                 "Potencia el coche ",
                                 as_="span",
-                                font_size={"base": "2.5rem", "md": "4.5rem"},
-                                font_weight="800",
-                                line_height="1.1",
+                                font_size={"base": "4rem", "md": "7.5rem"},  
+                                font_weight="700",
+                                line_height="1.2",
                                 background="linear-gradient(45deg, #FF6B35, #FF8C42)",
                                 background_clip="text",
                                 color="transparent",
                                 class_name="fade-in-left hero-title",
                                 letter_spacing="-1px",
                             ),
+                            # Título principal - Segunda línea en blanco
                             rx.text(
                                 "de tus sueños",
                                 as_="span",
-                                font_size={"base": "2.5rem", "md": "4.5rem"},
-                                font_weight="800",
-                                line_height="1.1",
+                                font_size={"base": "4rem", "md": "7.5rem"},  
+                                font_weight="700",
+                                line_height="1.2",
                                 color="white",
                                 class_name="fade-in-left hero-title",
                                 animation_delay="0.2s",
@@ -98,14 +100,14 @@ def hero() -> rx.Component:
                             align_items="flex-start",
                             flex_wrap="wrap",
                         ),
-                        mb="6",
+                        mb="4",
                     ),
-                    # Description with soft shadow
+                    # Descripción con sombra suave - Texto aumentado
                     rx.text(
                         "Reprogramación ECU profesional para maximizar el rendimiento "
                         "de tu vehículo sin comprometer su fiabilidad.",
                         color="rgba(255, 255, 255, 0.9)",
-                        font_size={"base": "1rem", "md": "1.2rem"},
+                        font_size={"base": "1.4rem", "md": "1.7rem"},  
                         mb="8",
                         max_width="500px",
                         line_height="1.6",
@@ -118,26 +120,36 @@ def hero() -> rx.Component:
                     rx.box(
                         rx.hstack(
                             rx.vstack(
-                                rx.text("+30%", font_size={"base": "1.5rem", "md": "2rem"}, font_weight="800", color="#FF6B35"),
-                                rx.text("Potencia", font_size={"base": "0.8rem", "md": "0.9rem"}, color="rgba(255,255,255,0.9)"),
+                                # Estadística 1 - Porcentaje aumentado
+                                rx.text("+30%", font_size={"base": "2.2rem", "md": "3rem"}, font_weight="800", color="#FF6B35"),  
+                                # Texto descriptivo de la estadística
+                                rx.text(
+                                    "Potencia", 
+                                    font_size={"base": "1.2rem", "md": "1.4rem"}, 
+                                    color="rgba(255,255,255,0.9)",
+                                    align="center"
+                                ),
+                                spacing="1",
+                            ),
+                            rx.box(width="1px", height={"base": "30px", "md": "40px"}, bg="rgba(255,255,255,0.2)"),
+                            rx.vstack(
+                                # Estadística 2 - Porcentaje aumentado
+                                rx.text("-15%", font_size={"base": "2.2rem", "md": "3rem"}, font_weight="800", color="#FF6B35"), 
+                                # Texto descriptivo de la estadística
+                                rx.text("Consumo", font_size={"base": "1rem", "md": "1.1rem"}, color="rgba(255,255,255,0.9)"),  
                                 align="center",
                                 spacing="1",
                             ),
                             rx.box(width="1px", height={"base": "30px", "md": "40px"}, bg="rgba(255,255,255,0.2)"),
                             rx.vstack(
-                                rx.text("-15%", font_size={"base": "1.5rem", "md": "2rem"}, font_weight="800", color="#FF6B35"),
-                                rx.text("Consumo", font_size={"base": "0.8rem", "md": "0.9rem"}, color="rgba(255,255,255,0.9)"),
+                                # Estadística 3 - Porcentaje aumentado
+                                rx.text("100%", font_size={"base": "2.2rem", "md": "3rem"}, font_weight="800", color="#FF6B35"),  
+                                # Texto descriptivo de la estadística
+                                rx.text("Garantía", font_size={"base": "1rem", "md": "1.1rem"}, color="rgba(255,255,255,0.9)"),  
                                 align="center",
                                 spacing="1",
                             ),
-                            rx.box(width="1px", height={"base": "30px", "md": "40px"}, bg="rgba(255,255,255,0.2)"),
-                            rx.vstack(
-                                rx.text("100%", font_size={"base": "1.5rem", "md": "2rem"}, font_weight="800", color="#FF6B35"),
-                                rx.text("Garantía", font_size={"base": "0.8rem", "md": "0.9rem"}, color="rgba(255,255,255,0.9)"),
-                                align="center",
-                                spacing="1",
-                            ),
-                            spacing={"base": "4", "md": "6"},
+                            spacing={"base": "2", "md": "6"},
                             p={"base": "4", "md": "6"},
                             width="100%",
                             justify="between",
@@ -183,7 +195,7 @@ def hero() -> rx.Component:
                     align="start",
                     justify="center",
                     height="100%",
-                    padding_y="2rem",
+                    padding_y="0.5rem",
                     width="100%",  # Ajustado para que ocupe todo el ancho disponible
                 ),
                 
@@ -199,12 +211,12 @@ def hero() -> rx.Component:
                 z_index="2",
             ),
             max_width="1000px",
-            pt={"base": "24", "md": "32"},
-            pb={"base": "24", "md": "32"},
-            px={"base": "4", "md": "8"},
+            pt={"base": "16", "md": "20"},
+            pb={"base": "16", "md": "20"},
+            px={"base": "4", "md": "6"},
             position="relative",
             z_index="2",
-            mx="auto",
+            mx="auto"
         ),
         # Additional animated dots pattern for visual interest
         rx.box(
@@ -216,10 +228,10 @@ def hero() -> rx.Component:
             background="radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
             background_size="20px 20px",
             z_index="1",
-            opacity="0.4",
+            opacity="0.4"
         ),
         width="100%",
-        min_height="100vh",
+        min_height="85vh",
         position="relative",
         overflow="hidden",
         class_name="hero-section",
