@@ -372,11 +372,11 @@ def index() -> rx.Component:
                     ),
                     width="100%",
                     px={"base": "6", "md": "8"},
-                    py={"base": "12", "md": "16"},  # Reducido padding vertical
+                    py={"base": "8", "md": "12"},  # Reducido aún más el padding vertical
                 ),
                 position="relative",
                 overflow="hidden",
-                min_height="70vh",  # Reducido para menos espacio
+                min_height="60vh",  # Reducido aún más para menos espacio
                 width="100%",
                 ),
                 

@@ -66,15 +66,15 @@ def benefits() -> rx.Component:
                         # Tarjeta 1: Mayor Potencia - Con efecto de flotación y animación
                         rx.box(
                             rx.vstack(
-                                # Ícono más compacto
+                                # Ícono mejorado
                                 rx.center(
-                                    rx.icon("zap", size=50, color="#FF6B35"),
+                                    rx.icon("zap", size=45, color="#FF6B35"),
                                     width="100%",
-                                    height="60px",
+                                    height="45px",
                                     display="flex",
                                     align_items="center",
                                     justify_content="center",
-                                    mb="2",
+                                    mb="4",
                                     class_name="fade-in-up",
                                 ),
                                 # Título con gradiente
@@ -82,7 +82,7 @@ def benefits() -> rx.Component:
                                     "Mayor Potencia",
                                     size="5",
                                     color="white",
-                                    mb="3",
+                                    mb="4",
                                     text_align="center",
                                     bg_image="linear-gradient(45deg, #FF6B35, #FF8C42)",
                                     bg_clip="text",
@@ -100,18 +100,19 @@ def benefits() -> rx.Component:
                                     font_size="1.05rem",
                                     class_name="fade-in-up",
                                     animation_delay="0.2s",
+                                    px="2",
                                 ),
-                                spacing="6",
+                                spacing="4",
                                 align="center",
                                 height="100%",
                             ),
                             # Diseño de la tarjeta con efecto neumorfísmico
                             bg="linear-gradient(145deg, #202020, #1a1a1a)",
                             border_radius="30px",
-                            p="6",
-                            py="8",
+                            p="8",
+                            py="10",
                             border="1px solid #2c2c2c",
-                            min_height="240px",
+                            min_height="280px",
                             box_shadow="0 10px 25px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.06)",
                             _hover={
                                 "transform": "translateY(-15px)",
@@ -149,15 +150,15 @@ def benefits() -> rx.Component:
                         # Tarjeta 2: Menor Consumo - Con efecto de flotación y animación
                         rx.box(
                             rx.vstack(
-                                # Ícono más compacto
+                                # Ícono mejorado
                                 rx.center(
-                                    rx.icon("dollar-sign", size=50, color="#FF6B35"),
+                                    rx.icon("dollar-sign", size=45, color="#FF6B35"),
                                     width="100%",
-                                    height="60px",
+                                    height="45px",
                                     display="flex",
                                     align_items="center",
                                     justify_content="center",
-                                    mb="2",
+                                    mb="4",
                                     class_name="fade-in-up",
                                     animation_delay="0.3s",
                                 ),
@@ -166,7 +167,7 @@ def benefits() -> rx.Component:
                                     "Menor Consumo",
                                     size="5",
                                     color="white",
-                                    mb="3",
+                                    mb="4",
                                     text_align="center",
                                     bg_image="linear-gradient(45deg, #FF6B35, #FF8C42)",
                                     bg_clip="text",
@@ -184,8 +185,9 @@ def benefits() -> rx.Component:
                                     font_size="1.05rem",
                                     class_name="fade-in-up",
                                     animation_delay="0.5s",
+                                    px="2",
                                 ),
-                                spacing="6",
+                                spacing="4",
                                 align="center",
                                 height="100%",
                             ),
@@ -233,15 +235,15 @@ def benefits() -> rx.Component:
                         # Tarjeta 3: Proceso Reversible - Con efecto de flotación y animación
                         rx.box(
                             rx.vstack(
-                                # Ícono más compacto
+                                # Ícono mejorado
                                 rx.center(
-                                    rx.icon("wrench", size=50, color="#FF6B35"),
+                                    rx.icon("wrench", size=45, color="#FF6B35"),
                                     width="100%",
-                                    height="60px",
+                                    height="45px",
                                     display="flex",
                                     align_items="center",
                                     justify_content="center",
-                                    mb="2",
+                                    mb="4",
                                     class_name="fade-in-up",
                                     animation_delay="0.6s",
                                 ),
@@ -250,7 +252,7 @@ def benefits() -> rx.Component:
                                     "Proceso Reversible",
                                     size="5",
                                     color="white",
-                                    mb="3",
+                                    mb="4",
                                     text_align="center",
                                     bg_image="linear-gradient(45deg, #FF6B35, #FF8C42)",
                                     bg_clip="text",
@@ -268,8 +270,9 @@ def benefits() -> rx.Component:
                                     font_size="1.05rem",
                                     class_name="fade-in-up",
                                     animation_delay="0.8s",
+                                    px="2",
                                 ),
-                                spacing="6",
+                                spacing="4",
                                 align="center",
                                 height="100%",
                             ),
@@ -317,15 +320,15 @@ def benefits() -> rx.Component:
                         # Tarjeta 4: Garantía Incluida - Con efecto de flotación y animación
                         rx.box(
                             rx.vstack(
-                                # Ícono más compacto
+                                # Ícono mejorado
                                 rx.center(
-                                    rx.icon("shield-check", size=50, color="#FF6B35"),
+                                    rx.icon("shield-check", size=45, color="#FF6B35"),
                                     width="100%",
-                                    height="60px",
+                                    height="45px",
                                     display="flex",
                                     align_items="center",
                                     justify_content="center",
-                                    mb="2",
+                                    mb="4",
                                     class_name="fade-in-up",
                                     animation_delay="0.9s",
                                 ),
@@ -334,7 +337,7 @@ def benefits() -> rx.Component:
                                     "Garantía Incluida",
                                     size="5",
                                     color="white",
-                                    mb="3",
+                                    mb="4",
                                     text_align="center",
                                     bg_image="linear-gradient(45deg, #FF6B35, #FF8C42)",
                                     bg_clip="text",
@@ -352,8 +355,9 @@ def benefits() -> rx.Component:
                                     font_size="1.05rem",
                                     class_name="fade-in-up",
                                     animation_delay="1.1s",
+                                    px="2",
                                 ),
-                                spacing="6",
+                                spacing="4",
                                 align="center",
                                 height="100%",
                             ),

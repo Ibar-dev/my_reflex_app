@@ -116,47 +116,25 @@ def hero() -> rx.Component:
                         animation_delay="0.4s",
                         text_align={"base": "center", "md": "left"},
                     ),
-                    # Stats display with glass effect
+                    # Testimonial or trust indicators
                     rx.box(
-                        rx.hstack(
-                            rx.vstack(
-                                # Estadística 1 - Porcentaje aumentado
-                                rx.text("+30%", font_size={"base": "2.2rem", "md": "3rem"}, font_weight="800", color="#FF6B35"),  
-                                # Texto descriptivo de la estadística
-                                rx.text(
-                                    "Potencia", 
-                                    font_size={"base": "1.2rem", "md": "1.4rem"}, 
-                                    color="rgba(255,255,255,0.9)",
-                                    align="center"
-                                ),
-                                spacing="1",
+                        rx.vstack(
+                            rx.text(
+                                "✓ Técnicos certificados  ✓ Equipos de última generación  ✓ Resultados garantizados",
+                                color="rgba(255, 255, 255, 0.95)",
+                                font_size={"base": "1.1rem", "md": "1.3rem"},
+                                font_weight="500",
+                                text_align="center",
+                                text_shadow="0 2px 4px rgba(0,0,0,0.3)",
                             ),
-                            rx.box(width="1px", height={"base": "30px", "md": "40px"}, bg="rgba(255,255,255,0.2)"),
-                            rx.vstack(
-                                # Estadística 2 - Porcentaje aumentado
-                                rx.text("-15%", font_size={"base": "2.2rem", "md": "3rem"}, font_weight="800", color="#FF6B35"), 
-                                # Texto descriptivo de la estadística
-                                rx.text("Consumo", font_size={"base": "1rem", "md": "1.1rem"}, color="rgba(255,255,255,0.9)"),  
-                                align="center",
-                                spacing="1",
-                            ),
-                            rx.box(width="1px", height={"base": "30px", "md": "40px"}, bg="rgba(255,255,255,0.2)"),
-                            rx.vstack(
-                                # Estadística 3 - Porcentaje aumentado
-                                rx.text("100%", font_size={"base": "2.2rem", "md": "3rem"}, font_weight="800", color="#FF6B35"),  
-                                # Texto descriptivo de la estadística
-                                rx.text("Garantía", font_size={"base": "1rem", "md": "1.1rem"}, color="rgba(255,255,255,0.9)"),  
-                                align="center",
-                                spacing="1",
-                            ),
-                            spacing={"base": "2", "md": "6"},
-                            p={"base": "4", "md": "6"},
+                            spacing="2",
+                            align="center",
                             width="100%",
-                            justify="between",
                         ),
                         mb="8",
                         border_radius="28px",
                         overflow="hidden",
+                        p={"base": "4", "md": "6"},
                         style={
                             "background": "rgba(255, 255, 255, 0.05)",
                             "backdropFilter": "blur(10px)",
