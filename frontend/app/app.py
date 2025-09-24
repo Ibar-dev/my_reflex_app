@@ -189,14 +189,13 @@ def index() -> rx.Component:
                     rx.box(
                         vehicle_selector(),
                         class_name="scroll-target",
-                        id="selector",
                         width="100%",
                         max_width="1200px",
                         mx="auto"
                     ),
                     width="100%",
                     px={"base": "4", "md": "8"},
-                    py={"base": "6", "md": "8"}  # Reducido significativamente
+                    py={"base": "6", "md": "8"}
                 ),
                 rx.box(
                     benefits(),
@@ -726,7 +725,7 @@ def contact_page() -> rx.Component:
 
 # Crear la aplicación
 app = rx.App(
-    stylesheets=["/styles.css"],
+    stylesheets=["/styles.css", "/selector-fix.css"],
     style=custom_styles(),
 )
 
