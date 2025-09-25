@@ -179,8 +179,7 @@ def contact() -> rx.Component:
                                 ),
                                 height="100%"
                             ),
-                            rx.form(
-                                rx.vstack(
+                            rx.vstack(
                                     rx.input(
                                         placeholder="Nombre completo",
                                         value=ContactState.name,
@@ -298,21 +297,19 @@ def contact() -> rx.Component:
                                         },
                                         transition="all 0.3s ease",
                                         disabled=ContactState.is_loading,
-                                        type="submit"
+                                        on_click=ContactState.submit_form
                                     ),
                                     spacing="6",
                                     width="100%"
-                                ),
-                                on_submit=ContactState.submit_form,
-                                width="100%"
-                            )
+                                )
                         ),
                         bg="#2D2D2D",
                         border_radius="20px",
                         padding="2rem",
                         border="1px solid #404040",
                         height="100%",
-                        min_height="550px"
+                        min_height="550px",
+                        width="100%"
                     ),
                     
                     columns={"base": "1", "lg": "2"},

@@ -188,6 +188,7 @@ def index() -> rx.Component:
                 rx.center(
                     rx.box(
                         vehicle_selector(),
+                        id="selector",
                         class_name="scroll-target",
                         width="100%",
                         max_width="1200px",
@@ -367,13 +368,13 @@ def index() -> rx.Component:
                         width="100%",
                         mx="auto",
                         class_name="scroll-target",
-                        id="acerca",
                         position="relative",
                         z_index="10",
                     ),
                     width="100%",
                     px={"base": "6", "md": "8"},
-                    py={"base": "8", "md": "12"},  # Reducido aún más el padding vertical
+                    py={"base": "8", "md": "12"},
+                    id="acerca"
                 ),
                 position="relative",
                 overflow="hidden",
