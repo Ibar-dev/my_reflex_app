@@ -162,7 +162,7 @@ def vehicle_selector() -> rx.Component:
 
     def dropdown_field(label: str, options: list[str], value, on_change, placeholder: str) -> rx.Component:
         return rx.vstack(
-            rx.text(label, color="white", font_weight="600", font_size="1.1rem"),
+            rx.text(label, color="white", font_weight="600", font_size="1.2rem", mb="3"),
             rx.select(
                 options,
                 placeholder=placeholder,
@@ -172,15 +172,18 @@ def vehicle_selector() -> rx.Component:
                 size="3",
                 width="100%",
                 color_scheme="orange",
-                height="50px",
+                height="60px",
                 bg="#1f1f1f",
                 color="white",
                 border_color="#FF6B35",
                 _hover={"border_color": "#FF6B35"},
                 _focus={"border_color": "#FF6B35", "box_shadow": "0 0 0 1px #FF6B35"},
+                px="4",
+                py="3"
             ),
-            spacing="2",
-            width="100%"
+            spacing="3",
+            width="100%",
+            mb="4"
         )
 
     return rx.center(
@@ -237,15 +240,16 @@ def vehicle_selector() -> rx.Component:
                             "Selecciona año"
                         ),
 
-                        spacing="6", width="100%"
+                        spacing="8", width="100%"
                     ),
 
                     bg="linear-gradient(145deg, #252525, #1e1e1e)",
-                    border_radius="20px",
-                    p="8",
+                    border_radius="24px",
+                    padding="2rem",
                     border="1px solid #3d3d3d",
                     width="100%",
-                    max_width="500px",
+                    max_width="800px",
+                    min_height="420px",
                     z_index="10",
                     position="relative",
                 ),
@@ -257,10 +261,10 @@ def vehicle_selector() -> rx.Component:
                         rx.vstack(
                             rx.heading(
                                 "Resultados de la Optimización",
-                                size="6",
+                                size="7",
                                 color="#FF6B35",
                                 text_align="center",
-                                margin_bottom="6"
+                                margin_bottom="8"
                             ),
 
                             # Datos del vehículo
@@ -268,41 +272,43 @@ def vehicle_selector() -> rx.Component:
                                 f"{VehicleState.selected_brand} {VehicleState.selected_model} ({VehicleState.selected_year}) - {VehicleState.selected_fuel}",
                                 color="white",
                                 font_weight="600",
-                                font_size="1.2rem",
+                                font_size="1.4rem",
                                 text_align="center",
-                                margin_bottom="4"
+                                margin_bottom="6"
                             ),
 
                             # Comparativa de potencia
                             rx.grid(
                                 rx.box(
                                     rx.vstack(
-                                        rx.icon("gauge", size=40, color="#CCCCCC", mb="3"),
-                                        rx.text("Potencia Original", color="#CCCCCC", font_weight="600"),
-                                        rx.text(f"{VehicleState.power_original} CV", font_size="2rem", font_weight="700", color="white"),
-                                        spacing="2", align="center"
+                                        rx.icon("gauge", size=50, color="#CCCCCC", mb="4"),
+                                        rx.text("Potencia Original", color="#CCCCCC", font_weight="600", font_size="1.1rem"),
+                                        rx.text(f"{VehicleState.power_original} CV", font_size="2.2rem", font_weight="700", color="white"),
+                                        spacing="3", align="center"
                                     ),
                                     bg="linear-gradient(145deg, #2D2D2D, #232323)",
-                                    border_radius="15px",
-                                    p="6",
+                                    border_radius="20px",
+                                    p="8",
                                     border="2px solid #444444",
-                                    width="100%"
+                                    width="100%",
+                                    min_height="160px"
                                 ),
                                 rx.box(
                                     rx.vstack(
-                                        rx.icon("zap", size=40, color="#FF6B35", mb="3"),
-                                        rx.text("Potencia Optimizada", color="#FF6B35", font_weight="600"),
-                                        rx.text(f"{VehicleState.power_optimized} CV", font_size="2rem", font_weight="700", color="white"),
-                                        rx.text(f"+{VehicleState.power_gain} CV", color="#4CAF50", font_weight="600", font_size="1.1rem"),
-                                        spacing="2", align="center"
+                                        rx.icon("zap", size=50, color="#FF6B35", mb="4"),
+                                        rx.text("Potencia Optimizada", color="#FF6B35", font_weight="600", font_size="1.1rem"),
+                                        rx.text(f"{VehicleState.power_optimized} CV", font_size="2.2rem", font_weight="700", color="white"),
+                                        rx.text(f"+{VehicleState.power_gain} CV", color="#4CAF50", font_weight="600", font_size="1.3rem"),
+                                        spacing="3", align="center"
                                     ),
                                     bg="linear-gradient(145deg, #2D2D2D, #232323)",
-                                    border_radius="15px",
-                                    p="6",
+                                    border_radius="20px",
+                                    p="8",
                                     border="2px solid #FF6B35",
-                                    width="100%"
+                                    width="100%",
+                                    min_height="160px"
                                 ),
-                                columns="2", spacing="4", width="100%"
+                                columns="2", spacing="6", width="100%"
                             ),
 
                             # Contacto
@@ -383,20 +389,20 @@ def vehicle_selector() -> rx.Component:
                             spacing="6", width="100%"
                         ),
                         bg="linear-gradient(145deg, #252525, #1e1e1e)",
-                        border_radius="20px",
-                        p="8",
+                        border_radius="24px",
+                        padding="2rem",
                         border="1px solid #3d3d3d",
                         width="100%",
-                        max_width="600px",
-                        mt="8"
+                        max_width="800px",
+                        mt="9"
                     )
                 ),
 
-                spacing="8", align="center", width="100%"
+                spacing="9", align="center", width="100%"
             ),
-            max_width="800px",
-            px="4"
+            max_width="1000px",
+            px="6"
         ),
         width="100%",
-        py="10"
+        py="9"
     )

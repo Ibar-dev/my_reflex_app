@@ -109,8 +109,7 @@ def benefits() -> rx.Component:
                             # Diseño de la tarjeta con efecto neumorfísmico
                             bg="linear-gradient(145deg, #202020, #1a1a1a)",
                             border_radius="30px",
-                            p="8",
-                            py="10",
+                            padding="2rem",
                             border="1px solid #2c2c2c",
                             min_height="280px",
                             box_shadow="0 10px 25px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.06)",
@@ -194,10 +193,9 @@ def benefits() -> rx.Component:
                             # Diseño de la tarjeta con efecto neumorfísmico
                             bg="linear-gradient(145deg, #202020, #1a1a1a)",
                             border_radius="30px",
-                            p="6",
-                            py="8",
+                            padding="2rem",
                             border="1px solid #2c2c2c",
-                            min_height="240px",
+                            min_height="280px",
                             box_shadow="0 10px 25px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.06)",
                             _hover={
                                 "transform": "translateY(-15px)",
@@ -279,10 +277,9 @@ def benefits() -> rx.Component:
                             # Diseño de la tarjeta con efecto neumorfísmico
                             bg="linear-gradient(145deg, #202020, #1a1a1a)",
                             border_radius="30px",
-                            p="6",
-                            py="8",
+                            padding="2rem",
                             border="1px solid #2c2c2c",
-                            min_height="240px",
+                            min_height="280px",
                             box_shadow="0 10px 25px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.06)",
                             _hover={
                                 "transform": "translateY(-15px)",
@@ -364,10 +361,9 @@ def benefits() -> rx.Component:
                             # Diseño de la tarjeta con efecto neumorfísmico
                             bg="linear-gradient(145deg, #202020, #1a1a1a)",
                             border_radius="30px",
-                            p="6",
-                            py="8",
+                            padding="2rem",
                             border="1px solid #2c2c2c",
-                            min_height="240px",
+                            min_height="280px",
                             box_shadow="0 10px 25px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.06)",
                             _hover={
                                 "transform": "translateY(-15px)",

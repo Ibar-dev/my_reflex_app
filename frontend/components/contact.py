@@ -68,16 +68,16 @@ def contact() -> rx.Component:
                                         color="#FF6B35",
                                         font_weight="600"
                                     ),
-                                    spacing="2",
+                                    spacing="4",
                                     align="center"
                                 ),
                                 rx.text(
                                     "Calle del Motor, 123\n28001 Madrid, España",
                                     color="#CCCCCC",
                                     line_height="1.5",
-                                    font_size="0.9rem"
+                                    font_size="1.1rem"
                                 ),
-                                spacing="2",
+                                spacing="4",
                                 align="start"
                             ),
                             rx.vstack(
@@ -89,16 +89,16 @@ def contact() -> rx.Component:
                                         color="#FF6B35",
                                         font_weight="600"
                                     ),
-                                    spacing="2",
+                                    spacing="4",
                                     align="center"
                                 ),
                                 rx.text(
                                     "+34 91 123 45 67",
                                     color="#CCCCCC",
                                     line_height="1.5",
-                                    font_size="0.9rem"
+                                    font_size="1.1rem"
                                 ),
-                                spacing="2",
+                                spacing="4",
                                 align="start"
                             ),
                             rx.vstack(
@@ -110,16 +110,16 @@ def contact() -> rx.Component:
                                         color="#FF6B35",
                                         font_weight="600"
                                     ),
-                                    spacing="2",
+                                    spacing="4",
                                     align="center"
                                 ),
                                 rx.text(
                                     "info@astrotech.com",
                                     color="#CCCCCC",
                                     line_height="1.5",
-                                    font_size="0.9rem"
+                                    font_size="1.1rem"
                                 ),
-                                spacing="2",
+                                spacing="4",
                                 align="start"
                             ),
                             rx.vstack(
@@ -131,29 +131,29 @@ def contact() -> rx.Component:
                                         color="#FF6B35",
                                         font_weight="600"
                                     ),
-                                    spacing="2",
+                                    spacing="4",
                                     align="center"
                                 ),
                                 rx.text(
                                     "Lunes - Viernes: 9:00 - 18:00\nSábados: 9:00 - 14:00",
                                     color="#CCCCCC",
                                     line_height="1.5",
-                                    font_size="0.9rem"
+                                    font_size="1.1rem"
                                 ),
-                                spacing="2",
+                                spacing="4",
                                 align="start"
                             ),
-                            spacing="6",
+                            spacing="9",
                             align="start",
                             height="100%",
                             justify="start"
                         ),
                         bg="#2D2D2D",
-                        border_radius="15px",
-                        p="6",
+                        border_radius="20px",
+                        padding="2rem",
                         border="1px solid #404040",
                         height="100%",
-                        min_height="400px"
+                        min_height="550px"
                     ),
                     
                     # Columna derecha: Formulario de contacto
@@ -190,9 +190,9 @@ def contact() -> rx.Component:
                                         border="2px solid #404040",
                                         border_radius="8px",
                                         color="white",
-                                        p="3",
+                                        p="4",
                                         font_size="1rem",
-                                        height="45px",
+                                        height="50px",
                                         width="100%",
                                         _focus={
                                             "border_color": "#FF6B35",
@@ -213,9 +213,9 @@ def contact() -> rx.Component:
                                         border="2px solid #404040",
                                         border_radius="8px",
                                         color="white",
-                                        p="3",
+                                        p="4",
                                         font_size="1rem",
-                                        height="45px",
+                                        height="50px",
                                         width="100%",
                                         _focus={
                                             "border_color": "#FF6B35",
@@ -236,9 +236,9 @@ def contact() -> rx.Component:
                                         border="2px solid #404040",
                                         border_radius="8px",
                                         color="white",
-                                        p="3",
+                                        p="4",
                                         font_size="1rem",
-                                        height="45px",
+                                        height="50px",
                                         width="100%",
                                         _focus={
                                             "border_color": "#FF6B35",
@@ -257,7 +257,7 @@ def contact() -> rx.Component:
                                         border="2px solid #404040",
                                         border_radius="8px",
                                         color="white",
-                                        p="3",
+                                        p="4",
                                         font_size="1rem",
                                         rows="4",
                                         height="120px",
@@ -278,7 +278,7 @@ def contact() -> rx.Component:
                                             rx.hstack(
                                                 rx.spinner(size="1", color="white"),
                                                 rx.text("Enviando...", color="white"),
-                                                spacing="2",
+                                                spacing="4",
                                                 align="center"
                                             ),
                                             "Enviar Mensaje"
@@ -286,10 +286,10 @@ def contact() -> rx.Component:
                                         bg="#FF6B35",
                                         color="white",
                                         border_radius="8px",
-                                        p="3",
+                                        p="4",
                                         font_weight="600",
                                         font_size="1rem",
-                                        height="45px",
+                                        height="50px",
                                         width="100%",
                                         _hover={
                                             "bg": "#e55a2b",
@@ -300,7 +300,7 @@ def contact() -> rx.Component:
                                         disabled=ContactState.is_loading,
                                         type="submit"
                                     ),
-                                    spacing="4",
+                                    spacing="6",
                                     width="100%"
                                 ),
                                 on_submit=ContactState.submit_form,
@@ -308,27 +308,27 @@ def contact() -> rx.Component:
                             )
                         ),
                         bg="#2D2D2D",
-                        border_radius="15px",
-                        p="6",
+                        border_radius="20px",
+                        padding="2rem",
                         border="1px solid #404040",
                         height="100%",
-                        min_height="400px"
+                        min_height="550px"
                     ),
                     
                     columns={"base": "1", "lg": "2"},
-                    spacing="6",
+                    spacing="9",
                     width="100%",
-                    max_width="1000px",
+                    max_width="1300px",
                     mx="auto"
                 ),
-                spacing="8",
+                spacing="9",
                 align="center",
                 width="100%",
-                max_width="1200px"
+                max_width="1400px"
             ),
             width="100%",
             px={"base": "6", "md": "8"},
-            py={"base": "16", "md": "20"},
+            py={"base": "20", "md": "32"},
         ),
         bg="#1A1A1A",
         id="contacto"

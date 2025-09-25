@@ -354,7 +354,7 @@ def footer() -> rx.Component:
                 border_radius="30px",
                 border="1px solid #353535",
                 overflow="hidden",
-                padding="10",
+                padding="2rem",
                 box_shadow="0 15px 40px rgba(0, 0, 0, 0.3)",
                 class_name="card-shadow",
                 position="relative",

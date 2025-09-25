@@ -30,10 +30,11 @@ def services() -> rx.Component:
                             rx.vstack(
                                 rx.heading(
                                     "Reprogramación ECU",
-                                    size="5",
+                                    size="4",
                                     color="#FF6B35",
                                     mb="6",
-                                    text_align="center"
+                                    text_align="center",
+                                    line_height="1.2"
                                 ),
                                 rx.text(
                                     "Optimización completa del software del motor para maximizar el rendimiento y eficiencia.",
@@ -43,13 +44,12 @@ def services() -> rx.Component:
                                     font_size="0.95rem"
                                 ),
                                 spacing="4",
-                                align="center",
                                 height="100%",
                                 justify="center"
                             ),
                             bg="#2D2D2D",
                             border_radius="20px",
-                            p="12",
+                            padding="2rem",
                             border="1px solid #404040",
                             box_shadow="0 8px 20px rgba(0, 0, 0, 0.25)",
                             min_height="200px",
@@ -58,8 +58,7 @@ def services() -> rx.Component:
                                 "box_shadow": "0 12px 30px rgba(255, 107, 53, 0.2)",
                                 "border_color": "#FF6B35"
                             },
-                            transition="all 0.4s ease",
-                            class_name="hover-raise fade-in-up"
+                            transition="all 0.4s ease"
                         ),
                         
                         # Servicio 2: Diagnóstico Avanzado
@@ -67,10 +66,11 @@ def services() -> rx.Component:
                             rx.vstack(
                                 rx.heading(
                                     "Diagnóstico Avanzado",
-                                    size="5",
+                                    size="4",
                                     color="#FF6B35",
                                     mb="6",
-                                    text_align="center"
+                                    text_align="center",
+                                    line_height="1.2"
                                 ),
                                 rx.text(
                                     "Análisis completo del sistema de gestión del motor antes de cualquier modificación.",
@@ -86,7 +86,7 @@ def services() -> rx.Component:
                             ),
                             bg="#2D2D2D",
                             border_radius="20px",
-                            p="12",
+                            padding="2rem",
                             border="1px solid #404040",
                             box_shadow="0 8px 20px rgba(0, 0, 0, 0.25)",
                             min_height="200px",
@@ -103,10 +103,11 @@ def services() -> rx.Component:
                             rx.vstack(
                                 rx.heading(
                                     "Backup Original",
-                                    size="5",
+                                    size="4",
                                     color="#FF6B35",
                                     mb="6",
-                                    text_align="center"
+                                    text_align="center",
+                                    line_height="1.2"
                                 ),
                                 rx.text(
                                     "Guardamos una copia de seguridad de la configuración original de tu vehículo.",
@@ -122,7 +123,7 @@ def services() -> rx.Component:
                             ),
                             bg="#2D2D2D",
                             border_radius="20px",
-                            p="12",
+                            padding="2rem",
                             border="1px solid #404040",
                             box_shadow="0 8px 20px rgba(0, 0, 0, 0.25)",
                             min_height="200px",
@@ -139,10 +140,11 @@ def services() -> rx.Component:
                             rx.vstack(
                                 rx.heading(
                                     "Soporte Técnico",
-                                    size="5",
+                                    size="4",
                                     color="#FF6B35",
                                     mb="6",
-                                    text_align="center"
+                                    text_align="center",
+                                    line_height="1.2"
                                 ),
                                 rx.text(
                                     "Asistencia técnica especializada durante todo el proceso y posterior seguimiento.",
@@ -158,7 +160,7 @@ def services() -> rx.Component:
                             ),
                             bg="#2D2D2D",
                             border_radius="20px",
-                            p="12",
+                            padding="2rem",
                             border="1px solid #404040",
                             box_shadow="0 8px 20px rgba(0, 0, 0, 0.25)",
                             min_height="200px",

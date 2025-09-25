@@ -278,6 +278,8 @@ def index() -> rx.Component:
                                 color="#FF6B35",
                                 text_align="center",
                                 mb="6",
+                                mt="9",
+                                pt="9",
                                 font_weight="700",
                                 class_name="fade-in",
                             ),
