@@ -1,6 +1,7 @@
-fastapi>=0.104.0
-jinja2>=3.1.0
-pydantic>=2.0.0
-python-dotenv>=1.1.1
-reflex>=0.8.8
-uvicorn>=0.24.0
+
+reflex>=0.8.13
+
+# Email functionality
+python-dotenv>=1.0.0
+secure-smtplib>=0.1.1
+

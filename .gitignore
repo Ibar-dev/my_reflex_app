@@ -1,6 +1,12 @@
 .web
 .states
 assets/external/
+
+# Archivos de entorno y credenciales
+.env
+.env.local
+.env.production
+
 # Python
 __pycache__/
 *.py[cod]

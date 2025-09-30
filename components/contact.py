@@ -6,41 +6,7 @@ Formulario estilizado con información de contacto y validación.
 """
 
 import reflex as rx
-
-class ContactState(rx.State):
-    """Estado del formulario de contacto"""
-    name: str = ""
-    email: str = ""
-    phone: str = ""
-    message: str = ""
-    is_loading: bool = False
-    show_success: bool = False
-    
-    def handle_name_change(self, value: str):
-        self.name = value
-        
-    def handle_email_change(self, value: str):
-        self.email = value
-        
-    def handle_phone_change(self, value: str):
-        self.phone = value
-        
-    def handle_message_change(self, value: str):
-        self.message = value
-    
-    def submit_form(self):
-        self.is_loading = True
-        # Simular envío del formulario
-        yield rx.sleep(1)
-        self.is_loading = False
-        self.show_success = True
-        # Limpiar formulario
-        self.name = ""
-        self.email = ""
-        self.phone = ""
-        self.message = ""
-        yield rx.sleep(3)
-        self.show_success = False
+from state.contact_state import ContactState
 
 def contact() -> rx.Component:
     """Sección de contacto reorganizada: info izquierda, formulario derecha"""
@@ -164,15 +130,16 @@ def contact() -> rx.Component:
                                 rx.vstack(
                                     rx.icon("check_check", size=50, color="#FF6B35"),
                                     rx.heading(
-                                        "¡Mensaje enviado!",
+                                        "¡Mensaje enviado correctamente!",
                                         size="4",
                                         color="#FF6B35",
                                         text_align="center"
                                     ),
                                     rx.text(
-                                        "Te contactaremos pronto.",
+                                        "Tu mensaje ha sido enviado. Te contactaremos pronto.",
                                         color="#CCCCCC",
-                                        text_align="center"
+                                        text_align="center",
+                                        font_size="1.1rem"
                                     ),
                                     spacing="3",
                                     align="center"
@@ -181,72 +148,125 @@ def contact() -> rx.Component:
                             ),
                             rx.form(
                                 rx.vstack(
-                                    rx.input(
-                                        placeholder="Nombre completo",
-                                        value=ContactState.name,
-                                        on_change=ContactState.handle_name_change,
-                                        name="name",
-                                        bg="#1A1A1A",
-                                        border="2px solid #404040",
-                                        border_radius="8px",
-                                        color="white",
-                                        p="4",
-                                        font_size="1rem",
-                                        height="50px",
-                                        width="100%",
-                                        _focus={
-                                            "border_color": "#FF6B35",
-                                            "outline": "none",
-                                            "box_shadow": "0 0 0 2px rgba(255, 107, 53, 0.2)"
-                                        },
-                                        _placeholder={"color": "#999999"},
-                                        transition="all 0.3s ease",
-                                        required=True
+                                    # Mensaje de error general
+                                    rx.cond(
+                                        ContactState.form_error != "",
+                                        rx.box(
+                                            rx.text(
+                                                ContactState.form_error,
+                                                color="#FF4444",
+                                                font_size="0.9rem",
+                                                font_weight="600"
+                                            ),
+                                            bg="rgba(255, 68, 68, 0.1)",
+                                            border="1px solid #FF4444",
+                                            border_radius="8px",
+                                            p="3",
+                                            mb="4",
+                                            width="100%"
+                                        )
                                     ),
-                                    rx.input(
-                                        placeholder="Email",
-                                        type="email",
-                                        value=ContactState.email,
-                                        on_change=ContactState.handle_email_change,
-                                        name="email",
-                                        bg="#1A1A1A",
-                                        border="2px solid #404040",
-                                        border_radius="8px",
-                                        color="white",
-                                        p="4",
-                                        font_size="1rem",
-                                        height="50px",
-                                        width="100%",
-                                        _focus={
-                                            "border_color": "#FF6B35",
-                                            "outline": "none",
-                                            "box_shadow": "0 0 0 2px rgba(255, 107, 53, 0.2)"
-                                        },
-                                        _placeholder={"color": "#999999"},
-                                        transition="all 0.3s ease",
-                                        required=True
+                                    # Campo Nombre
+                                    rx.vstack(
+                                        rx.input(
+                                            placeholder="Nombre completo",
+                                            value=ContactState.name,
+                                            on_change=ContactState.handle_name_change,
+                                            name="name",
+                                            bg="#1A1A1A",
+                                            border="2px solid #404040",
+                                            border_radius="8px",
+                                            color="white",
+                                            p="4",
+                                            font_size="1rem",
+                                            height="50px",
+                                            width="100%",
+                                            _focus={
+                                                "border_color": "#FF6B35",
+                                                "outline": "none",
+                                                "box_shadow": "0 0 0 2px rgba(255, 107, 53, 0.2)"
+                                            },
+                                            _placeholder={"color": "#999999"},
+                                            transition="all 0.3s ease",
+                                            required=True
+                                        ),
+                                        spacing="2",
+                                        width="100%"
                                     ),
-                                    rx.input(
-                                        placeholder="Teléfono",
-                                        type="tel",
-                                        value=ContactState.phone,
-                                        on_change=ContactState.handle_phone_change,
-                                        name="phone",
-                                        bg="#1A1A1A",
-                                        border="2px solid #404040",
-                                        border_radius="8px",
-                                        color="white",
-                                        p="4",
-                                        font_size="1rem",
-                                        height="50px",
-                                        width="100%",
-                                        _focus={
-                                            "border_color": "#FF6B35",
-                                            "outline": "none",
-                                            "box_shadow": "0 0 0 2px rgba(255, 107, 53, 0.2)"
-                                        },
-                                        _placeholder={"color": "#999999"},
-                                        transition="all 0.3s ease"
+                                    
+                                    # Campo Email
+                                    rx.vstack(
+                                        rx.input(
+                                            placeholder="Email",
+                                            type="email",
+                                            value=ContactState.email,
+                                            on_change=ContactState.handle_email_change,
+                                            name="email",
+                                            bg="#1A1A1A",
+                                            border="2px solid #404040",
+                                            border_radius="8px",
+                                            color="white",
+                                            p="4",
+                                            font_size="1rem",
+                                            height="50px",
+                                            width="100%",
+                                            _focus={
+                                                "border_color": "#FF6B35",
+                                                "outline": "none",
+                                                "box_shadow": "0 0 0 2px rgba(255, 107, 53, 0.2)"
+                                            },
+                                            _placeholder={"color": "#999999"},
+                                            transition="all 0.3s ease",
+                                            required=True
+                                        ),
+                                        rx.cond(
+                                            ContactState.email_error != "",
+                                            rx.text(
+                                                ContactState.email_error,
+                                                color="#FF4444",
+                                                font_size="0.875rem",
+                                                font_weight="500"
+                                            )
+                                        ),
+                                        spacing="2",
+                                        width="100%"
+                                    ),
+                                    
+                                    # Campo Teléfono
+                                    rx.vstack(
+                                        rx.input(
+                                            placeholder="Teléfono",
+                                            type="tel",
+                                            value=ContactState.phone,
+                                            on_change=ContactState.handle_phone_change,
+                                            name="phone",
+                                            bg="#1A1A1A",
+                                            border="2px solid #404040",
+                                            border_radius="8px",
+                                            color="white",
+                                            p="4",
+                                            font_size="1rem",
+                                            height="50px",
+                                            width="100%",
+                                            _focus={
+                                                "border_color": "#FF6B35",
+                                                "outline": "none",
+                                                "box_shadow": "0 0 0 2px rgba(255, 107, 53, 0.2)"
+                                            },
+                                            _placeholder={"color": "#999999"},
+                                            transition="all 0.3s ease"
+                                        ),
+                                        rx.cond(
+                                            ContactState.phone_error != "",
+                                            rx.text(
+                                                ContactState.phone_error,
+                                                color="#FF4444",
+                                                font_size="0.875rem",
+                                                font_weight="500"
+                                            )
+                                        ),
+                                        spacing="2",
+                                        width="100%"
                                     ),
                                     rx.text_area(
                                         placeholder="Mensaje",
