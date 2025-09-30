@@ -727,7 +727,7 @@ def contact_page() -> rx.Component:
 
 # Crear la aplicación
 app = rx.App(
-    stylesheets=["/styles.css", "/selector-fix.css"],
+    stylesheets=["/styles.css", "/selector-fix.css"],  # ✅ CORRECTO
     style=custom_styles(),
 )
 

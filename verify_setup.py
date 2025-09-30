@@ -18,8 +18,8 @@ def check_json_valid(path):
     """Verificar si un JSON es válido"""
     try:
         with open(path, 'r', encoding='utf-8') as f:
-            json.load(f)
-        print(f"  ✓ JSON válido")
+            data = json.load(f)
+        print(f"  ✓ JSON válido - {len(data)} vehículos encontrados")
         return True
     except Exception as e:
         print(f"  ✗ Error en JSON: {e}")
@@ -39,6 +39,7 @@ def main():
     all_ok &= check_file("frontend/rxconfig.py", "Configuración Reflex")
     all_ok &= check_file("frontend/requirements.txt", "Dependencias")
     print()
+    
     # Componentes
     print("🧩 Componentes:")
     all_ok &= check_file("frontend/components/header.py", "Header")
@@ -60,10 +61,18 @@ def main():
         all_ok = False
     print()
     
-    # Estilos
-    print("🎨 Estilos:")
+    # Assets
+    print("🎨 Assets:")
     all_ok &= check_file("frontend/assets/styles.css", "CSS principal")
     all_ok &= check_file("frontend/assets/selector-fix.css", "CSS selector")
+    
+    # Verificar imágenes
+    images_ok = True
+    images_ok &= check_file("frontend/assets/images/bigstock-Technician-Is-Tuning-Engine-Ca-469398073.jpg", "Imagen hero")
+    images_ok &= check_file("frontend/assets/images/centralita-coche.jpg", "Imagen ECU")
+    
+    if not images_ok:
+        print("  ⚠️  Algunas imágenes faltan pero la app funcionará")
     print()
     
     # Utilidades
@@ -74,19 +83,22 @@ def main():
     # Estados
     print("📊 Estados:")
     all_ok &= check_file("frontend/state/vehicle_state.py", "Estado vehículos")
+    all_ok &= check_file("frontend/state/contact_state.py", "Estado contacto")
+    all_ok &= check_file("frontend/state/global_state.py", "Estado global")
     print()
     
     print("=" * 60)
     if all_ok:
-        print("✓ Todos los archivos necesarios están presentes")
-        print("\n🚀 Puedes ejecutar:")
+        print("✅ Todos los archivos necesarios están presentes")
+        print("\n🚀 Listo para ejecutar:")
         print("   cd frontend")
         print("   reflex init")
         print("   reflex run")
         return 0
     else:
-        print("✗ Faltan archivos necesarios")
+        print("⚠️  Algunos archivos faltan")
         print("\n📝 Revisa los archivos marcados con ✗")
+        print("   La aplicación puede funcionar con warnings")
         return 1
 
 if __name__ == "__main__":
