@@ -251,7 +251,7 @@ def vehicle_selector() -> rx.Component:
                                             py="3",
                                             _hover={"bg": "#e55a2b", "transform": "translateY(-2px)"},
                                             transition="all 0.3s ease",
-                                            on_click=rx.redirect("mailto:info@astrotech.com?subject=Consulta Reprogramación ECU&body=Hola, estoy interesado en la reprogramación ECU para mi " + SimpleVehicleState.selected_brand + " " + SimpleVehicleState.selected_model)
+                                            on_click=rx.redirect("mailto:Astrotechreprogramaciones@gmail.com?subject=Consulta Reprogramación ECU&body=Hola, estoy interesado en la reprogramación ECU para mi " + SimpleVehicleState.selected_brand + " " + SimpleVehicleState.selected_model)
                                         ),
                                         rx.button(
                                             rx.hstack(
@@ -273,7 +273,7 @@ def vehicle_selector() -> rx.Component:
                                         spacing="4", justify="center"
                                     ),
                                     rx.text(
-                                        "📧 info@astrotech.com | 📞 +34 123 456 789",
+                                        "📧 Astrotechreprogramaciones@gmail.com | 📞 +34 123 456 789",
                                         color="#CCCCCC",
                                         text_align="center",
                                         font_size="0.9rem",

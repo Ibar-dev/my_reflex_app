@@ -80,7 +80,7 @@ def contact() -> rx.Component:
                                     align="center"
                                 ),
                                 rx.text(
-                                    "info@astrotech.com",
+                                    "Astrotechreprogramaciones@gmail.com",
                                     color="#CCCCCC",
                                     line_height="1.5",
                                     font_size="1.1rem"

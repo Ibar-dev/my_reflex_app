@@ -32,7 +32,7 @@ class EmailConfig:
     SMTP_PORT = 587
     
     # Email del destinatario (dueño de la página)
-    RECIPIENT_EMAIL = "info@astrotech.com"  # Cambiar por tu email real
+    RECIPIENT_EMAIL = "Astrotechreprogramaciones@gmail.com"  # Cambiar por tu email real
     
     # Configuración desde variables de entorno (más seguro)
     SENDER_EMAIL = os.getenv("SENDER_EMAIL", "noreply@astrotech.com")
