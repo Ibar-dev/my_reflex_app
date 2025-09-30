@@ -1,11 +1,19 @@
+# Reflex - Archivos generados
+.web/
 .web
+.states/
 .states
+*.db
+reflex.db
+
+# Assets externos
 assets/external/
 
 # Archivos de entorno y credenciales
 .env
 .env.local
 .env.production
+.env.*.local
 
 # Python
 __pycache__/
@@ -28,6 +36,8 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+pip-log.txt
+pip-delete-this-directory.txt
 
 # Virtual Environment
 .venv/
@@ -36,32 +46,38 @@ ENV/
 env/
 .myvenv/
 
-# Reflex
-.web/
-*.db
-.states/
-
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.history/
 
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
 
-# Environment variables
-.env
-.env.local
-.env.production
-
-# Node
+# Node/NPM/Yarn
 node_modules/
+.npm
+.yarn/
+.pnp.*
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
