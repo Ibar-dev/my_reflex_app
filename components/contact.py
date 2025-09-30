@@ -59,7 +59,7 @@ def contact() -> rx.Component:
                                     align="center"
                                 ),
                                 rx.text(
-                                    "+34 91 123 45 67",
+                                    "+34 682 504 986",
                                     color="#CCCCCC",
                                     line_height="1.5",
                                     font_size="1.1rem"
