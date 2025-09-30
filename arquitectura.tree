@@ -1,30 +1,72 @@
-my_reflex_app/
-│
-├── frontend/
-│   ├── assets/               # Archivos estáticos (imágenes, CSS, JS)
-│   ├── components/           # Componentes reutilizables de la UI
-│   │   ├── navbar.py
-│   │   ├── footer.py
-│   │   └── ...
-│   ├── pages/                # Páginas principales de la app
-│   │   ├── home.py
-│   │   ├── about.py
-│   │   └── ...
-│   └── ...                   # Otros archivos de frontend
-│
-├── backend/
-│   ├── state/                # Lógica de estado y gestión de datos
-│   │   ├── user_state.py
-│   │   └── ...
-│   ├── utils/                # Funciones auxiliares y utilidades
-│   │   ├── helpers.py
-│   │   └── ...
-│   ├── app.py                # Punto de entrada principal del backend
-│   └── ...                   # Otros archivos de backend
-│
-├── tests/                    # Pruebas unitarias y de integración
-│   ├── test_home.py
-│   └── ...
-│
-├── requirements.txt          # Dependencias del proyecto
-├── README.md                 # Documentación del proyecto
+.
+|-- DEPLOYMENT.md
+|-- README.md
+|-- __pycache__
+|   `-- rxconfig.cpython-313.pyc
+|-- arquitectura.tree
+|-- backend
+|   |-- app.py
+|   |-- state
+|   `-- utils
+|-- frontend
+|   |-- README.md
+|   |-- __pycache__
+|   |   `-- rxconfig.cpython-313.pyc
+|   |-- app
+|   |   |-- __init__.py
+|   |   |-- __pycache__
+|   |   |   |-- __init__.cpython-313.pyc
+|   |   |   `-- app.cpython-313.pyc
+|   |   `-- app.py
+|   |-- assets
+|   |   |-- components
+|   |   |-- images
+|   |   |   |-- bigstock-Technician-Is-Tuning-Engine-Ca-469398073.jpg
+|   |   |   `-- centralita-coche.jpg
+|   |   |-- selector-fix.css
+|   |   `-- styles.css
+|   |-- components
+|   |   |-- __init__.py
+|   |   |-- __pycache__
+|   |   |   |-- __init__.cpython-313.pyc
+|   |   |   |-- benefits.cpython-313.pyc
+|   |   |   |-- contact.cpython-313.pyc
+|   |   |   |-- faq.cpython-313.pyc
+|   |   |   |-- footer.cpython-313.pyc
+|   |   |   |-- header.cpython-313.pyc
+|   |   |   |-- hero.cpython-313.pyc
+|   |   |   |-- services.cpython-313.pyc
+|   |   |   `-- vehicle_selector.cpython-313.pyc
+|   |   |-- benefits.py
+|   |   |-- contact.py
+|   |   |-- faq.py
+|   |   |-- footer.py
+|   |   |-- header.py
+|   |   |-- hero.py
+|   |   |-- services.py
+|   |   |-- vehicle_selector.py
+|   |   `-- vehicle_selector_simple.py
+|   |-- data
+|   |   |-- vehiculos_turismo.json
+|   |   `-- vehiculos_turismo_backup.json
+|   |-- pages
+|   |   |-- __init__.py
+|   |   |-- about.py
+|   |   |-- contact.py
+|   |   |-- home.py
+|   |   `-- services.py
+|   |-- requirements.txt
+|   |-- rxconfig.py
+|   |-- state
+|   |   |-- __init__.py
+|   |   |-- contact_state.py
+|   |   |-- global_state.py
+|   |   `-- vehicle_state.py
+|   `-- utils
+|       |-- __init__.py
+|       `-- vehicle_data.py
+|-- requirements.txt
+|-- test
+`-- verify_setup.py
+
+18 directories, 51 files
