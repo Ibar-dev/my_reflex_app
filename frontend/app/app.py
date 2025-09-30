@@ -731,7 +731,15 @@ app = rx.App(
     style=custom_styles(),
 )
 
-app.add_page(index, route="/", title="AstroTech - Potencia el coche de tus sueños")
+app.add_page(
+    index,
+    route="/",
+    title="AstroTech - Potencia el coche de tus sueños",
+    description="Reprogramación ECU profesional para maximizar el rendimiento de tu vehículo",
+    meta=[
+        {"name": "viewport", "content": "width=device-width, initial-scale=1.0, maximum-scale=5.0"},
+    ]
+)
 app.add_page(services_page, route="/services", title="Servicios - AstroTech")
 app.add_page(about_page, route="/about", title="Acerca de - AstroTech")
 app.add_page(contact_page, route="/contact", title="Contacto - AstroTech")

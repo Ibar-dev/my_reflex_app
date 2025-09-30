@@ -58,10 +58,10 @@ def _nav_menu(display: str = "flex") -> rx.Component:
         _nav_link("Servicios", "#beneficios", "servicios"),
         _nav_link("Acerca de", "#acerca", "acerca"),
         _nav_link("Contacto", "#contacto", "contacto"),
-        spacing="4",
+        spacing={"base": "2", "md": "4"},
         display=display,
         align="center",
-        margin_left="auto",  # Esto mueve el menú hacia la derecha
+        margin_left="auto",
     )
 
 
@@ -90,14 +90,14 @@ def header(active: str = "inicio") -> rx.Component:
             _nav_menu(display={"base": "none", "md": "flex"}),
             align="center",
             width="100%",
-            padding_x="1.5rem",
-            height="70px",  # Aumentado para mejor proporción y visibilidad
+            padding_x={"base": "0.5rem", "md": "1.5rem"},
+            height="70px",
+            spacing={"base": "2", "md": "4"},  # Reducir espacio entre elementos en móviles
         ),
         position="sticky",
         top="0",
         z_index="1000",
         bg="linear-gradient(180deg, #202020 0%, #1A1A1A 100%)",
-        border_bottom="1px solid #262626",
         box_shadow="0 1px 0 rgba(255,255,255,0.06)",
         width="100%",
         min_height="70px",  # Altura mínima fija

@@ -75,7 +75,7 @@ def hero() -> rx.Component:
                             rx.text(
                                 "Potencia el coche ",
                                 as_="span",
-                                font_size={"base": "4rem", "md": "7.5rem"},  
+                                font_size={"base": "2.5rem", "sm": "3rem", "md": "7.5rem"},  
                                 font_weight="700",
                                 line_height="1.2",
                                 background="linear-gradient(45deg, #FF6B35, #FF8C42)",
@@ -88,7 +88,7 @@ def hero() -> rx.Component:
                             rx.text(
                                 "de tus sueños",
                                 as_="span",
-                                font_size={"base": "4rem", "md": "7.5rem"},  
+                                font_size={"base": "2.5rem", "sm": "3rem", "md": "7.5rem"},  
                                 font_weight="700",
                                 line_height="1.2",
                                 color="white",
@@ -107,7 +107,7 @@ def hero() -> rx.Component:
                         "Reprogramación ECU profesional para maximizar el rendimiento "
                         "de tu vehículo sin comprometer su fiabilidad.",
                         color="rgba(255, 255, 255, 0.9)",
-                        font_size={"base": "1.4rem", "md": "1.7rem"},  
+                        font_size={"base": "1.1rem", "sm": "1.2rem", "md": "1.7rem"},  
                         mb="8",
                         max_width="500px",
                         line_height="1.6",
@@ -188,10 +188,11 @@ def hero() -> rx.Component:
                 position="relative",
                 z_index="2",
             ),
-            max_width="1000px",
-            pt={"base": "16", "md": "20"},
-            pb={"base": "16", "md": "20"},
-            px={"base": "4", "md": "6"},
+            max_width={"base": "100%", "md": "1000px"},
+            pt={"base": "8", "md": "20"},
+            pb={"base": "8", "md": "20"},
+            px={"base": "6", "md": "6"},
+            width="100%",
             position="relative",
             z_index="2",
             mx="auto"

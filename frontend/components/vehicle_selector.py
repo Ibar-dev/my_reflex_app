@@ -245,11 +245,11 @@ def vehicle_selector() -> rx.Component:
 
                     bg="linear-gradient(145deg, #252525, #1e1e1e)",
                     border_radius="24px",
-                    padding="2rem",
+                    padding={"base": "1.5rem", "md": "2rem"},
                     border="1px solid #3d3d3d",
                     width="100%",
-                    max_width="800px",
-                    min_height="420px",
+                    max_width={"base": "100%", "md": "800px"},
+                    min_height={"base": "auto", "md": "420px"},
                     z_index="10",
                     position="relative",
                 ),
@@ -393,15 +393,16 @@ def vehicle_selector() -> rx.Component:
                         padding="2rem",
                         border="1px solid #3d3d3d",
                         width="100%",
-                        max_width="800px",
+                        max_width={"base": "100%", "md": "800px"},
                         mt="9"
                     )
                 ),
 
                 spacing="9", align="center", width="100%"
             ),
-            max_width="1000px",
-            px="6"
+            max_width={"base": "100%", "md": "1000px"},
+            px={"base": "4", "md": "6"},
+            width="100%"
         ),
         width="100%",
         py="9"
