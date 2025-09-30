@@ -50,14 +50,13 @@ class ContactState(rx.State):
             self.phone_error = "Formato de teléfono inválido"
         else:
             self.phone_error = ""
-        
     def handle_message_change(self, value: str):
         """Handler corregido para el mensaje"""
         print(f"💬 Cambiando mensaje: '{value}'")  # Debug
         self.message = value
     
-    def submit_form(self):
-        """Procesar el envío del formulario - CORREGIDO SIN YIELD"""
+    async def submit_form(self):
+        """Procesar el envío del formulario - Listo para backend"""
         print("🚀 Enviando formulario...")  # Debug
         
         # Limpiar errores anteriores
@@ -88,12 +87,46 @@ class ContactState(rx.State):
             self.phone_error = "Formato de teléfono inválido"
             return
         
-        # Simular envío exitoso inmediato
-        print(f"✅ Formulario válido - Nombre: {self.name}, Email: {self.email}")
-        self.show_success = True
+        # Activar estado de carga
+        self.is_loading = True
         
-        # Limpiar formulario
-        self.reset_form()
+        try:
+            # TODO: INTEGRAR ENDPOINT DEL BACKEND AQUÍ
+            # Ejemplo:
+            # response = await send_contact_email({
+            #     "name": self.name,
+            #     "email": self.email,
+            #     "phone": self.phone,
+            #     "message": self.message
+            # })
+            
+            # Por ahora, simulamos un delay de red
+            import asyncio
+            await asyncio.sleep(1.5)
+            
+            # Log de datos listos para backend
+            print(f"✅ Formulario válido")
+            print(f"📧 Datos listos para enviar al backend:")
+            print(f"   - Nombre: {self.name}")
+            print(f"   - Email: {self.email}")
+            print(f"   - Teléfono: {self.phone or 'No proporcionado'}")
+            print(f"   - Mensaje: {self.message[:50]}...")
+            
+            # Mostrar éxito
+            self.show_success = True
+            self.is_loading = False
+            
+            # Limpiar formulario
+            self.reset_form()
+            
+            # Ocultar mensaje de éxito después de 5 segundos
+            await asyncio.sleep(5)
+            self.show_success = False
+        except Exception as e:
+            # Manejo de errores
+            self.is_loading = False
+            self.form_error = f"Error al enviar: {str(e)}"
+            print(f"❌ Error en submit_form: {e}")
     
     def reset_form(self):
         """Reiniciar el formulario a su estado inicial"""

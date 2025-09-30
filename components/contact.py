@@ -181,6 +181,8 @@ def contact() -> rx.Component:
                                             font_size="1rem",
                                             height="50px",
                                             width="100%",
+                                            pointer_events="auto",
+                                            z_index="10",
                                             _focus={
                                                 "border_color": "#FF6B35",
                                                 "outline": "none",
@@ -210,6 +212,8 @@ def contact() -> rx.Component:
                                             font_size="1rem",
                                             height="50px",
                                             width="100%",
+                                            pointer_events="auto",
+                                            z_index="10",
                                             _focus={
                                                 "border_color": "#FF6B35",
                                                 "outline": "none",
@@ -235,7 +239,7 @@ def contact() -> rx.Component:
                                     # Campo Teléfono
                                     rx.vstack(
                                         rx.input(
-                                            placeholder="Teléfono",
+                                            placeholder="Teléfono (opcional)",
                                             type="tel",
                                             value=ContactState.phone,
                                             on_change=ContactState.handle_phone_change,
@@ -248,6 +252,8 @@ def contact() -> rx.Component:
                                             font_size="1rem",
                                             height="50px",
                                             width="100%",
+                                            pointer_events="auto",
+                                            z_index="10",
                                             _focus={
                                                 "border_color": "#FF6B35",
                                                 "outline": "none",
@@ -268,6 +274,7 @@ def contact() -> rx.Component:
                                         spacing="2",
                                         width="100%"
                                     ),
+                                    # Campo Mensaje
                                     rx.text_area(
                                         placeholder="Mensaje",
                                         value=ContactState.message,
@@ -283,6 +290,8 @@ def contact() -> rx.Component:
                                         height="120px",
                                         width="100%",
                                         resize="vertical",
+                                        pointer_events="auto",
+                                        z_index="10",
                                         _focus={
                                             "border_color": "#FF6B35",
                                             "outline": "none",
@@ -303,6 +312,7 @@ def contact() -> rx.Component:
                                             ),
                                             "Enviar Mensaje"
                                         ),
+                                        type="submit",
                                         bg="#FF6B35",
                                         color="white",
                                         border_radius="8px",
@@ -311,14 +321,16 @@ def contact() -> rx.Component:
                                         font_size="1rem",
                                         height="50px",
                                         width="100%",
+                                        cursor="pointer",
+                                        pointer_events="auto",
+                                        z_index="10",
                                         _hover={
                                             "bg": "#e55a2b",
                                             "transform": "translateY(-1px)",
                                             "box_shadow": "0 4px 12px rgba(255, 107, 53, 0.3)"
                                         },
                                         transition="all 0.3s ease",
-                                        disabled=ContactState.is_loading,
-                                        type="submit"
+                                        disabled=ContactState.is_loading
                                     ),
                                     spacing="6",
                                     width="100%"
