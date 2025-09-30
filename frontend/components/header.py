@@ -55,7 +55,7 @@ def _nav_link(text: str, href: str, section_id: str) -> rx.Component:
 def _nav_menu(display: str = "flex") -> rx.Component:
     return rx.hstack(
         _nav_link("Inicio", "#inicio", "inicio"),
-        _nav_link("Servicios", "#beneficios", "servicios"),
+        _nav_link("Servicios", "#servicios", "servicios"),
         _nav_link("Acerca de", "#acerca", "acerca"),
         _nav_link("Contacto", "#contacto", "contacto"),
         spacing="4",
