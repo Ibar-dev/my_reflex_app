@@ -7,7 +7,7 @@ Acordeón interactivo con animaciones suaves y rotación de iconos.
 
 import reflex as rx
 
-class FAQState(rx.State):
+class FAQAccordionState(rx.State):
     """Estado para manejar las FAQ expandidas"""
     expanded_items: list[int] = []
     
@@ -19,7 +19,7 @@ class FAQState(rx.State):
 
 def faq_item(question: str, answer: str, item_id: int) -> rx.Component:
     """Item individual de FAQ con animaciones mejoradas"""
-    is_expanded = FAQState.expanded_items.contains(item_id)
+    is_expanded = FAQAccordionState.expanded_items.contains(item_id)
     
     return rx.box(
         # Pregunta clickeable
@@ -50,7 +50,7 @@ def faq_item(question: str, answer: str, item_id: int) -> rx.Component:
             text_align="left",
             _hover={"bg": "rgba(255, 107, 53, 0.05)"},
             transition="all 0.3s ease",
-            on_click=FAQState.toggle_faq(item_id),
+            on_click=FAQAccordionState.toggle_faq(item_id),
             cursor="pointer"
         ),
         

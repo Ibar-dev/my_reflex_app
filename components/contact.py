@@ -11,6 +11,7 @@ from state.contact_state import ContactState
 def contact() -> rx.Component:
     """Sección de contacto reorganizada: info izquierda, formulario derecha"""
     return rx.box(
+        ContactState.success_modal(),
         rx.center(
             rx.vstack(
                 rx.heading(

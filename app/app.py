@@ -19,9 +19,6 @@ from components.footer import footer
 # Importar estados para que Reflex los reconozca
 from state.contact_state import ContactState
 
-# Importar componente de prueba
-from simple_contact_component import simple_contact
-from simple_contact_state import SimpleContactState
 
 # Estado global de la aplicación
 class AppState(rx.State):
@@ -748,12 +745,7 @@ app.add_page(
     ]
 )
 
-# Página de prueba para debugging del formulario
-app.add_page(
-    simple_contact,
-    route="/test-contact",
-    title="Prueba de Inputs"
-)
+
 app.add_page(services_page, route="/services", title="Servicios - AstroTech")
 app.add_page(about_page, route="/about", title="Acerca de - AstroTech")
 app.add_page(contact_page, route="/contact", title="Contacto - AstroTech")
