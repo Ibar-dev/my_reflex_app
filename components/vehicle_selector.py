@@ -1,5 +1,4 @@
-def vehicle_selector() -> rx.Component:
-"""Selector de Vehículos con Datos Reales del JSON (Wizard)"""
+
 import reflex as rx
 from state.vehicle_state import VehicleState
 
