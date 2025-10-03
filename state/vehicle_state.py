@@ -257,3 +257,10 @@ class VehicleState(rx.State):
     def vehicle_display_name(self) -> str:
         """Nombre completo del vehículo seleccionado"""
         return f"{self.selected_brand} {self.selected_model} ({self.selected_year}) - {self.selected_fuel}"
+
+    @rx.var
+    def email_link(self) -> str:
+        """Link de email con información del vehículo"""
+        return f"mailto:Astrotechreprogramaciones@gmail.com?subject=Consulta Reprogramación ECU&body=\
+        Hola, estoy interesado en la reprogramación ECU para mi \
+        {self.selected_brand} {self.selected_model}"

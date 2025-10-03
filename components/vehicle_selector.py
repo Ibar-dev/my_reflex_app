@@ -1,4 +1,3 @@
-
 import reflex as rx
 from state.vehicle_state import VehicleState
 
@@ -44,7 +43,7 @@ def vehicle_selector() -> rx.Component:
                             VehicleState.available_brands,
                             placeholder="Selecciona marca",
                             value=VehicleState.selected_brand,
-                            on_change=lambda value: VehicleState.select_brand(value),
+                            on_change=VehicleState.select_brand,  # ⬅️ CORREGIDO: Eliminado lambda innecesario
                             color_scheme="orange",
                             variant="soft",
                             size="3",
@@ -117,7 +116,7 @@ def vehicle_selector() -> rx.Component:
                                     rx.vstack(
                                         rx.icon("gauge", size=50, color="#CCCCCC", mb="4"),
                                         rx.text("Potencia Original", color="#CCCCCC", font_weight="600", font_size="1.1rem"),
-                                        rx.text(lambda: f"{VehicleState.vehicle_power_stock} CV", font_size="2.2rem", font_weight="700", color="white"),
+                                        rx.text(VehicleState.vehicle_power_stock.to_string() + " CV", font_size="2.2rem", font_weight="700", color="white"),  # ⬅️ CORREGIDO: Añadido .to_string() y sintaxis correcta
                                         spacing="3", align="center"
                                     ),
                                     bg="linear-gradient(145deg, #2D2D2D, #232323)",
@@ -131,8 +130,8 @@ def vehicle_selector() -> rx.Component:
                                     rx.vstack(
                                         rx.icon("zap", size=50, color="#FF6B35", mb="4"),
                                         rx.text("Potencia Optimizada", color="#FF6B35", font_weight="600", font_size="1.1rem"),
-                                        rx.text(lambda: f"{VehicleState.vehicle_power_tuned} CV", font_size="2.2rem", font_weight="700", color="white"),
-                                        rx.text(lambda: f"+{VehicleState.vehicle_power_gain} CV", color="#4CAF50", font_weight="600", font_size="1.3rem"),
+                                        rx.text(VehicleState.vehicle_power_tuned.to_string() + " CV", font_size="2.2rem", font_weight="700", color="white"),  # ⬅️ CORREGIDO: Añadido .to_string()
+                                        rx.text("+" + VehicleState.vehicle_power_gain.to_string() + " CV", color="#4CAF50", font_weight="600", font_size="1.3rem"),  # ⬅️ CORREGIDO: Añadido "+" al inicio y .to_string()
                                         spacing="3", align="center"
                                     ),
                                     bg="linear-gradient(145deg, #2D2D2D, #232323)",
@@ -162,7 +161,7 @@ def vehicle_selector() -> rx.Component:
                                             py="3",
                                             _hover={"bg": "#e55a2b", "transform": "translateY(-2px)"},
                                             transition="all 0.3s ease",
-                                            on_click=rx.redirect(lambda: f"mailto:Astrotechreprogramaciones@gmail.com?subject=Consulta Reprogramación ECU&body=Hola, estoy interesado en la reprogramación ECU para mi {VehicleState.selected_brand} {VehicleState.selected_model}")
+                                            on_click=lambda: rx.redirect(VehicleState.email_link)  # ⬅️ CORREGIDO: Usamos variable computada del estado
                                         ),
                                         rx.button(
                                             rx.hstack(
