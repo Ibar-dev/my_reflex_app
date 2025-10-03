@@ -25,22 +25,22 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class EmailConfig:
-    """Configuración de correo electrónico"""
-    
+    """
+    Configuración de correo electrónico centralizada.
+    Cambia los valores aquí o usa variables de entorno para mayor seguridad.
+    """
     # Configuración SMTP - Gmail por defecto (puedes cambiar por otro proveedor)
     SMTP_SERVER = "smtp.gmail.com"
     SMTP_PORT = 587
-    
     # Email del destinatario (dueño de la página)
-    RECIPIENT_EMAIL = "Astrotechreprogramaciones@gmail.com"  # Cambiar por tu email real
-    
+    RECIPIENT_EMAIL = "Astrotechreprogramaciones@gmail.com"  # Cambia por tu email real
     # Configuración desde variables de entorno (más seguro)
     SENDER_EMAIL = os.getenv("SENDER_EMAIL", "noreply@astrotech.com")
     SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "")  # App password de Gmail
-    
+
     @classmethod
     def get_smtp_config(cls) -> Dict[str, any]:
-        """Obtener configuración SMTP"""
+        """Obtener configuración SMTP."""
         return {
             "server": cls.SMTP_SERVER,
             "port": cls.SMTP_PORT,
@@ -50,35 +50,37 @@ class EmailConfig:
         }
 
 class EmailSender:
-    """Clase para envío de correos electrónicos"""
-    
+    """
+    Clase para envío de correos electrónicos.
+    Incluye validación de configuración y manejo robusto de errores.
+    """
     def __init__(self):
         self.config = EmailConfig.get_smtp_config()
-    
+
+    def is_config_valid(self) -> bool:
+        """Valida que la configuración SMTP esté completa."""
+        required = ["server", "port", "sender_email", "sender_password", "recipient_email"]
+        for key in required:
+            if not self.config.get(key):
+                logger.warning(f"Falta la configuración SMTP: {key}")
+                return False
+        return True
+
     def create_contact_email(self, name: str, email: str, phone: str, message: str) -> MIMEMultipart:
         """
-        Crear el email de contacto con formato HTML
-        
-        Args:
-            name: Nombre del contacto
-            email: Email del contacto
-            phone: Teléfono del contacto
-            message: Mensaje del contacto
-            
-        Returns:
-            MIMEMultipart: Email formateado
+        Crear el email de contacto con formato HTML y texto plano.
         """
         msg = MIMEMultipart("alternative")
         msg["Subject"] = f"Nuevo contacto desde AstroTech - {name}"
         msg["From"] = self.config["sender_email"]
         msg["To"] = self.config["recipient_email"]
-        
+
         # Crear contenido HTML
         html_content = f"""
         <!DOCTYPE html>
         <html>
         <head>
-            <meta charset="UTF-8">
+            <meta charset=\"UTF-8\">
             <style>
                 body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
                 .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
@@ -91,36 +93,32 @@ class EmailSender:
             </style>
         </head>
         <body>
-            <div class="container">
-                <div class="header">
+            <div class=\"container\">
+                <div class=\"header\">
                     <h1>🚗 AstroTech - Nuevo Contacto</h1>
                 </div>
-                <div class="content">
+                <div class=\"content\">
                     <p>Has recibido un nuevo mensaje de contacto desde tu página web:</p>
-                    
-                    <div class="field">
-                        <span class="label">👤 Nombre:</span>
-                        <span class="value">{name}</span>
+                    <div class=\"field\">
+                        <span class=\"label\">👤 Nombre:</span>
+                        <span class=\"value\">{name}</span>
                     </div>
-                    
-                    <div class="field">
-                        <span class="label">📧 Email:</span>
-                        <span class="value">{email}</span>
+                    <div class=\"field\">
+                        <span class=\"label\">📧 Email:</span>
+                        <span class=\"value\">{email}</span>
                     </div>
-                    
-                    <div class="field">
-                        <span class="label">📱 Teléfono:</span>
-                        <span class="value">{phone if phone else "No proporcionado"}</span>
+                    <div class=\"field\">
+                        <span class=\"label\">📱 Teléfono:</span>
+                        <span class=\"value\">{phone if phone else "No proporcionado"}</span>
                     </div>
-                    
-                    <div class="field">
-                        <span class="label">💬 Mensaje:</span>
-                        <div style="background: white; padding: 15px; border-left: 4px solid #FF6B35; margin-top: 10px;">
+                    <div class=\"field\">
+                        <span class=\"label\">💬 Mensaje:</span>
+                        <div style=\"background: white; padding: 15px; border-left: 4px solid #FF6B35; margin-top: 10px;\">
                             {message.replace('\n', '<br>')}
                         </div>
                     </div>
                 </div>
-                <div class="footer">
+                <div class=\"footer\">
                     <p>Este mensaje fue enviado desde el formulario de contacto de AstroTech</p>
                     <p>Fecha: {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}</p>
                 </div>
@@ -128,7 +126,7 @@ class EmailSender:
         </body>
         </html>
         """
-        
+
         # Crear versión texto plano
         text_content = f"""
         Nuevo contacto desde AstroTech
@@ -143,54 +141,34 @@ class EmailSender:
         ---
         Enviado desde el formulario de contacto de AstroTech
         """
-        
+
         # Adjuntar ambas versiones
         text_part = MIMEText(text_content, "plain", "utf-8")
         html_part = MIMEText(html_content, "html", "utf-8")
-        
         msg.attach(text_part)
         msg.attach(html_part)
-        
         return msg
-    
+
     def send_email(self, name: str, email: str, phone: str, message: str) -> bool:
         """
-        Enviar email de contacto
-        
-        Args:
-            name: Nombre del contacto
-            email: Email del contacto  
-            phone: Teléfono del contacto
-            message: Mensaje del contacto
-            
-        Returns:
-            bool: True si se envió correctamente, False en caso contrario
+        Enviar email de contacto. Devuelve True si se envió correctamente, False en caso contrario.
         """
+        if not self.is_config_valid():
+            logger.error("Configuración SMTP incompleta. Revisa las variables de entorno y EmailConfig.")
+            return False
         try:
-            # Validar configuración
-            if not self.config["sender_password"]:
-                logger.warning("No se ha configurado la contraseña del email")
-                return False
-            
-            # Crear el mensaje
             msg = self.create_contact_email(name, email, phone, message)
-            
-            # Configurar servidor SMTP
             with smtplib.SMTP(self.config["server"], self.config["port"]) as server:
-                server.starttls()  # Habilitar encriptación
+                server.starttls()
                 server.login(self.config["sender_email"], self.config["sender_password"])
-                
-                # Enviar email
                 text = msg.as_string()
                 server.sendmail(
                     self.config["sender_email"],
                     self.config["recipient_email"],
                     text
                 )
-            
             logger.info(f"Email enviado correctamente desde {email}")
             return True
-            
         except Exception as e:
             logger.error(f"Error al enviar email: {str(e)}")
             return False

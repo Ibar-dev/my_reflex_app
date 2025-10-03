@@ -9,26 +9,7 @@ import reflex as rx
 import re
 
 class ContactState(rx.State):
-    @staticmethod
-    def success_modal():
-        import reflex as rx
-        return rx.modal(
-            is_open=ContactState.show_success,
-            on_close=lambda: setattr(ContactState, 'show_success', False),
-            children=[
-                rx.modal_overlay(
-                    rx.modal_content(
-                        rx.modal_header("¡Solicitud enviada con éxito!", color="#4CAF50"),
-                        rx.modal_body(
-                            rx.text("Gracias por contactar con AstroTech. Te responderemos lo antes posible.", color="black", font_size="1.1rem")
-                        ),
-                        rx.modal_footer(
-                            rx.button("Cerrar", on_click=lambda: setattr(ContactState, 'show_success', False), color_scheme="green")
-                        )
-                    )
-                )
-            ]
-        )
+    # El modal de éxito ahora es un componente separado en components/contact.py
     """
     Estado que maneja el formulario de contacto - VERSIÓN CORREGIDA
     """
@@ -48,30 +29,31 @@ class ContactState(rx.State):
     phone_error: str = ""
     form_error: str = ""
     
-    def handle_name_change(self, value: str):
-        """Handler corregido para el nombre"""
+    async def handle_name_change(self, value: str):
+        """Handler async para el nombre"""
         print(f"🔄 Cambiando nombre: '{value}'")  # Debug
         self.name = value
-        
-    def handle_email_change(self, value: str):
-        """Handler corregido para el email"""
+
+    async def handle_email_change(self, value: str):
+        """Handler async para el email"""
         print(f"📧 Cambiando email: '{value}'")  # Debug
         self.email = value
         if value and not self.validate_email(value):
             self.email_error = "Formato de email inválido"
         else:
             self.email_error = ""
-        
-    def handle_phone_change(self, value: str):
-        """Handler corregido para el teléfono"""
+
+    async def handle_phone_change(self, value: str):
+        """Handler async para el teléfono"""
         print(f"📱 Cambiando teléfono: '{value}'")  # Debug
         self.phone = value
         if value and not self.validate_phone(value):
             self.phone_error = "Formato de teléfono inválido"
         else:
             self.phone_error = ""
-    def handle_message_change(self, value: str):
-        """Handler corregido para el mensaje"""
+
+    async def handle_message_change(self, value: str):
+        """Handler async para el mensaje"""
         print(f"💬 Cambiando mensaje: '{value}'")  # Debug
         self.message = value
     

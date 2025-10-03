@@ -44,7 +44,7 @@ def vehicle_selector() -> rx.Component:
                             VehicleState.available_brands,
                             placeholder="Selecciona marca",
                             value=VehicleState.selected_brand,
-                            on_change=VehicleState.select_brand,
+                            on_change=lambda value: VehicleState.select_brand(value),
                             color_scheme="orange",
                             variant="soft",
                             size="3",

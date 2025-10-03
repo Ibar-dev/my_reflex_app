@@ -366,3 +366,30 @@ def contact() -> rx.Component:
         bg="#1A1A1A",
         id="contacto"
     )
+
+def success_modal() -> rx.Component:
+    return rx.modal(
+        is_open=ContactState.show_success,
+        on_close=lambda: setattr(ContactState, 'show_success', False),
+        children=[
+            rx.modal_overlay(
+                rx.modal_content(
+                    rx.modal_header("¡Solicitud enviada con éxito!", color="#4CAF50"),
+                    rx.modal_body(
+                        rx.text(
+                            "Gracias por contactar con AstroTech. Te responderemos lo antes posible.",
+                            color="black",
+                            font_size="1.1rem"
+                        )
+                    ),
+                    rx.modal_footer(
+                        rx.button(
+                            "Cerrar",
+                            on_click=lambda: setattr(ContactState, 'show_success', False),
+                            color_scheme="green"
+                        )
+                    )
+                )
+            )
+        ]
+    )
