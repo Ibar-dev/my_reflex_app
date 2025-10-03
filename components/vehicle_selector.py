@@ -105,7 +105,7 @@ def vehicle_selector() -> rx.Component:
                                 margin_bottom="8"
                             ),
                             rx.text(
-                                lambda: f"{VehicleState.selected_brand} {VehicleState.selected_model} ({VehicleState.selected_year}) - {VehicleState.selected_fuel}",
+                                f"{VehicleState.selected_brand} {VehicleState.selected_model} ({VehicleState.selected_year}) - {VehicleState.selected_fuel}",
                                 color="white",
                                 font_weight="600",
                                 font_size="1.4rem",

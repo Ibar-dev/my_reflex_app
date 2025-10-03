@@ -252,3 +252,8 @@ class VehicleState(rx.State):
         base_price = 250
         gain = self.vehicle_power_gain if self.selected_vehicle else 40
         return base_price + (gain * 8)
+    
+    @rx.var
+    def vehicle_display_name(self) -> str:
+        """Nombre completo del vehículo seleccionado"""
+        return f"{self.selected_brand} {self.selected_model} ({self.selected_year}) - {self.selected_fuel}"
