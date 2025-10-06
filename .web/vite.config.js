@@ -24,25 +24,12 @@ function alwaysUseReactDomServerNode() {
   };
 }
 
-function fullReload() {
-  return {
-    name: "full-reload",
-    enforce: "pre",
-    handleHotUpdate({ server }) {
-      server.ws.send({
-        type: "full-reload",
-      });
-      return [];
-    }
-  };
-}
-
 export default defineConfig((config) => ({
   plugins: [
     alwaysUseReactDomServerNode(),
     reactRouter(),
     safariCacheBustPlugin(),
-  ].concat([]),
+  ],
   build: {
     assetsDir: "/assets".slice(1),
     rollupOptions: {
@@ -64,7 +51,6 @@ export default defineConfig((config) => ({
   },
   server: {
     port: process.env.PORT,
-    hmr: true,
     watch: {
       ignored: [
         "**/.web/backend/**",
