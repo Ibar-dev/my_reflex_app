@@ -1,0 +1,18 @@
+[
+  {
+    "make": "Audi",
+    "model": "A3",
+    "year": 2023,
+    "fuel_type": "diesel",
+    "engine_name": "2.0 TDI",
+    "power_stock": 150,
+    "torque_stock": 320,
+    "tuning_potential": {
+      "power_tuned": 190,
+      "torque_tuned": 380,
+      "power_gain": 40,
+      "torque_gain": 60,
+      "fuel_reduction": 12
+    }
+  }
+]

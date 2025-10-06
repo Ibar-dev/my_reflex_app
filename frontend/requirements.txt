@@ -1,0 +1,2 @@
+# Dependencias críticas para Reflex Frontend
+reflex
