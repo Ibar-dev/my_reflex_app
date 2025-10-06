@@ -36,7 +36,8 @@ class VehicleState(rx.State):
         """
         PASO 1 -> PASO 2: Selecciona combustible y carga marcas
         """
-        print(f"🔥 PASO 1->2: Combustible seleccionado: {fuel}")
+        print(f"🔥 [EVENT] select_fuel llamado con: '{fuel}'")
+        print(f"📊 Estado antes: step={self.current_step}, fuel='{self.selected_fuel}'")
         
         # Resetear selecciones posteriores
         self.selected_fuel = fuel
@@ -52,7 +53,7 @@ class VehicleState(rx.State):
             from utils.vehicle_data import get_brands_by_fuel
             self.available_brands = get_brands_by_fuel(fuel)
             print(f"✅ Marcas cargadas: {len(self.available_brands)} marcas")
-            print(f"📋 Marcas: {self.available_brands[:5]}...")  # Mostrar primeras 5
+            print(f"📋 Primeras marcas: {self.available_brands[:3]}...")  # Mostrar primeras 3
         except Exception as e:
             print(f"❌ Error cargando marcas: {e}")
             # Fallback con marcas europeas populares
@@ -60,10 +61,12 @@ class VehicleState(rx.State):
                 "Audi", "BMW", "Mercedes-Benz", "Volkswagen", "Ford",
                 "Peugeot", "Renault", "SEAT", "Opel", "Citroën"
             ]
+            print(f"🔧 Usando marcas fallback: {len(self.available_brands)} marcas")
             
         # Avanzar al paso 2
         self.current_step = 2
-        print(f"➡️  Avanzando al paso {self.current_step}")
+        print(f"➡️  Estado después: step={self.current_step}, fuel='{self.selected_fuel}'")
+        print(f"🏁 select_fuel completado exitosamente")
     
     def select_brand(self, brand: str):
         """

@@ -55,20 +55,13 @@ def vehicle_selector() -> rx.Component:
                         font_size="1.2rem",
                         mb="3"
                     ),
-                    rx.select.root(
-                        rx.select.trigger(
-                            rx.select.value(
-                                placeholder="¿Diesel o Gasolina?",
-                            ),
-                            width="100%",
-                        ),
-                        rx.select.content(
-                            rx.select.item("diesel", value="diesel"),
-                            rx.select.item("gasolina", value="gasolina"),
-                        ),
+                    rx.select(
+                        ["diesel", "gasolina"],
+                        placeholder="¿Diesel o Gasolina?",
                         value=VehicleState.selected_fuel,
                         on_change=VehicleState.select_fuel,
                         size="3",
+                        width="100%",
                     ),
                     spacing="4",
                     width="100%",
@@ -92,22 +85,13 @@ def vehicle_selector() -> rx.Component:
                         ),
                         rx.cond(
                             VehicleState.available_brands.length() > 0,
-                            rx.select.root(
-                                rx.select.trigger(
-                                    rx.select.value(
-                                        placeholder="Selecciona la marca del vehículo",
-                                    ),
-                                    width="100%",
-                                ),
-                                rx.select.content(
-                                    rx.foreach(
-                                        VehicleState.available_brands,
-                                        lambda brand: rx.select.item(brand, value=brand)
-                                    )
-                                ),
+                            rx.select(
+                                VehicleState.available_brands,
+                                placeholder="Selecciona la marca del vehículo",
                                 value=VehicleState.selected_brand,
                                 on_change=VehicleState.select_brand,
                                 size="3",
+                                width="100%",
                             ),
                             rx.text("Cargando marcas...", color="#CCCCCC")
                         ),
@@ -142,22 +126,13 @@ def vehicle_selector() -> rx.Component:
                         ),
                         rx.cond(
                             VehicleState.available_models.length() > 0,
-                            rx.select.root(
-                                rx.select.trigger(
-                                    rx.select.value(
-                                        placeholder="Selecciona el modelo",
-                                    ),
-                                    width="100%",
-                                ),
-                                rx.select.content(
-                                    rx.foreach(
-                                        VehicleState.available_models,
-                                        lambda model: rx.select.item(model, value=model)
-                                    )
-                                ),
+                            rx.select(
+                                VehicleState.available_models,
+                                placeholder="Selecciona el modelo",
                                 value=VehicleState.selected_model,
                                 on_change=VehicleState.select_model,
                                 size="3",
+                                width="100%",
                             ),
                             rx.text("Cargando modelos...", color="#CCCCCC")
                         ),
@@ -192,22 +167,13 @@ def vehicle_selector() -> rx.Component:
                         ),
                         rx.cond(
                             VehicleState.available_years.length() > 0,
-                            rx.select.root(
-                                rx.select.trigger(
-                                    rx.select.value(
-                                        placeholder="Selecciona el año",
-                                    ),
-                                    width="100%",
-                                ),
-                                rx.select.content(
-                                    rx.foreach(
-                                        VehicleState.available_years,
-                                        lambda year: rx.select.item(year, value=year)
-                                    )
-                                ),
+                            rx.select(
+                                VehicleState.available_years,
+                                placeholder="Selecciona el año",
                                 value=VehicleState.selected_year,
                                 on_change=VehicleState.select_year,
                                 size="3",
+                                width="100%",
                             ),
                             rx.text("Cargando años...", color="#CCCCCC")
                         ),
