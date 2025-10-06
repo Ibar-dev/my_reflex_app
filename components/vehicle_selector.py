@@ -55,12 +55,31 @@ def vehicle_selector() -> rx.Component:
                         font_size="1.2rem",
                         mb="3"
                     ),
-                    rx.select(
-                        ["diesel", "gasolina"],
-                        placeholder="¿Diesel o Gasolina?",
-                        value=VehicleState.selected_fuel,
-                        on_change=VehicleState.select_fuel,
-                        size="3",
+                    rx.vstack(
+                        rx.hstack(
+                            rx.button(
+                                "🔥 Diesel",
+                                on_click=lambda: VehicleState.select_fuel("diesel"),
+                                bg=rx.cond(VehicleState.selected_fuel == "diesel", "#FF6B35", "#404040"),
+                                color="white",
+                                size="3",
+                                width="50%",
+                                border_radius="8px",
+                                _hover={"bg": "#FF8C42"},
+                            ),
+                            rx.button(
+                                "⛽ Gasolina",
+                                on_click=lambda: VehicleState.select_fuel("gasolina"),
+                                bg=rx.cond(VehicleState.selected_fuel == "gasolina", "#FF6B35", "#404040"),
+                                color="white",
+                                size="3",
+                                width="50%",
+                                border_radius="8px",
+                                _hover={"bg": "#FF8C42"},
+                            ),
+                            spacing="4",
+                            width="100%",
+                        ),
                         width="100%",
                     ),
                     spacing="4",
