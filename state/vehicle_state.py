@@ -26,6 +26,12 @@ class VehicleState(rx.State):
     available_vehicles: list = []
     selected_vehicle: dict = {}
     
+    def __init__(self, *args, **kwargs):
+        """Inicializar estado con debug"""
+        super().__init__(*args, **kwargs)
+        print("🚀 VehicleState inicializado")
+        print(f"📊 Estado inicial: step={self.current_step}, fuel='{self.selected_fuel}'")
+    
     def select_fuel(self, fuel: str):
         """
         PASO 1 -> PASO 2: Selecciona combustible y carga marcas
