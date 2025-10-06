@@ -1,5 +1,5 @@
 """
-Estado del selector de vehículos AstroTech
+Estado del selector de vehículos AstroTech - CORREGIDO
 =========================================
 
 Maneja toda la lógica del selector de vehículos paso a paso.
@@ -52,17 +52,15 @@ class VehicleState(rx.State):
         """Seleccionar marca"""
         print(f"DEBUG: select_brand llamado con {brand}")
         self.selected_brand = brand
-        self.selected_model = "Modelo General"  # Usar modelo genérico
-        self.selected_year = "2023"  # Usar año genérico
+        self.selected_model = "Modelo General"
+        self.selected_year = "2023"
         
         # Crear vehículo de ejemplo basado en la marca y combustible
         try:
-            # Intentar cargar datos reales del JSON
             from utils.vehicle_data import get_models_by_brand, get_vehicles_by_brand_model
             models = get_models_by_brand(brand, self.selected_fuel)
             
             if models:
-                # Usar el primer modelo disponible
                 self.selected_model = models[0]
                 vehicles = get_vehicles_by_brand_model(brand, self.selected_model, self.selected_fuel)
                 if vehicles:
@@ -76,12 +74,11 @@ class VehicleState(rx.State):
             print(f"DEBUG: Error cargando desde JSON: {e}")
             self._create_default_vehicle(brand)
             
-        self.current_step = 5  # Ir directamente a resultados
+        self.current_step = 5
         print(f"DEBUG: Vehículo seleccionado: {brand} {self.selected_model}")
     
     def _create_default_vehicle(self, brand: str):
         """Crear vehículo por defecto para demo"""
-        # Datos específicos por marca
         brand_specs = {
             "Toyota": {"power_stock": 116, "torque_stock": 270, "power_tuned": 145, "torque_tuned": 320, "gain": 29, "torque_gain": 50, "fuel_reduction": 10},
             "Ford": {"power_stock": 150, "torque_stock": 370, "power_tuned": 190, "torque_tuned": 420, "gain": 40, "torque_gain": 50, "fuel_reduction": 12},
@@ -122,18 +119,15 @@ class VehicleState(rx.State):
         self.selected_model = model
         self.selected_year = ""
         
-        # Cargar vehículos disponibles desde JSON
         try:
             from utils.vehicle_data import get_vehicles_by_brand_model
             vehicles = get_vehicles_by_brand_model(self.selected_brand, model, self.selected_fuel)
-            # Extraer años únicos
             years = list(set([str(v.get('year', '')) for v in vehicles if v.get('year')]))
             self.available_years = sorted(years, reverse=True)
             self.available_vehicles = vehicles
             print(f"DEBUG: Años encontrados: {self.available_years}")
         except Exception as e:
             print(f"DEBUG: Error cargando años desde JSON: {e}")
-            # Fallback con años estáticos
             self.available_years = ["2023", "2022", "2021", "2020", "2019", "2018"]
             self.available_vehicles = []
             
@@ -144,14 +138,12 @@ class VehicleState(rx.State):
         print(f"DEBUG: select_year llamado con {year}")
         self.selected_year = year
         
-        # Buscar el vehículo específico
         try:
             selected_vehicles = [v for v in self.available_vehicles if str(v.get('year', '')) == year]
             if selected_vehicles:
-                self.selected_vehicle = selected_vehicles[0]  # Tomar el primero
+                self.selected_vehicle = selected_vehicles[0]
                 print(f"DEBUG: Vehículo seleccionado: {self.selected_vehicle.get('make', '')} {self.selected_vehicle.get('model', '')} {self.selected_vehicle.get('year', '')}")
             else:
-                # Crear vehículo de ejemplo
                 self.selected_vehicle = {
                     "make": self.selected_brand,
                     "model": self.selected_model,
@@ -211,6 +203,11 @@ class VehicleState(rx.State):
         self.selected_vehicle = {}
         self.current_step = 1
     
+    # ✅ AÑADIDO: Método para abrir email
+    def open_email(self):
+        """Abrir cliente de email con información del vehículo"""
+        return rx.redirect(self.email_link)
+    
     @rx.var
     def vehicle_power_stock(self) -> int:
         """Potencia original del vehículo"""
@@ -261,6 +258,25 @@ class VehicleState(rx.State):
     @rx.var
     def email_link(self) -> str:
         """Link de email con información del vehículo"""
-        return f"mailto:Astrotechreprogramaciones@gmail.com?subject=Consulta Reprogramación ECU&body=\
-        Hola, estoy interesado en la reprogramación ECU para mi \
-        {self.selected_brand} {self.selected_model}"
+        subject = "Consulta Reprogramación ECU"
+        body = f"""Hola, estoy interesado en la reprogramación ECU para mi vehículo:
+
+Marca: {self.selected_brand}
+Modelo: {self.selected_model}
+Año: {self.selected_year}
+Combustible: {self.selected_fuel}
+
+Potencia actual: {self.vehicle_power_stock} CV
+Potencia optimizada: {self.vehicle_power_tuned} CV
+Ganancia: +{self.vehicle_power_gain} CV
+
+Me gustaría obtener más información sobre el servicio.
+
+Saludos."""
+        
+        # URL encode del subject y body
+        import urllib.parse
+        subject_encoded = urllib.parse.quote(subject)
+        body_encoded = urllib.parse.quote(body)
+        
+        return f"mailto:Astrotechreprogramaciones@gmail.com?subject={subject_encoded}&body={body_encoded}"

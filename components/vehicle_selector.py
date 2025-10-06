@@ -43,7 +43,7 @@ def vehicle_selector() -> rx.Component:
                             VehicleState.available_brands,
                             placeholder="Selecciona marca",
                             value=VehicleState.selected_brand,
-                            on_change=VehicleState.select_brand,  # ⬅️ CORREGIDO: Eliminado lambda innecesario
+                            on_change=VehicleState.select_brand,
                             color_scheme="orange",
                             variant="soft",
                             size="3",
@@ -91,7 +91,7 @@ def vehicle_selector() -> rx.Component:
                         spacing="6", width="100%"
                     )
                 ),
-                # Paso 5: Resultados
+                # Paso 5: Resultados ✅ CORREGIDO
                 rx.cond(
                     VehicleState.current_step == 5,
                     rx.box(
@@ -116,7 +116,13 @@ def vehicle_selector() -> rx.Component:
                                     rx.vstack(
                                         rx.icon("gauge", size=50, color="#CCCCCC", mb="4"),
                                         rx.text("Potencia Original", color="#CCCCCC", font_weight="600", font_size="1.1rem"),
-                                        rx.text(VehicleState.vehicle_power_stock.to_string() + " CV", font_size="2.2rem", font_weight="700", color="white"),  # ⬅️ CORREGIDO: Añadido .to_string() y sintaxis correcta
+                                        # ✅ CORREGIDO: Sin .to_string()
+                                        rx.text(
+                                            f"{VehicleState.vehicle_power_stock} CV",
+                                            font_size="2.2rem",
+                                            font_weight="700",
+                                            color="white"
+                                        ),
                                         spacing="3", align="center"
                                     ),
                                     bg="linear-gradient(145deg, #2D2D2D, #232323)",
@@ -130,8 +136,20 @@ def vehicle_selector() -> rx.Component:
                                     rx.vstack(
                                         rx.icon("zap", size=50, color="#FF6B35", mb="4"),
                                         rx.text("Potencia Optimizada", color="#FF6B35", font_weight="600", font_size="1.1rem"),
-                                        rx.text(VehicleState.vehicle_power_tuned.to_string() + " CV", font_size="2.2rem", font_weight="700", color="white"),  # ⬅️ CORREGIDO: Añadido .to_string()
-                                        rx.text("+" + VehicleState.vehicle_power_gain.to_string() + " CV", color="#4CAF50", font_weight="600", font_size="1.3rem"),  # ⬅️ CORREGIDO: Añadido "+" al inicio y .to_string()
+                                        # ✅ CORREGIDO: Sin .to_string()
+                                        rx.text(
+                                            f"{VehicleState.vehicle_power_tuned} CV",
+                                            font_size="2.2rem",
+                                            font_weight="700",
+                                            color="white"
+                                        ),
+                                        # ✅ CORREGIDO: Sin .to_string() + formato
+                                        rx.text(
+                                            f"+{VehicleState.vehicle_power_gain} CV",
+                                            color="#4CAF50",
+                                            font_weight="600",
+                                            font_size="1.3rem"
+                                        ),
                                         spacing="3", align="center"
                                     ),
                                     bg="linear-gradient(145deg, #2D2D2D, #232323)",
@@ -161,7 +179,8 @@ def vehicle_selector() -> rx.Component:
                                             py="3",
                                             _hover={"bg": "#e55a2b", "transform": "translateY(-2px)"},
                                             transition="all 0.3s ease",
-                                            on_click=lambda: rx.redirect(VehicleState.email_link)  # ⬅️ CORREGIDO: Usamos variable computada del estado
+                                            # ✅ CORREGIDO: Sin lambda innecesario
+                                            on_click=VehicleState.open_email
                                         ),
                                         rx.button(
                                             rx.hstack(
@@ -178,12 +197,12 @@ def vehicle_selector() -> rx.Component:
                                             py="3",
                                             _hover={"bg": "rgba(255, 107, 53, 0.1)", "transform": "translateY(-2px)"},
                                             transition="all 0.3s ease",
-                                            on_click=rx.redirect("tel:+34123456789")
+                                            on_click=rx.redirect("tel:+34682504986")
                                         ),
                                         spacing="4", justify="center"
                                     ),
                                     rx.text(
-                                        "📧 Astrotechreprogramaciones@gmail.com | 📞 +34 123 456 789",
+                                        "📧 Astrotechreprogramaciones@gmail.com | 📞 +34 682 504 986",
                                         color="#CCCCCC",
                                         text_align="center",
                                         font_size="0.9rem",

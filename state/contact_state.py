@@ -9,7 +9,6 @@ import reflex as rx
 import re
 
 class ContactState(rx.State):
-    # El modal de éxito ahora es un componente separado en components/contact.py
     """
     Estado que maneja el formulario de contacto - VERSIÓN CORREGIDA
     """
@@ -31,12 +30,12 @@ class ContactState(rx.State):
     
     async def handle_name_change(self, value: str):
         """Handler async para el nombre"""
-        print(f"🔄 Cambiando nombre: '{value}'")  # Debug
+        print(f"🔄 Cambiando nombre: '{value}'")
         self.name = value
 
     async def handle_email_change(self, value: str):
         """Handler async para el email"""
-        print(f"📧 Cambiando email: '{value}'")  # Debug
+        print(f"📧 Cambiando email: '{value}'")
         self.email = value
         if value and not self.validate_email(value):
             self.email_error = "Formato de email inválido"
@@ -45,7 +44,7 @@ class ContactState(rx.State):
 
     async def handle_phone_change(self, value: str):
         """Handler async para el teléfono"""
-        print(f"📱 Cambiando teléfono: '{value}'")  # Debug
+        print(f"📱 Cambiando teléfono: '{value}'")
         self.phone = value
         if value and not self.validate_phone(value):
             self.phone_error = "Formato de teléfono inválido"
@@ -54,12 +53,17 @@ class ContactState(rx.State):
 
     async def handle_message_change(self, value: str):
         """Handler async para el mensaje"""
-        print(f"💬 Cambiando mensaje: '{value}'")  # Debug
+        print(f"💬 Cambiando mensaje: '{value}'")
         self.message = value
+    
+    # ✅ AÑADIDO: Método para cerrar modal
+    def close_modal(self):
+        """Cerrar modal de éxito"""
+        self.show_success = False
     
     async def submit_form(self):
         """Procesar el envío del formulario - Integrado con email_service"""
-        print("🚀 Enviando formulario...")  # Debug
+        print("🚀 Enviando formulario...")
 
         # Limpiar errores anteriores
         self.form_error = ""
@@ -95,8 +99,9 @@ class ContactState(rx.State):
         try:
             from utils.email_service import email_sender
             import asyncio
-            # Enviar email (bloqueante, así que usar run_in_executor para no bloquear el event loop)
             import concurrent.futures
+            
+            # Enviar email (bloqueante, usar run_in_executor)
             loop = asyncio.get_event_loop()
             success = await loop.run_in_executor(
                 None,
@@ -117,8 +122,11 @@ class ContactState(rx.State):
             self.show_success = True
             self.is_loading = False
             self.reset_form()
+            
+            # Cerrar modal automáticamente después de 5 segundos
             await asyncio.sleep(5)
             self.show_success = False
+            
         except Exception as e:
             self.is_loading = False
             self.form_error = f"Error al enviar: {str(e)}"

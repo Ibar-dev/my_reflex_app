@@ -11,7 +11,45 @@ from state.contact_state import ContactState
 def contact() -> rx.Component:
     """Sección de contacto reorganizada: info izquierda, formulario derecha"""
     return rx.box(
-        ContactState.success_modal(),
+        # ✅ CORREGIDO: Modal se renderiza directamente desde ContactState
+        rx.cond(
+            ContactState.show_success,
+            rx.dialog.root(
+                rx.dialog.content(
+                    rx.vstack(
+                        rx.icon("check-circle", size=50, color="#FF6B35"),
+                        rx.heading(
+                            "¡Mensaje enviado correctamente!",
+                            size="5",
+                            color="#FF6B35",
+                            text_align="center"
+                        ),
+                        rx.text(
+                            "Tu mensaje ha sido enviado. Te contactaremos pronto.",
+                            color="#CCCCCC",
+                            text_align="center",
+                            font_size="1.1rem"
+                        ),
+                        rx.button(
+                            "Cerrar",
+                            # ✅ CORREGIDO: Llamar al método del estado
+                            on_click=ContactState.close_modal,
+                            bg="#FF6B35",
+                            color="white",
+                            size="3",
+                            mt="4"
+                        ),
+                        spacing="4",
+                        align="center"
+                    ),
+                    bg="#1A1A1A",
+                    border="1px solid #FF6B35",
+                    border_radius="12px",
+                    p="6"
+                ),
+                open=ContactState.show_success
+            )
+        ),
         rx.center(
             rx.vstack(
                 rx.heading(
@@ -125,172 +163,41 @@ def contact() -> rx.Component:
                     
                     # Columna derecha: Formulario de contacto
                     rx.box(
-                        rx.cond(
-                            ContactState.show_success,
-                            rx.center(
-                                rx.vstack(
-                                    rx.icon("check_check", size=50, color="#FF6B35"),
-                                    rx.heading(
-                                        "¡Mensaje enviado correctamente!",
-                                        size="4",
-                                        color="#FF6B35",
-                                        text_align="center"
-                                    ),
-                                    rx.text(
-                                        "Tu mensaje ha sido enviado. Te contactaremos pronto.",
-                                        color="#CCCCCC",
-                                        text_align="center",
-                                        font_size="1.1rem"
-                                    ),
-                                    spacing="3",
-                                    align="center"
+                        rx.form(
+                            rx.vstack(
+                                # Mensaje de error general
+                                rx.cond(
+                                    ContactState.form_error != "",
+                                    rx.box(
+                                        rx.text(
+                                            ContactState.form_error,
+                                            color="#FF4444",
+                                            font_size="0.9rem",
+                                            font_weight="600"
+                                        ),
+                                        bg="rgba(255, 68, 68, 0.1)",
+                                        border="1px solid #FF4444",
+                                        border_radius="8px",
+                                        p="3",
+                                        mb="4",
+                                        width="100%"
+                                    )
                                 ),
-                                height="100%"
-                            ),
-                            rx.form(
+                                # Campo Nombre
                                 rx.vstack(
-                                    # Mensaje de error general
-                                    rx.cond(
-                                        ContactState.form_error != "",
-                                        rx.box(
-                                            rx.text(
-                                                ContactState.form_error,
-                                                color="#FF4444",
-                                                font_size="0.9rem",
-                                                font_weight="600"
-                                            ),
-                                            bg="rgba(255, 68, 68, 0.1)",
-                                            border="1px solid #FF4444",
-                                            border_radius="8px",
-                                            p="3",
-                                            mb="4",
-                                            width="100%"
-                                        )
-                                    ),
-                                    # Campo Nombre
-                                    rx.vstack(
-                                        rx.input(
-                                            placeholder="Nombre completo",
-                                            value=ContactState.name,
-                                            on_change=ContactState.handle_name_change,
-                                            name="name",
-                                            bg="#1A1A1A",
-                                            border="2px solid #404040",
-                                            border_radius="8px",
-                                            color="white",
-                                            p="4",
-                                            font_size="1rem",
-                                            height="50px",
-                                            width="100%",
-                                            pointer_events="auto",
-                                            z_index="10",
-                                            _focus={
-                                                "border_color": "#FF6B35",
-                                                "outline": "none",
-                                                "box_shadow": "0 0 0 2px rgba(255, 107, 53, 0.2)"
-                                            },
-                                            _placeholder={"color": "#999999"},
-                                            transition="all 0.3s ease",
-                                            required=True
-                                        ),
-                                        spacing="2",
-                                        width="100%"
-                                    ),
-                                    
-                                    # Campo Email
-                                    rx.vstack(
-                                        rx.input(
-                                            placeholder="Email",
-                                            type="email",
-                                            value=ContactState.email,
-                                            on_change=ContactState.handle_email_change,
-                                            name="email",
-                                            bg="#1A1A1A",
-                                            border="2px solid #404040",
-                                            border_radius="8px",
-                                            color="white",
-                                            p="4",
-                                            font_size="1rem",
-                                            height="50px",
-                                            width="100%",
-                                            pointer_events="auto",
-                                            z_index="10",
-                                            _focus={
-                                                "border_color": "#FF6B35",
-                                                "outline": "none",
-                                                "box_shadow": "0 0 0 2px rgba(255, 107, 53, 0.2)"
-                                            },
-                                            _placeholder={"color": "#999999"},
-                                            transition="all 0.3s ease",
-                                            required=True
-                                        ),
-                                        rx.cond(
-                                            ContactState.email_error != "",
-                                            rx.text(
-                                                ContactState.email_error,
-                                                color="#FF4444",
-                                                font_size="0.875rem",
-                                                font_weight="500"
-                                            )
-                                        ),
-                                        spacing="2",
-                                        width="100%"
-                                    ),
-                                    
-                                    # Campo Teléfono
-                                    rx.vstack(
-                                        rx.input(
-                                            placeholder="Teléfono (opcional)",
-                                            type="tel",
-                                            value=ContactState.phone,
-                                            on_change=ContactState.handle_phone_change,
-                                            name="phone",
-                                            bg="#1A1A1A",
-                                            border="2px solid #404040",
-                                            border_radius="8px",
-                                            color="white",
-                                            p="4",
-                                            font_size="1rem",
-                                            height="50px",
-                                            width="100%",
-                                            pointer_events="auto",
-                                            z_index="10",
-                                            _focus={
-                                                "border_color": "#FF6B35",
-                                                "outline": "none",
-                                                "box_shadow": "0 0 0 2px rgba(255, 107, 53, 0.2)"
-                                            },
-                                            _placeholder={"color": "#999999"},
-                                            transition="all 0.3s ease"
-                                        ),
-                                        rx.cond(
-                                            ContactState.phone_error != "",
-                                            rx.text(
-                                                ContactState.phone_error,
-                                                color="#FF4444",
-                                                font_size="0.875rem",
-                                                font_weight="500"
-                                            )
-                                        ),
-                                        spacing="2",
-                                        width="100%"
-                                    ),
-                                    # Campo Mensaje
-                                    rx.text_area(
-                                        placeholder="Mensaje",
-                                        value=ContactState.message,
-                                        on_change=ContactState.handle_message_change,
-                                        name="message",
+                                    rx.input(
+                                        placeholder="Nombre completo",
+                                        value=ContactState.name,
+                                        on_change=ContactState.handle_name_change,
+                                        name="name",
                                         bg="#1A1A1A",
                                         border="2px solid #404040",
                                         border_radius="8px",
                                         color="white",
                                         p="4",
                                         font_size="1rem",
-                                        rows="4",
-                                        height="120px",
+                                        height="50px",
                                         width="100%",
-                                        resize="vertical",
                                         pointer_events="auto",
                                         z_index="10",
                                         _focus={
@@ -302,43 +209,151 @@ def contact() -> rx.Component:
                                         transition="all 0.3s ease",
                                         required=True
                                     ),
-                                    rx.button(
-                                        rx.cond(
-                                            ContactState.is_loading,
-                                            rx.hstack(
-                                                rx.spinner(size="1", color="white"),
-                                                rx.text("Enviando...", color="white"),
-                                                spacing="4",
-                                                align="center"
-                                            ),
-                                            "Enviar Mensaje"
-                                        ),
-                                        type="submit",
-                                        bg="#FF6B35",
-                                        color="white",
+                                    spacing="2",
+                                    width="100%"
+                                ),
+                                
+                                # Campo Email
+                                rx.vstack(
+                                    rx.input(
+                                        placeholder="Email",
+                                        type="email",
+                                        value=ContactState.email,
+                                        on_change=ContactState.handle_email_change,
+                                        name="email",
+                                        bg="#1A1A1A",
+                                        border="2px solid #404040",
                                         border_radius="8px",
+                                        color="white",
                                         p="4",
-                                        font_weight="600",
                                         font_size="1rem",
                                         height="50px",
                                         width="100%",
-                                        cursor="pointer",
                                         pointer_events="auto",
                                         z_index="10",
-                                        _hover={
-                                            "bg": "#e55a2b",
-                                            "transform": "translateY(-1px)",
-                                            "box_shadow": "0 4px 12px rgba(255, 107, 53, 0.3)"
+                                        _focus={
+                                            "border_color": "#FF6B35",
+                                            "outline": "none",
+                                            "box_shadow": "0 0 0 2px rgba(255, 107, 53, 0.2)"
                                         },
+                                        _placeholder={"color": "#999999"},
                                         transition="all 0.3s ease",
-                                        disabled=ContactState.is_loading
+                                        required=True
                                     ),
-                                    spacing="6",
+                                    rx.cond(
+                                        ContactState.email_error != "",
+                                        rx.text(
+                                            ContactState.email_error,
+                                            color="#FF4444",
+                                            font_size="0.875rem",
+                                            font_weight="500"
+                                        )
+                                    ),
+                                    spacing="2",
                                     width="100%"
                                 ),
-                                on_submit=ContactState.submit_form,
+                                
+                                # Campo Teléfono
+                                rx.vstack(
+                                    rx.input(
+                                        placeholder="Teléfono (opcional)",
+                                        type="tel",
+                                        value=ContactState.phone,
+                                        on_change=ContactState.handle_phone_change,
+                                        name="phone",
+                                        bg="#1A1A1A",
+                                        border="2px solid #404040",
+                                        border_radius="8px",
+                                        color="white",
+                                        p="4",
+                                        font_size="1rem",
+                                        height="50px",
+                                        width="100%",
+                                        pointer_events="auto",
+                                        z_index="10",
+                                        _focus={
+                                            "border_color": "#FF6B35",
+                                            "outline": "none",
+                                            "box_shadow": "0 0 0 2px rgba(255, 107, 53, 0.2)"
+                                        },
+                                        _placeholder={"color": "#999999"},
+                                        transition="all 0.3s ease"
+                                    ),
+                                    rx.cond(
+                                        ContactState.phone_error != "",
+                                        rx.text(
+                                            ContactState.phone_error,
+                                            color="#FF4444",
+                                            font_size="0.875rem",
+                                            font_weight="500"
+                                        )
+                                    ),
+                                    spacing="2",
+                                    width="100%"
+                                ),
+                                # Campo Mensaje
+                                rx.text_area(
+                                    placeholder="Mensaje",
+                                    value=ContactState.message,
+                                    on_change=ContactState.handle_message_change,
+                                    name="message",
+                                    bg="#1A1A1A",
+                                    border="2px solid #404040",
+                                    border_radius="8px",
+                                    color="white",
+                                    p="4",
+                                    font_size="1rem",
+                                    rows="4",
+                                    height="120px",
+                                    width="100%",
+                                    resize="vertical",
+                                    pointer_events="auto",
+                                    z_index="10",
+                                    _focus={
+                                        "border_color": "#FF6B35",
+                                        "outline": "none",
+                                        "box_shadow": "0 0 0 2px rgba(255, 107, 53, 0.2)"
+                                    },
+                                    _placeholder={"color": "#999999"},
+                                    transition="all 0.3s ease",
+                                    required=True
+                                ),
+                                rx.button(
+                                    rx.cond(
+                                        ContactState.is_loading,
+                                        rx.hstack(
+                                            rx.spinner(size="1", color="white"),
+                                            rx.text("Enviando...", color="white"),
+                                            spacing="4",
+                                            align="center"
+                                        ),
+                                        "Enviar Mensaje"
+                                    ),
+                                    type="submit",
+                                    bg="#FF6B35",
+                                    color="white",
+                                    border_radius="8px",
+                                    p="4",
+                                    font_weight="600",
+                                    font_size="1rem",
+                                    height="50px",
+                                    width="100%",
+                                    cursor="pointer",
+                                    pointer_events="auto",
+                                    z_index="10",
+                                    _hover={
+                                        "bg": "#e55a2b",
+                                        "transform": "translateY(-1px)",
+                                        "box_shadow": "0 4px 12px rgba(255, 107, 53, 0.3)"
+                                    },
+                                    transition="all 0.3s ease",
+                                    disabled=ContactState.is_loading
+                                ),
+                                spacing="6",
                                 width="100%"
-                            )
+                            ),
+                            on_submit=ContactState.submit_form,
+                            width="100%"
                         ),
                         bg="#2D2D2D",
                         border_radius="20px",
@@ -365,31 +380,4 @@ def contact() -> rx.Component:
         ),
         bg="#1A1A1A",
         id="contacto"
-    )
-
-def success_modal() -> rx.Component:
-    return rx.modal(
-        is_open=ContactState.show_success,
-        on_close=lambda: setattr(ContactState, 'show_success', False),
-        children=[
-            rx.modal_overlay(
-                rx.modal_content(
-                    rx.modal_header("¡Solicitud enviada con éxito!", color="#4CAF50"),
-                    rx.modal_body(
-                        rx.text(
-                            "Gracias por contactar con AstroTech. Te responderemos lo antes posible.",
-                            color="black",
-                            font_size="1.1rem"
-                        )
-                    ),
-                    rx.modal_footer(
-                        rx.button(
-                            "Cerrar",
-                            on_click=lambda: setattr(ContactState, 'show_success', False),
-                            color_scheme="green"
-                        )
-                    )
-                )
-            )
-        ]
     )
