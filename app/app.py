@@ -15,6 +15,7 @@ from components.services import services
 from components.faq import faq
 from components.contact import contact
 from components.footer import footer
+from state.vehicle_state import VehicleState
 
 # Importar estados para que Reflex los reconozca
 from state.contact_state import ContactState

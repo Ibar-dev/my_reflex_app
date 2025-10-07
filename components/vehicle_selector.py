@@ -18,6 +18,11 @@ def vehicle_selector() -> rx.Component:
                     on_change=VehicleState.select_fuel,
                     width="100%",
                     size="3",
+                    style={
+                        "pointer_events": "auto",
+                        "z_index": "100",
+                        "position": "relative"
+                    }
                 ),
                 width="100%",
                 spacing="2",
@@ -34,6 +39,11 @@ def vehicle_selector() -> rx.Component:
                     disabled=VehicleState.selected_fuel == "",
                     width="100%",
                     size="3",
+                    style={
+                        "pointer_events": "auto",
+                        "z_index": "100",
+                        "position": "relative"
+                    }
                 ),
                 width="100%",
                 spacing="2",
@@ -50,6 +60,11 @@ def vehicle_selector() -> rx.Component:
                     disabled=VehicleState.selected_brand == "",
                     width="100%",
                     size="3",
+                    style={
+                        "pointer_events": "auto",
+                        "z_index": "100",
+                        "position": "relative"
+                    }
                 ),
                 width="100%",
                 spacing="2",
@@ -66,6 +81,11 @@ def vehicle_selector() -> rx.Component:
                     disabled=VehicleState.selected_model == "",
                     width="100%",
                     size="3",
+                    style={
+                        "pointer_events": "auto",
+                        "z_index": "100",
+                        "position": "relative"
+                    }
                 ),
                 width="100%",
                 spacing="2",

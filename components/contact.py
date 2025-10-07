@@ -17,7 +17,7 @@ def contact() -> rx.Component:
             rx.dialog.root(
                 rx.dialog.content(
                     rx.vstack(
-                        rx.icon("check-circle", size=50, color="#FF6B35"),
+                        rx.icon("check", size=50, color="#FF6B35"),
                         rx.heading(
                             "¡Mensaje enviado correctamente!",
                             size="5",

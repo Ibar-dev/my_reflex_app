@@ -1,37 +1,44 @@
-
-    {
-        "Diesel": {
-            "Volkswagen": {
-                "Passat": ["2.0 TDI 150CV", "2.0 TDI 190CV"],
-                "Tiguan": ["2.0 TDI 150CV", "2.0 TDI 200CV"],
-                "Golf": ["2.0 TDI 115CV", "2.0 TDI 150CV"]
-            },
-            "BMW": {
-                "Serie 3": ["318d 150CV", "320d 190CV"],
-                "X3": ["xDrive20d 190CV", "xDrive30d 265CV"],
-                "Serie 5": ["520d 190CV", "530d 286CV"]
-            },
-            "Mercedes": {
-                "Clase C": ["C 220 d 194CV", "C 300 d 265CV"],
-                "GLC": ["GLC 220 d 194CV", "GLC 300 d 245CV"],
-                "Clase E": ["E 220 d 194CV", "E 400 d 330CV"]
-            }
-        },
-        "Gasolina": {
-            "Seat": {
-                "Ibiza": ["1.0 TSI 95CV", "1.0 TSI 110CV"],
-                "Leon": ["1.5 TSI 130CV", "1.5 TSI 150CV"],
-                "Ateca": ["1.5 TSI 150CV", "2.0 TSI 190CV"]
-            },
-            "Toyota": {
-                "Corolla": ["1.8 VVT-i 122CV", "2.0 VVT-i 184CV"],
-                "RAV4": ["2.0 VVT-i 173CV", "2.5 VVT-i 218CV"],
-                "Yaris": ["1.5 VVT-i 125CV"]
-            },
-            "Ford": {
-                "Fiesta": ["1.0 EcoBoost 95CV", "1.0 EcoBoost 125CV"],
-                "Focus": ["1.0 EcoBoost 125CV", "1.5 EcoBoost 150CV"],
-                "Puma": ["1.0 EcoBoost 125CV", "1.0 EcoBoost 155CV"]
-            }
-        }
-    }
+[
+  {
+    "make": "Volkswagen",
+    "model": "Golf",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Passat",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 190
+  },
+  {
+    "make": "BMW",
+    "model": "Serie 3",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 190
+  },
+  {
+    "make": "SEAT",
+    "model": "Ibiza",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 95
+  },
+  {
+    "make": "SEAT",
+    "model": "Leon",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "Ford",
+    "model": "Fiesta",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 125
+  }
+]
