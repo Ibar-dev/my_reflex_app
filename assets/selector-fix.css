@@ -1,62 +1,69 @@
-/* Estilos para arreglar los dropdowns del selector */
+/* ✅ ESTILOS CORREGIDOS - NO bloquean interacción */
 
-/* Asegurar que los triggers sean clickeables */
-[data-radix-select-trigger] {
-    cursor: pointer;
-    pointer-events: auto;
-    position: relative;
-    z-index: 1;
+/* Asegurar que TODO sea clickeable */
+.rt-SelectTrigger,
+.rt-Select,
+[data-radix-select-trigger],
+button[role="combobox"] {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    position: relative !important;
+    z-index: 1 !important;
 }
 
-/* Asegurar que el contenido se muestre correctamente */
+/* Contenido del dropdown */
 [data-radix-select-content] {
     background: #1f1f1f;
     border: 1px solid #FF6B35;
     border-radius: 8px;
     padding: 4px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    max-height: 200px;
+    z-index: 9999 !important;
+    max-height: 300px;
     overflow-y: auto;
+    pointer-events: auto !important;
 }
 
-/* Estilos para las opciones */
+/* Opciones del dropdown */
 [data-radix-select-item] {
     color: white;
-    padding: 8px 12px;
+    padding: 10px 16px;
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.2s ease;
+    pointer-events: auto !important;
 }
 
-[data-radix-select-item]:hover {
-    background-color: #FF6B35;
-    color: white;
-}
-
+[data-radix-select-item]:hover,
 [data-radix-select-item][data-highlighted] {
     background-color: #FF6B35;
     color: white;
 }
 
-/* Arreglar la viewport del select */
+/* Viewport del select */
 [data-radix-select-viewport] {
     padding: 4px !important;
 }
 
-/* Asegurar que no haya overlays bloqueando */
-.rt-SelectTrigger {
-    pointer-events: auto !important;
-    cursor: pointer !important;
-    user-select: none !important;
-}
-
-/* Fix para el contenedor principal */
-.vehicle-selector-container {
+/* CRÍTICO: Container del selector NO debe bloquear */
+#selector,
+.vehicle-selector-container,
+[id*="selector"] {
     position: relative !important;
     z-index: 1 !important;
+    pointer-events: auto !important;
 }
 
+/* Todos los hijos deben ser clickeables */
+#selector *,
 .vehicle-selector-container * {
+    pointer-events: auto !important;
+}
+
+/* Remover estilos que puedan bloquear */
+.rt-Box,
+.rt-VStack,
+.rt-Container {
     pointer-events: auto !important;
 }
