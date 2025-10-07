@@ -77,7 +77,7 @@ def contact() -> rx.Component:
                                     align="center"
                                 ),
                                 rx.text(
-                                    "Calle del Motor, 123\n28001 Madrid, España",
+                                    "Calle Plata, Nº 41\nMoraleja de Enmedio, 28950\nMadrid, España",
                                     color="#CCCCCC",
                                     line_height="1.5",
                                     font_size="1.1rem"
@@ -140,7 +140,7 @@ def contact() -> rx.Component:
                                     align="center"
                                 ),
                                 rx.text(
-                                    "Lunes - Viernes: 9:00 - 18:00\nSábados: 9:00 - 14:00",
+                                    "Lunes - Viernes: 9:00 - 14:00 y 16:00 - 19:30\n",
                                     color="#CCCCCC",
                                     line_height="1.5",
                                     font_size="1.1rem"
