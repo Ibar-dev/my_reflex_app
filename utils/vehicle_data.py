@@ -77,6 +77,36 @@ def load_vehicle_data() -> List[Dict[str, Any]]:
         traceback.print_exc()
         return []
 
+def get_fuel_types() -> List[str]:
+    """
+    Obtener tipos de combustible únicos del JSON.
+    
+    Returns:
+        List[str]: Lista de tipos de combustible únicos (ej: ['diesel', 'gasolina'])
+    """
+    try:
+        vehicles = load_vehicle_data()
+        if not vehicles:
+            print("⚠️  No hay vehículos cargados, usando tipos por defecto")
+            return ["diesel", "gasolina"]
+        
+        # Extraer tipos únicos
+        fuel_types = set()
+        for vehicle in vehicles:
+            fuel_type = vehicle.get('fuel_type', '').lower().strip()
+            if fuel_type:
+                fuel_types.add(fuel_type)
+        
+        # Convertir a lista ordenada
+        unique_types = sorted(list(fuel_types))
+        print(f"🔥 Tipos de combustible encontrados: {unique_types}")
+        
+        return unique_types if unique_types else ["diesel", "gasolina"]
+        
+    except Exception as e:
+        print(f"❌ Error obteniendo tipos de combustible: {e}")
+        return ["diesel", "gasolina"]
+
 def get_brands_by_fuel(fuel_type: str) -> List[str]:
     """
     Obtener marcas disponibles por tipo de combustible.
@@ -215,3 +245,67 @@ def get_vehicle_stats() -> Dict[str, Any]:
         'total_vehicles': len(vehicles),
         'brands': len(set(v.get('make', '') for v in vehicles)),
     }
+
+
+# Nuevas funciones para el VehicleState simplificado
+def get_brands_by_fuel(fuel_type: str) -> List[str]:
+    """Obtener marcas disponibles para un tipo de combustible"""
+    try:
+        vehicles = load_vehicle_data()
+        brands = set()
+        
+        for vehicle in vehicles:
+            if vehicle.get('fuel_type', '').lower() == fuel_type.lower():
+                brand = vehicle.get('make', '').strip()
+                if brand:
+                    brands.add(brand)
+        
+        result = sorted(list(brands))
+        print(f"🏭 Marcas para {fuel_type}: {len(result)} marcas")
+        return result
+    except Exception as e:
+        print(f"❌ Error obteniendo marcas: {e}")
+        return []
+
+
+def get_models_by_fuel_and_brand(fuel_type: str, brand: str) -> List[str]:
+    """Obtener modelos disponibles para un combustible y marca específicos"""
+    try:
+        vehicles = load_vehicle_data()
+        models = set()
+        
+        for vehicle in vehicles:
+            if (vehicle.get('fuel_type', '').lower() == fuel_type.lower() and 
+                vehicle.get('make', '').strip() == brand):
+                model = vehicle.get('model', '').strip()
+                if model:
+                    models.add(model)
+        
+        result = sorted(list(models))
+        print(f"🚗 Modelos para {brand} ({fuel_type}): {len(result)} modelos")
+        return result
+    except Exception as e:
+        print(f"❌ Error obteniendo modelos: {e}")
+        return []
+
+
+def get_years_by_fuel_brand_model(fuel_type: str, brand: str, model: str) -> List[str]:
+    """Obtener años disponibles para combustible, marca y modelo específicos"""
+    try:
+        vehicles = load_vehicle_data()
+        years = set()
+        
+        for vehicle in vehicles:
+            if (vehicle.get('fuel_type', '').lower() == fuel_type.lower() and 
+                vehicle.get('make', '').strip() == brand and
+                vehicle.get('model', '').strip() == model):
+                year = vehicle.get('year')
+                if year:
+                    years.add(str(year))
+        
+        result = sorted(list(years), reverse=True)  # Años más recientes primero
+        print(f"📅 Años para {brand} {model} ({fuel_type}): {len(result)} años")
+        return result
+    except Exception as e:
+        print(f"❌ Error obteniendo años: {e}")
+        return []
