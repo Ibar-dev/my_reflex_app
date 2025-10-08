@@ -1,33 +1,22 @@
-"""
-Configuración de AstroTech - Reflex
-==================================
-Archivo de configuración para la aplicación AstroTech desarrollada con Reflex.
-"""
-
 import reflex as rx
+import os
 
 config = rx.Config(
     app_name="app",
     db_url="sqlite:///reflex.db",
     
-    # Puertos
+    # Configuración simple para desarrollo local
     frontend_port=3000,
     backend_port=8000,
+    backend_host="127.0.0.1",  # Usar IP directamente en lugar de localhost
     
-    # URLs
-    api_url="http://localhost:8000",
-    deploy_url="http://localhost:3000",
-    
-    # Entorno
+    # Desarrollo local
     env=rx.Env.DEV,
     
-    # Desactivar el plugin de sitemap para eliminar warnings
-    # (puedes activarlo más tarde si necesitas generar un sitemap)
-    disable_plugins=["reflex.plugins.sitemap.SitemapPlugin"],
-    
-    # Configuración de compilación
+    # Opciones básicas
     backend_only=False,
-    
-    # Timeout para el backend
     timeout=120,
+    
+    # Deshabilitar plugin problemático
+    disable_plugins=['reflex.plugins.sitemap.SitemapPlugin']
 )
