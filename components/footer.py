@@ -367,9 +367,9 @@ def footer() -> rx.Component:
         ),
         bg="linear-gradient(to bottom, #202020, #121212)",
         color="white",
-        padding_top="8",
+        padding_top="16",
         position="relative",
         border_radius="30px 30px 0 0",
         overflow="hidden",
-        margin_top="50px"
+        margin_top="80px"
     )

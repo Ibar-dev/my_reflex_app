@@ -75,16 +75,16 @@ def header(active: str = "inicio") -> rx.Component:
     return rx.box(
         rx.hstack(
             rx.link(
-                rx.text(
-                    "AstroTech",
-                    color="#FF6B35",
-                    font_weight="800",
-                    font_size="1.4rem",
-                    letter_spacing="0.6px",
-                    class_name="brand",
+                rx.image(
+                    src="/images/logo_astrotech.png",
+                    alt="AstroTech Logo",
+                    height="45px",
+                    width="auto",
+                    object_fit="contain",
                 ),
                 href="/#inicio",
-                _hover={"text_decoration": "none"},
+                _hover={"text_decoration": "none", "opacity": "0.85"},
+                transition="opacity 0.3s ease",
             ),
             rx.spacer(),
             _nav_menu(display={"base": "none", "md": "flex"}),
@@ -98,7 +98,6 @@ def header(active: str = "inicio") -> rx.Component:
         top="0",
         z_index="1000",
         bg="linear-gradient(180deg, #202020 0%, #1A1A1A 100%)",
-        box_shadow="0 1px 0 rgba(255,255,255,0.06)",
         width="100%",
         min_height="70px",  # Altura mínima fija
         max_height="70px",  # Altura máxima fija para evitar cambios de tamaño
