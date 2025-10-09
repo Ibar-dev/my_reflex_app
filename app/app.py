@@ -30,6 +30,11 @@ class AppState(rx.State):
         """Muestra u oculta el botón de volver arriba."""
         self.show_scroll_top = show
 
+    # Referencia explícita a VehicleState para garantizar inicialización
+    def get_vehicle_state(self) -> VehicleState:
+        """Obtener instancia del estado de vehículos"""
+        return self.get_state(VehicleState)
+
 # Estilos personalizados
 def custom_styles() -> dict:
     """Estilos personalizados para toda la aplicación."""

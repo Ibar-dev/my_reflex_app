@@ -25,7 +25,7 @@ def vehicle_selector() -> rx.Component:
                             color="white"
                         ),
                         rx.select(
-                            ["diesel", "gasolina"],
+                            VehicleState.fuel_options,
                             placeholder="Selecciona el tipo de combustible", 
                             value=VehicleState.selected_fuel,
                             on_change=VehicleState.select_fuel,

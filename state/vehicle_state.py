@@ -15,25 +15,46 @@ class VehicleState(rx.State):
     selected_model: str = ""
     selected_year: str = ""
     
-    # Opciones disponibles para cada dropdown
-    available_fuel_types: list[str] = []
+    # Opciones disponibles para cada dropdown - Inicializadas con valores por defecto
+    available_fuel_types: list[str] = ["diesel", "gasolina"]
     available_brands: list[str] = []
     available_models: list[str] = []
     available_years: list[str] = []
     
-    def __init__(self, *args, **kwargs):
-        """Inicializar estado y cargar tipos de combustible"""
-        super().__init__(*args, **kwargs)
-        print("🚀 VehicleState inicializado")
+    # Flag para saber si ya se cargaron los datos
+    _data_loaded: bool = False
+    
+    @rx.var
+    def fuel_options(self) -> list[str]:
+        """Opciones de combustible disponibles"""
+        if not self._data_loaded:
+            self._load_initial_data()
+        return self.available_fuel_types
+    
+    def _load_initial_data(self):
+        """Cargar datos iniciales una sola vez"""
+        if self._data_loaded:
+            return
+            
+        print("🚀 VehicleState cargando datos iniciales...")
         
-        # Cargar tipos de combustible disponibles
         try:
-            from utils.vehicle_data import get_fuel_types
+            from utils.vehicle_data import get_fuel_types, load_vehicle_data
+            
+            # Cargar datos para verificar conexión
+            vehicles = load_vehicle_data()
+            print(f"✅ Cargados {len(vehicles)} vehículos")
+            
+            # Cargar tipos de combustible
             self.available_fuel_types = get_fuel_types()
-            print(f"🔥 Tipos de combustible cargados: {self.available_fuel_types}")
+            print(f"🔥 Tipos de combustible: {self.available_fuel_types}")
+            
+            self._data_loaded = True
+            
         except Exception as e:
-            print(f"❌ Error cargando tipos de combustible: {e}")
+            print(f"❌ Error cargando datos: {e}")
             self.available_fuel_types = ["diesel", "gasolina"]
+            self._data_loaded = True
     
     def select_fuel(self, fuel: str):
         """Cuando se selecciona un tipo de combustible"""
