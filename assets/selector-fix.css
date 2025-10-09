@@ -1,28 +1,37 @@
-/* ✅ ESTILOS CORREGIDOS - NO bloquean interacción */
+/* ✅ ESTILOS OPTIMIZADOS PARA SELECTORES REFLEX - Máxima Compatibilidad */
 
-/* Asegurar que TODO sea clickeable */
+/* Asegurar que TODOS los triggers de select sean clickeables */
 .rt-SelectTrigger,
 .rt-Select,
 [data-radix-select-trigger],
-button[role="combobox"] {
+button[role="combobox"],
+[role="combobox"],
+.rt-Button[role="combobox"] {
     pointer-events: auto !important;
     cursor: pointer !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
     user-select: none !important;
     position: relative !important;
-    z-index: 1 !important;
+    z-index: 10 !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
 }
 
-/* Contenido del dropdown */
+/* Contenido del dropdown - máxima prioridad visual */
 [data-radix-select-content] {
     background: #1f1f1f;
     border: 1px solid #FF6B35;
     border-radius: 8px;
     padding: 4px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    z-index: 9999 !important;
+    z-index: 99999 !important;
     max-height: 300px;
     overflow-y: auto;
     pointer-events: auto !important;
+    position: fixed !important;
 }
 
 /* Opciones del dropdown */
@@ -61,9 +70,30 @@ button[role="combobox"] {
     pointer-events: auto !important;
 }
 
-/* Remover estilos que puedan bloquear */
+/* Remover estilos que puedan bloquear - Reflex específico */
 .rt-Box,
 .rt-VStack,
-.rt-Container {
+.rt-Container,
+.rt-Card,
+.rt-Flex {
+    pointer-events: auto !important;
+}
+
+/* Asegurar que las opciones internas funcionen */
+[data-radix-select-item] span,
+[data-radix-select-item] *,
+.rt-SelectContent *,
+.rt-SelectItem * {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
+/* Fix para overlays de Radix UI */
+[data-radix-select-portal] {
+    z-index: 99999 !important;
+    pointer-events: none !important;
+}
+
+[data-radix-select-portal] * {
     pointer-events: auto !important;
 }

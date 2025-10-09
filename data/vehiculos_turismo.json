@@ -8,10 +8,87 @@
   },
   {
     "make": "Volkswagen",
+    "model": "Golf",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 110
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Golf",
+    "fuel_type": "diesel",
+    "year": 2022,
+    "power_stock": 140
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Golf",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 100
+  },
+  {
+    "make": "Volkswagen",
     "model": "Passat",
     "fuel_type": "diesel",
     "year": 2023,
     "power_stock": 190
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Passat",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 160
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Passat",
+    "fuel_type": "diesel",
+    "year": 2022,
+    "power_stock": 180
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Tiguan",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 200
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Tiguan",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Tiguan",
+    "fuel_type": "diesel",
+    "year": 2022,
+    "power_stock": 190
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Polo",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 95
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Polo",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 90
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Polo",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 85
   },
   {
     "make": "BMW",
@@ -19,6 +96,307 @@
     "fuel_type": "diesel",
     "year": 2023,
     "power_stock": 190
+  },
+  {
+    "make": "BMW",
+    "model": "Serie 3",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 184
+  },
+  {
+    "make": "BMW",
+    "model": "Serie 3",
+    "fuel_type": "diesel",
+    "year": 2022,
+    "power_stock": 184
+  },
+  {
+    "make": "BMW",
+    "model": "Serie 3",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 156
+  },
+  {
+    "make": "BMW",
+    "model": "Serie 5",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 265
+  },
+  {
+    "make": "BMW",
+    "model": "Serie 5",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 245
+  },
+  {
+    "make": "BMW",
+    "model": "Serie 5",
+    "fuel_type": "diesel",
+    "year": 2022,
+    "power_stock": 231
+  },
+  {
+    "make": "BMW",
+    "model": "X3",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 265
+  },
+  {
+    "make": "BMW",
+    "model": "X3",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 248
+  },
+  {
+    "make": "BMW",
+    "model": "X3",
+    "fuel_type": "diesel",
+    "year": 2022,
+    "power_stock": 190
+  },
+  {
+    "make": "BMW",
+    "model": "X5",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 340
+  },
+  {
+    "make": "BMW",
+    "model": "X5",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 340
+  },
+  {
+    "make": "BMW",
+    "model": "Serie 1",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 140
+  },
+  {
+    "make": "BMW",
+    "model": "Serie 1",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 136
+  },
+  {
+    "make": "Mercedes",
+    "model": "Clase C",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 194
+  },
+  {
+    "make": "Mercedes",
+    "model": "Clase C",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 204
+  },
+  {
+    "make": "Mercedes",
+    "model": "Clase C",
+    "fuel_type": "diesel",
+    "year": 2022,
+    "power_stock": 170
+  },
+  {
+    "make": "Mercedes",
+    "model": "Clase C",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 184
+  },
+  {
+    "make": "Mercedes",
+    "model": "Clase E",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 330
+  },
+  {
+    "make": "Mercedes",
+    "model": "Clase E",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 272
+  },
+  {
+    "make": "Mercedes",
+    "model": "Clase E",
+    "fuel_type": "diesel",
+    "year": 2022,
+    "power_stock": 245
+  },
+  {
+    "make": "Mercedes",
+    "model": "GLC",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 245
+  },
+  {
+    "make": "Mercedes",
+    "model": "GLC",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 258
+  },
+  {
+    "make": "Mercedes",
+    "model": "GLC",
+    "fuel_type": "diesel",
+    "year": 2022,
+    "power_stock": 194
+  },
+  {
+    "make": "Mercedes",
+    "model": "Clase A",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 163
+  },
+  {
+    "make": "Mercedes",
+    "model": "Clase A",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "Mercedes",
+    "model": "Clase A",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 136
+  },
+  {
+    "make": "Audi",
+    "model": "A3",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "Audi",
+    "model": "A3",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "Audi",
+    "model": "A3",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 110
+  },
+  {
+    "make": "Audi",
+    "model": "A3",
+    "fuel_type": "diesel",
+    "year": 2021,
+    "power_stock": 116
+  },
+  {
+    "make": "Audi",
+    "model": "A4",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 204
+  },
+  {
+    "make": "Audi",
+    "model": "A4",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 204
+  },
+  {
+    "make": "Audi",
+    "model": "A4",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 190
+  },
+  {
+    "make": "Audi",
+    "model": "A4",
+    "fuel_type": "diesel",
+    "year": 2021,
+    "power_stock": 163
+  },
+  {
+    "make": "Audi",
+    "model": "A6",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 340
+  },
+  {
+    "make": "Audi",
+    "model": "A6",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 286
+  },
+  {
+    "make": "Audi",
+    "model": "A6",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 272
+  },
+  {
+    "make": "Audi",
+    "model": "Q3",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 190
+  },
+  {
+    "make": "Audi",
+    "model": "Q3",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "Audi",
+    "model": "Q3",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 150
+  },
+  {
+    "make": "Audi",
+    "model": "Q5",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 265
+  },
+  {
+    "make": "Audi",
+    "model": "Q5",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 204
+  },
+  {
+    "make": "Audi",
+    "model": "Q5",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 245
   },
   {
     "make": "SEAT",
@@ -29,10 +407,80 @@
   },
   {
     "make": "SEAT",
+    "model": "Ibiza",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 90
+  },
+  {
+    "make": "SEAT",
+    "model": "Ibiza",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 75
+  },
+  {
+    "make": "SEAT",
     "model": "Leon",
     "fuel_type": "gasolina",
     "year": 2023,
     "power_stock": 150
+  },
+  {
+    "make": "SEAT",
+    "model": "Leon",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "SEAT",
+    "model": "Leon",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 130
+  },
+  {
+    "make": "SEAT",
+    "model": "Leon",
+    "fuel_type": "diesel",
+    "year": 2021,
+    "power_stock": 115
+  },
+  {
+    "make": "SEAT",
+    "model": "Ateca",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 190
+  },
+  {
+    "make": "SEAT",
+    "model": "Ateca",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "SEAT",
+    "model": "Ateca",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 150
+  },
+  {
+    "make": "SEAT",
+    "model": "Arona",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 110
+  },
+  {
+    "make": "SEAT",
+    "model": "Arona",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 95
   },
   {
     "make": "Ford",
@@ -40,5 +488,782 @@
     "fuel_type": "gasolina",
     "year": 2023,
     "power_stock": 125
+  },
+  {
+    "make": "Ford",
+    "model": "Fiesta",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 100
+  },
+  {
+    "make": "Ford",
+    "model": "Fiesta",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 85
+  },
+  {
+    "make": "Ford",
+    "model": "Focus",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 155
+  },
+  {
+    "make": "Ford",
+    "model": "Focus",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 120
+  },
+  {
+    "make": "Ford",
+    "model": "Focus",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 125
+  },
+  {
+    "make": "Ford",
+    "model": "Focus",
+    "fuel_type": "diesel",
+    "year": 2021,
+    "power_stock": 95
+  },
+  {
+    "make": "Ford",
+    "model": "Kuga",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 190
+  },
+  {
+    "make": "Ford",
+    "model": "Kuga",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "Ford",
+    "model": "Kuga",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 150
+  },
+  {
+    "make": "Ford",
+    "model": "Mondeo",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 165
+  },
+  {
+    "make": "Ford",
+    "model": "Mondeo",
+    "fuel_type": "diesel",
+    "year": 2022,
+    "power_stock": 150
+  },
+  {
+    "make": "Ford",
+    "model": "Mondeo",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 145
+  },
+  {
+    "make": "Renault",
+    "model": "Clio",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 100
+  },
+  {
+    "make": "Renault",
+    "model": "Clio",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 90
+  },
+  {
+    "make": "Renault",
+    "model": "Clio",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 75
+  },
+  {
+    "make": "Renault",
+    "model": "Megane",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 140
+  },
+  {
+    "make": "Renault",
+    "model": "Megane",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 115
+  },
+  {
+    "make": "Renault",
+    "model": "Megane",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 115
+  },
+  {
+    "make": "Renault",
+    "model": "Captur",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 140
+  },
+  {
+    "make": "Renault",
+    "model": "Captur",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 115
+  },
+  {
+    "make": "Renault",
+    "model": "Captur",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 100
+  },
+  {
+    "make": "Renault",
+    "model": "Kadjar",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 140
+  },
+  {
+    "make": "Renault",
+    "model": "Kadjar",
+    "fuel_type": "diesel",
+    "year": 2022,
+    "power_stock": 130
+  },
+  {
+    "make": "Renault",
+    "model": "Kadjar",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 115
+  },
+  {
+    "make": "Peugeot",
+    "model": "208",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 100
+  },
+  {
+    "make": "Peugeot",
+    "model": "208",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 75
+  },
+  {
+    "make": "Peugeot",
+    "model": "208",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 68
+  },
+  {
+    "make": "Peugeot",
+    "model": "308",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 130
+  },
+  {
+    "make": "Peugeot",
+    "model": "308",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 130
+  },
+  {
+    "make": "Peugeot",
+    "model": "308",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 110
+  },
+  {
+    "make": "Peugeot",
+    "model": "2008",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 130
+  },
+  {
+    "make": "Peugeot",
+    "model": "2008",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 110
+  },
+  {
+    "make": "Peugeot",
+    "model": "2008",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 100
+  },
+  {
+    "make": "Peugeot",
+    "model": "3008",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 180
+  },
+  {
+    "make": "Peugeot",
+    "model": "3008",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 130
+  },
+  {
+    "make": "Peugeot",
+    "model": "3008",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 130
+  },
+  {
+    "make": "Citroën",
+    "model": "C3",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 83
+  },
+  {
+    "make": "Citroën",
+    "model": "C3",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 68
+  },
+  {
+    "make": "Citroën",
+    "model": "C3",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 68
+  },
+  {
+    "make": "Citroën",
+    "model": "C4",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 130
+  },
+  {
+    "make": "Citroën",
+    "model": "C4",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 110
+  },
+  {
+    "make": "Citroën",
+    "model": "C4",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 100
+  },
+  {
+    "make": "Citroën",
+    "model": "C3 Aircross",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 110
+  },
+  {
+    "make": "Citroën",
+    "model": "C3 Aircross",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 100
+  },
+  {
+    "make": "Citroën",
+    "model": "C3 Aircross",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 83
+  },
+  {
+    "make": "Citroën",
+    "model": "C5 Aircross",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 180
+  },
+  {
+    "make": "Citroën",
+    "model": "C5 Aircross",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 130
+  },
+  {
+    "make": "Nissan",
+    "model": "Micra",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 92
+  },
+  {
+    "make": "Nissan",
+    "model": "Micra",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 71
+  },
+  {
+    "make": "Nissan",
+    "model": "Micra",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 71
+  },
+  {
+    "make": "Nissan",
+    "model": "Juke",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 114
+  },
+  {
+    "make": "Nissan",
+    "model": "Juke",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 94
+  },
+  {
+    "make": "Nissan",
+    "model": "Juke",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 94
+  },
+  {
+    "make": "Nissan",
+    "model": "Qashqai",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 158
+  },
+  {
+    "make": "Nissan",
+    "model": "Qashqai",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 115
+  },
+  {
+    "make": "Nissan",
+    "model": "Qashqai",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 140
+  },
+  {
+    "make": "Nissan",
+    "model": "X-Trail",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 163
+  },
+  {
+    "make": "Nissan",
+    "model": "X-Trail",
+    "fuel_type": "diesel",
+    "year": 2022,
+    "power_stock": 150
+  },
+  {
+    "make": "Toyota",
+    "model": "Yaris",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 120
+  },
+  {
+    "make": "Toyota",
+    "model": "Yaris",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 92
+  },
+  {
+    "make": "Toyota",
+    "model": "Yaris",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 72
+  },
+  {
+    "make": "Toyota",
+    "model": "Corolla",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 122
+  },
+  {
+    "make": "Toyota",
+    "model": "Corolla",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 116
+  },
+  {
+    "make": "Toyota",
+    "model": "Corolla",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 116
+  },
+  {
+    "make": "Toyota",
+    "model": "C-HR",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 122
+  },
+  {
+    "make": "Toyota",
+    "model": "C-HR",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 116
+  },
+  {
+    "make": "Toyota",
+    "model": "C-HR",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 116
+  },
+  {
+    "make": "Toyota",
+    "model": "RAV4",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 173
+  },
+  {
+    "make": "Toyota",
+    "model": "RAV4",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 173
+  },
+  {
+    "make": "Toyota",
+    "model": "RAV4",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 173
+  },
+  {
+    "make": "Hyundai",
+    "model": "i20",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 100
+  },
+  {
+    "make": "Hyundai",
+    "model": "i20",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 84
+  },
+  {
+    "make": "Hyundai",
+    "model": "i20",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 84
+  },
+  {
+    "make": "Hyundai",
+    "model": "i30",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 120
+  },
+  {
+    "make": "Hyundai",
+    "model": "i30",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 136
+  },
+  {
+    "make": "Hyundai",
+    "model": "i30",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 100
+  },
+  {
+    "make": "Hyundai",
+    "model": "Tucson",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 180
+  },
+  {
+    "make": "Hyundai",
+    "model": "Tucson",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 136
+  },
+  {
+    "make": "Hyundai",
+    "model": "Tucson",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 150
+  },
+  {
+    "make": "Hyundai",
+    "model": "Kona",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 120
+  },
+  {
+    "make": "Hyundai",
+    "model": "Kona",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 100
+  },
+  {
+    "make": "Kia",
+    "model": "Rio",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 100
+  },
+  {
+    "make": "Kia",
+    "model": "Rio",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 84
+  },
+  {
+    "make": "Kia",
+    "model": "Rio",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 84
+  },
+  {
+    "make": "Kia",
+    "model": "Ceed",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 140
+  },
+  {
+    "make": "Kia",
+    "model": "Ceed",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 136
+  },
+  {
+    "make": "Kia",
+    "model": "Ceed",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 120
+  },
+  {
+    "make": "Kia",
+    "model": "Sportage",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 180
+  },
+  {
+    "make": "Kia",
+    "model": "Sportage",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 136
+  },
+  {
+    "make": "Kia",
+    "model": "Sportage",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 132
+  },
+  {
+    "make": "Kia",
+    "model": "Stonic",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 100
+  },
+  {
+    "make": "Kia",
+    "model": "Stonic",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 84
+  },
+  {
+    "make": "Mazda",
+    "model": "2",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 90
+  },
+  {
+    "make": "Mazda",
+    "model": "2",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 75
+  },
+  {
+    "make": "Mazda",
+    "model": "3",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 122
+  },
+  {
+    "make": "Mazda",
+    "model": "3",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 90
+  },
+  {
+    "make": "Mazda",
+    "model": "3",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 90
+  },
+  {
+    "make": "Mazda",
+    "model": "CX-3",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 121
+  },
+  {
+    "make": "Mazda",
+    "model": "CX-3",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 90
+  },
+  {
+    "make": "Mazda",
+    "model": "CX-5",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 165
+  },
+  {
+    "make": "Mazda",
+    "model": "CX-5",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 150
+  },
+  {
+    "make": "Skoda",
+    "model": "Fabia",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 95
+  },
+  {
+    "make": "Skoda",
+    "model": "Fabia",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 75
+  },
+  {
+    "make": "Skoda",
+    "model": "Fabia",
+    "fuel_type": "gasolina",
+    "year": 2021,
+    "power_stock": 75
+  },
+  {
+    "make": "Skoda",
+    "model": "Octavia",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "Skoda",
+    "model": "Octavia",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "Skoda",
+    "model": "Octavia",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 110
+  },
+  {
+    "make": "Skoda",
+    "model": "Octavia",
+    "fuel_type": "diesel",
+    "year": 2021,
+    "power_stock": 115
+  },
+  {
+    "make": "Skoda",
+    "model": "Karoq",
+    "fuel_type": "gasolina",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "Skoda",
+    "model": "Karoq",
+    "fuel_type": "diesel",
+    "year": 2023,
+    "power_stock": 150
+  },
+  {
+    "make": "Skoda",
+    "model": "Karoq",
+    "fuel_type": "gasolina",
+    "year": 2022,
+    "power_stock": 110
   }
 ]

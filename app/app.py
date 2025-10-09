@@ -195,17 +195,10 @@ def index() -> rx.Component:
                     padding_top="0px",
                     width="100%",
                 ),
-                rx.center(
-                    rx.box(
-                        vehicle_selector(),
-                        class_name="scroll-target",
-                        width="100%",
-                        max_width="1200px",
-                        mx="auto"
-                    ),
+                rx.box(
+                    vehicle_selector(),
+                    class_name="scroll-target",
                     width="100%",
-                    px={"base": "4", "md": "8"},
-                    py={"base": "6", "md": "8"}
                 ),
                 rx.box(
                     benefits(),

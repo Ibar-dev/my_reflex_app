@@ -28,106 +28,102 @@ class ContactState(rx.State):
     phone_error: str = ""
     form_error: str = ""
     
-    async def handle_name_change(self, value: str):
-        """Handler async para el nombre"""
-        print(f"🔄 Cambiando nombre: '{value}'")
+    def handle_name_change(self, value: str):
+        """Handler corregido para el nombre"""
+        print(f"🔄 Cambiando nombre: '{value}'")  # Debug
         self.name = value
-
-    async def handle_email_change(self, value: str):
-        """Handler async para el email"""
-        print(f"📧 Cambiando email: '{value}'")
+        
+    def handle_email_change(self, value: str):
+        """Handler corregido para el email"""
+        print(f"📧 Cambiando email: '{value}'")  # Debug
         self.email = value
         if value and not self.validate_email(value):
             self.email_error = "Formato de email inválido"
         else:
             self.email_error = ""
-
-    async def handle_phone_change(self, value: str):
-        """Handler async para el teléfono"""
-        print(f"📱 Cambiando teléfono: '{value}'")
+        
+    def handle_phone_change(self, value: str):
+        """Handler corregido para el teléfono"""
+        print(f"📱 Cambiando teléfono: '{value}'")  # Debug
         self.phone = value
         if value and not self.validate_phone(value):
             self.phone_error = "Formato de teléfono inválido"
         else:
             self.phone_error = ""
-
-    async def handle_message_change(self, value: str):
-        """Handler async para el mensaje"""
-        print(f"💬 Cambiando mensaje: '{value}'")
+    def handle_message_change(self, value: str):
+        """Handler corregido para el mensaje"""
+        print(f"💬 Cambiando mensaje: '{value}'")  # Debug
         self.message = value
     
-    # ✅ AÑADIDO: Método para cerrar modal
-    def close_modal(self):
-        """Cerrar modal de éxito"""
-        self.show_success = False
-    
     async def submit_form(self):
-        """Procesar el envío del formulario - Integrado con email_service"""
-        print("🚀 Enviando formulario...")
-
+        """Procesar el envío del formulario - Listo para backend"""
+        print("🚀 Enviando formulario...")  # Debug
+        
         # Limpiar errores anteriores
         self.form_error = ""
         self.email_error = ""
         self.phone_error = ""
-
+        
         # Validar campos requeridos
         if not self.name.strip():
             self.form_error = "El nombre es obligatorio"
             return
-
+            
         if not self.email.strip():
             self.form_error = "El email es obligatorio"
             return
-
+            
         if not self.message.strip():
             self.form_error = "El mensaje es obligatorio"
             return
-
+        
         # Validar formato de email
         if not self.validate_email(self.email):
             self.email_error = "Formato de email inválido"
             return
-
+            
         # Validar teléfono si se proporciona
         if self.phone and not self.validate_phone(self.phone):
             self.phone_error = "Formato de teléfono inválido"
             return
-
+        
         # Activar estado de carga
         self.is_loading = True
-
+        
         try:
-            from utils.email_service import email_sender
-            import asyncio
-            import concurrent.futures
+            # TODO: INTEGRAR ENDPOINT DEL BACKEND AQUÍ
+            # Ejemplo:
+            # response = await send_contact_email({
+            #     "name": self.name,
+            #     "email": self.email,
+            #     "phone": self.phone,
+            #     "message": self.message
+            # })
             
-            # Enviar email (bloqueante, usar run_in_executor)
-            loop = asyncio.get_event_loop()
-            success = await loop.run_in_executor(
-                None,
-                lambda: email_sender.send_email(
-                    name=self.name,
-                    email=self.email,
-                    phone=self.phone,
-                    message=self.message
-                )
-            )
-
-            if not success:
-                self.form_error = "Error al enviar el email. Intenta de nuevo."
-                self.is_loading = False
-                return
-
-            print(f"✅ Email enviado correctamente")
+            # Por ahora, simulamos un delay de red
+            import asyncio
+            await asyncio.sleep(1.5)
+            
+            # Log de datos listos para backend
+            print(f"✅ Formulario válido")
+            print(f"📧 Datos listos para enviar al backend:")
+            print(f"   - Nombre: {self.name}")
+            print(f"   - Email: {self.email}")
+            print(f"   - Teléfono: {self.phone or 'No proporcionado'}")
+            print(f"   - Mensaje: {self.message[:50]}...")
+            
+            # Mostrar éxito
             self.show_success = True
             self.is_loading = False
+            
+            # Limpiar formulario
             self.reset_form()
             
-            # Cerrar modal automáticamente después de 5 segundos
+            # Ocultar mensaje de éxito después de 5 segundos
             await asyncio.sleep(5)
             self.show_success = False
-            
         except Exception as e:
+            # Manejo de errores
             self.is_loading = False
             self.form_error = f"Error al enviar: {str(e)}"
             print(f"❌ Error en submit_form: {e}")

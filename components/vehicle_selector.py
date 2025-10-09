@@ -4,8 +4,8 @@ from state.vehicle_state import VehicleState
 
 def vehicle_selector() -> rx.Component:
     """Selector de vehículos FUNCIONAL con estilos de interacción mejorados"""
-    return rx.center(
-        rx.box(
+    return rx.box(
+        rx.center(
             rx.vstack(
                 rx.heading(
                     "🚗 Configurador de Centralitas", 
@@ -158,21 +158,15 @@ def vehicle_selector() -> rx.Component:
                         border="1px solid #FF6B35",
                     ),
                 ),
-                
                 spacing="5",
                 width="100%",
                 max_width="600px",
+                align="center",
             ),
-            padding="2rem",
-            bg="#2D2D2D",
-            border_radius="20px",
-            border="1px solid #404040",
-            box_shadow="0 8px 30px rgba(0, 0, 0, 0.3)",
             width="100%",
-            max_width="700px",
-            position="relative",
-            z_index="1",
         ),
+        padding={"base": "3rem 1rem", "md": "4rem 2rem"},
+        bg="#1A1A1A",
         width="100%",
         id="selector",
     )
