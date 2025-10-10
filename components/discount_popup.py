@@ -24,6 +24,19 @@ class PopupState(rx.State):
     success_message: str = ""
     error_message: str = ""
     
+    # Setters explícitos para evitar warnings de Reflex 0.9.0
+    def set_nombre(self, value: str):
+        """Setter explícito para nombre"""
+        self.nombre = value
+    
+    def set_email(self, value: str):
+        """Setter explícito para email"""
+        self.email = value
+    
+    def set_telefono(self, value: str):
+        """Setter explícito para telefono"""
+        self.telefono = value
+    
     def reset_popup(self):
         """Reinicia el popup cuando se recarga la página (F5)"""
         self.show_popup = True
@@ -365,7 +378,7 @@ def form_content() -> rx.Component:
                 rx.cond(
                     PopupState.is_loading,
                     rx.hstack(
-                        rx.spinner(size="sm", color="white"),
+                        rx.spinner(size="2", color="white"),
                         rx.text("Enviando...", font_size="0.8rem", font_weight="700"),
                         spacing="1",
                     ),
