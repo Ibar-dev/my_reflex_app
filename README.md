@@ -41,6 +41,64 @@ El objetivo de esta página web es ofrecer una plataforma moderna y profesional 
 - Recomendación de productos de mejora personalizados.
 - Formulario de contacto (email y/o teléfono obligatorio).
 - Envío de datos al profesional correspondiente.
+- **Popup de descuento promocional:** Modal compacto en esquina inferior derecha con formulario de registro integrado.
+
+## 🎁 Componente: Popup de Descuento (discount_popup.py)
+
+### Descripción
+Popup promocional compacto que aparece en la **esquina inferior derecha** de la página ofreciendo un **10% de descuento** a nuevos clientes que se registren.
+
+### Características
+- **Posición:** Fixed en esquina inferior derecha (bottom: 20px, right: 20px)
+- **Tamaño:** Compacto (320px de ancho)
+- **Animación:** Desliza desde abajo con fade-in
+- **Responsive:** Se adapta en móviles con max-width
+- **Dos vistas:**
+  1. **Vista de oferta:** Muestra la promoción del 10% de descuento
+  2. **Vista de formulario:** Formulario de registro con nombre, email y teléfono
+
+### Estado (PopupState)
+```python
+show_popup: bool = True      # Controla visibilidad del popup
+show_form: bool = False      # Alterna entre oferta y formulario
+nombre: str = ""             # Campo nombre del usuario
+email: str = ""              # Campo email del usuario
+telefono: str = ""           # Campo teléfono del usuario
+```
+
+### Métodos
+- `close_popup()`: Cierra el popup completamente
+- `open_register()`: Muestra el formulario de registro
+- `back_to_offer()`: Vuelve a la vista de oferta
+- `submit_registration()`: Envía datos al backend (**TODO: Implementar por backend**)
+
+### Integración con Backend
+El método `submit_registration()` está preparado para enviar los datos:
+```python
+def submit_registration(self):
+    # TODO: Backend debe implementar aquí la llamada al servidor
+    # Datos disponibles: self.nombre, self.email, self.telefono
+    print(f"Registro: {self.nombre}, {self.email}, {self.telefono}")
+```
+
+### Estilos y Diseño
+- **Colores:** Naranja (#FF6B35) y fondo oscuro degradado
+- **Border:** 2px solid con borde naranja
+- **Shadow:** Efecto de profundidad con glow naranja
+- **Inputs:** Fondo oscuro con borde que se ilumina en naranja al focus
+- **Botones:** Gradiente naranja con efectos hover
+
+### Comportamiento
+1. Al cargar la página → Muestra la vista de oferta
+2. Click en "REGISTRARME" → Despliega formulario
+3. Click en "Volver" → Regresa a la oferta
+4. Click en "Enviar" → Envía datos y cierra popup
+5. Click en "X" → Cierra todo
+
+### Archivos Relacionados
+- **Componente:** `components/discount_popup.py`
+- **Estilos CSS:** `assets/styles.css` (animación `popupSlideInBottomRight`)
+- **Integración:** `app/app.py` (línea donde se importa y usa)
 
 ## 🛠️ Pasos Lógicos para Completar el Proyecto
 

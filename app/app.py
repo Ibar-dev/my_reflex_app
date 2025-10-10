@@ -15,6 +15,7 @@ from components.services import services
 from components.faq import faq
 from components.contact import contact
 from components.footer import footer
+from components.discount_popup import discount_popup, PopupState
 from state.vehicle_state import VehicleState
 
 # Importar estados para que Reflex los reconozca
@@ -408,9 +409,13 @@ def index() -> rx.Component:
             width="100%",
         ),
         
+        # Popup de descuento
+        discount_popup(),
+        
         bg="#121212",
         min_height="100vh",
         width="100%",
+        on_mount=PopupState.reset_popup,  # Resetea el popup al cargar la página
     )
 
 def services_page() -> rx.Component:
