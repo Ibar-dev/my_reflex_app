@@ -38,8 +38,9 @@ def contact() -> rx.Component:
                                     align="center"
                                 ),
                                 rx.text(
-                                    "Calle del Motor, 123\n28001 Madrid, España",
+                                    "Calle Plata, 41\n28950 Moraleja de Enmedio, Madrid\nEspaña",
                                     color="#CCCCCC",
+                                    white_space="pre-line",
                                     line_height="1.5",
                                     font_size="1.1rem"
                                 ),
@@ -59,7 +60,7 @@ def contact() -> rx.Component:
                                     align="center"
                                 ),
                                 rx.text(
-                                    "+34 91 123 45 67",
+                                    "+34 682 504 986",
                                     color="#CCCCCC",
                                     line_height="1.5",
                                     font_size="1.1rem"
@@ -80,7 +81,7 @@ def contact() -> rx.Component:
                                     align="center"
                                 ),
                                 rx.text(
-                                    "info@astrotech.com",
+                                    "Astrotechreprogramaciones@gmail.com",
                                     color="#CCCCCC",
                                     line_height="1.5",
                                     font_size="1.1rem"
