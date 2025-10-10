@@ -6,130 +6,437 @@ El objetivo de esta página web es ofrecer una plataforma moderna y profesional 
 
 ## 🚦 Estado Actual del Proyecto
 
-- Estructura de carpetas y archivos creada.
-- Archivos principales con comentarios explicativos y documentación interna.
-- Imports y dependencias preparados para desarrollo futuro.
-- **Falta implementar:** lógica de componentes, páginas funcionales, estados reactivos, integración con backend, datos reales y estilos finales.
+- ✅ **Estructura de carpetas y archivos** creada
+- ✅ **Sistema de base de datos** completamente implementado
+- ✅ **Popup de descuento** funcional con persistencia de datos
+- ✅ **Componentes principales** desarrollados
+- ✅ **Validaciones y manejo de errores** implementado
+- ✅ **Scripts de prueba y verificación** disponibles
+- 🔄 **En desarrollo:** integración completa de páginas y estilos finales
 
-## Estructura del proyecto
-- `app.py`: Punto de entrada principal.
-- `components/`: Componentes reutilizables de la interfaz.
-- `pages/`: Páginas principales de la aplicación.
-- `state/`: Lógica de estado y gestión de datos.
-- `utils/`: Funciones auxiliares.
-- `assets/`: Archivos estáticos (imágenes, CSS, JS).
-- `tests/`: Pruebas unitarias y de integración.
+## 📁 Estructura del Proyecto y Componentes Principales
 
-## Instalación
-1. Clona el repositorio.
-2. Crea y activa el entorno virtual:
-    ```bash
-    python -m venv .myvenv
-    source .myvenv/Scripts/activate
-    ```
-3. Instala las dependencias:
-    ```bash
-    pip install -r requirements.txt
-    ```
-4. Ejecuta la aplicación:
-    ```bash
-    reflex run
-    ```
+### 🏠 **Aplicación Principal**
+- **📍 `app/app.py`**: Punto de entrada principal de la aplicación
+  - Importa todos los componentes y estados
+  - Define estilos globales y configuración
+  - Maneja el enrutamiento de páginas
+  - **Ejecutar:** `reflex run`
 
-## Funcionalidad principal
-- Selección de tipo de motor, marca, modelo y opciones avanzadas.
-- Recomendación de productos de mejora personalizados.
-- Formulario de contacto (email y/o teléfono obligatorio).
-- Envío de datos al profesional correspondiente.
-- **Popup de descuento promocional:** Modal compacto en esquina inferior derecha con formulario de registro integrado.
+- **📍 `rxconfig.py`**: Configuración de Reflex
+  - Puerto frontend: 3000
+  - Puerto backend: 8000
+  - Base de datos: SQLite
 
-## 🎁 Componente: Popup de Descuento (discount_popup.py)
+### 🧩 **Componentes de Interfaz** (`components/`)
+- **📍 `components/header.py`**: Barra de navegación superior
+- **📍 `components/hero.py`**: Sección principal de bienvenida
+- **📍 `components/vehicle_selector.py`**: Selector de marca/modelo de vehículo
+- **📍 `components/benefits.py`**: Sección de beneficios del servicio
+- **📍 `components/services.py`**: Servicios ofrecidos
+- **📍 `components/faq.py`**: Preguntas frecuentes
+- **📍 `components/contact.py`**: Formulario de contacto
+- **📍 `components/footer.py`**: Pie de página
+- **📍 `components/discount_popup.py`**: **⭐ POPUP DE DESCUENTO**
+  - Modal promocional con 10% descuento
+  - Formulario de registro integrado
+  - Validaciones en tiempo real
+  - Integración completa con base de datos
 
-### Descripción
-Popup promocional compacto que aparece en la **esquina inferior derecha** de la página ofreciendo un **10% de descuento** a nuevos clientes que se registren.
+### 📄 **Páginas** (`pages/`)
+- **📍 `pages/home.py`**: Página principal
+- **📍 `pages/home_new.py`**: Versión alternativa de inicio
+- **📍 `pages/about.py`**: Página "Acerca de nosotros"
+- **📍 `pages/services.py`**: Página de servicios detallados
+- **📍 `pages/contact.py`**: Página de contacto
 
-### Características
-- **Posición:** Fixed en esquina inferior derecha (bottom: 20px, right: 20px)
-- **Tamaño:** Compacto (320px de ancho)
-- **Animación:** Desliza desde abajo con fade-in
-- **Responsive:** Se adapta en móviles con max-width
-- **Dos vistas:**
-  1. **Vista de oferta:** Muestra la promoción del 10% de descuento
-  2. **Vista de formulario:** Formulario de registro con nombre, email y teléfono
+### 🔧 **Estados y Lógica** (`state/`)
+- **📍 `state/global_state.py`**: Estado global de la aplicación
+- **📍 `state/vehicle_state.py`**: Gestión del selector de vehículos
+- **📍 `state/contact_state.py`**: Formulario de contacto
 
-### Estado (PopupState)
-```python
-show_popup: bool = True      # Controla visibilidad del popup
-show_form: bool = False      # Alterna entre oferta y formulario
-nombre: str = ""             # Campo nombre del usuario
-email: str = ""              # Campo email del usuario
-telefono: str = ""           # Campo teléfono del usuario
+### 🗄️ **Sistema de Base de Datos**
+- **📍 `models/user.py`**: **⭐ MODELO DE DATOS**
+  - Tabla `user_registrations`
+  - Validaciones de datos
+  - Configuración SQLite
+  - Inicialización automática de BD
+
+- **📍 `utils/database_service.py`**: **⭐ SERVICIO DE BD**
+  - Operaciones CRUD completas
+  - Validaciones robustas (email, teléfono)
+  - Prevención de duplicados
+  - Estadísticas y reportes
+  - Manejo de errores
+
+- **📍 `users.db`**: Base de datos SQLite (generada automáticamente)
+
+### 🛠️ **Utilidades** (`utils/`)
+- **📍 `utils/email_service.py`**: Servicio de envío de emails
+- **📍 `utils/vehicle_data.py`**: Datos de vehículos disponibles
+- **📍 `utils/popup_state.py`**: Estado del popup (vacío, lógica en discount_popup.py)
+
+### 🧪 **Scripts de Verificación y Pruebas**
+- **📍 `test_database.py`**: **⭐ PRUEBAS COMPLETAS DE BD**
+  - Prueba todas las operaciones de base de datos
+  - Validaciones y casos límite
+  - **Ejecutar:** `python test_database.py`
+
+- **📍 `test_popup_workflow.py`**: **⭐ SIMULACIÓN DEL POPUP**
+  - Simula el flujo completo del popup
+  - Prueba casos válidos e inválidos
+  - **Ejecutar:** `python test_popup_workflow.py`
+
+- **📍 `view_users.py`**: **⭐ VISOR DE REGISTROS**
+  - Muestra todos los usuarios registrados
+  - Estadísticas del sistema
+  - **Ejecutar:** `python view_users.py`
+
+- **📍 `check_system.py`**: **⭐ VERIFICACIÓN COMPLETA**
+  - Verifica que todo el sistema funcione
+  - Chequea imports, BD, validaciones
+  - **Ejecutar:** `python check_system.py`
+
+### 🎨 **Recursos** (`assets/`)
+- **📍 `assets/styles.css`**: Estilos CSS personalizados
+- **📍 `assets/selector-fix.css`**: Estilos específicos del selector
+- **📍 `assets/components/`**: Componentes de estilo
+- **📍 `assets/images/`**: Imágenes del proyecto
+
+### 📊 **Datos** (`data/`)
+- **📍 `data/vehiculos_turismo.json`**: Base de datos de vehículos
+
+### 📚 **Documentación**
+- **📍 `DATABASE_DOCUMENTATION.md`**: **⭐ DOCUMENTACIÓN COMPLETA DE BD**
+  - Explicación detallada del sistema
+  - Ejemplos de uso
+  - Flujo de datos
+
+- **📍 `README.md`**: Este archivo (documentación principal)
+
+## 🚀 Instalación y Ejecución
+
+### 1. **Preparar el Entorno**
+```bash
+# Clonar el repositorio
+git clone <repository-url>
+cd my_reflex_app
+
+# Crear entorno virtual
+python -m venv .myvenv
+
+# Activar entorno virtual (Windows)
+.myvenv\Scripts\activate
+
+# Activar entorno virtual (Linux/Mac)
+source .myvenv/bin/activate
 ```
 
-### Métodos
-- `close_popup()`: Cierra el popup completamente
-- `open_register()`: Muestra el formulario de registro
-- `back_to_offer()`: Vuelve a la vista de oferta
-- `submit_registration()`: Envía datos al backend (**TODO: Implementar por backend**)
-
-### Integración con Backend
-El método `submit_registration()` está preparado para enviar los datos:
-```python
-def submit_registration(self):
-    # TODO: Backend debe implementar aquí la llamada al servidor
-    # Datos disponibles: self.nombre, self.email, self.telefono
-    print(f"Registro: {self.nombre}, {self.email}, {self.telefono}")
+### 2. **Instalar Dependencias**
+```bash
+pip install -r requirements.txt
 ```
 
-### Estilos y Diseño
-- **Colores:** Naranja (#FF6B35) y fondo oscuro degradado
-- **Border:** 2px solid con borde naranja
-- **Shadow:** Efecto de profundidad con glow naranja
-- **Inputs:** Fondo oscuro con borde que se ilumina en naranja al focus
-- **Botones:** Gradiente naranja con efectos hover
+### 3. **Verificar el Sistema**
+```bash
+# Verificación completa del sistema
+python check_system.py
 
-### Comportamiento
-1. Al cargar la página → Muestra la vista de oferta
-2. Click en "REGISTRARME" → Despliega formulario
-3. Click en "Volver" → Regresa a la oferta
-4. Click en "Enviar" → Envía datos y cierra popup
-5. Click en "X" → Cierra todo
+# Verificar base de datos específicamente
+python test_database.py
+```
 
-### Archivos Relacionados
-- **Componente:** `components/discount_popup.py`
-- **Estilos CSS:** `assets/styles.css` (animación `popupSlideInBottomRight`)
-- **Integración:** `app/app.py` (línea donde se importa y usa)
+### 4. **Ejecutar la Aplicación**
+```bash
+# Iniciar el servidor de desarrollo
+reflex run
 
-## 🛠️ Pasos Lógicos para Completar el Proyecto
+# La aplicación estará disponible en:
+# Frontend: http://localhost:3000
+# Backend: http://localhost:8000
+```
 
-1. **Implementar Componentes Base**
-    - Desarrollar los componentes reutilizables en la carpeta `components/` (header, footer, selector de vehículos, formularios, etc.).
-2. **Crear Estados Reactivos**
-    - Implementar la lógica de estado en la carpeta `state/` para navegación, formularios y selector de vehículos.
-3. **Desarrollar Páginas Principales**
-    - Completar las páginas en `pages/` (inicio, servicios, acerca de, contacto) integrando los componentes y estados.
-4. **Integrar Datos y Backend**
-    - Conectar con el backend para obtener datos reales de vehículos y gestionar el envío de formularios.
-5. **Diseñar y Pulir Estilos**
-    - Desarrollar los estilos CSS en `assets/` para lograr una experiencia visual atractiva y profesional.
-6. **Añadir Pruebas**
-    - Implementar pruebas unitarias y de integración en la carpeta `tests/`.
-7. **Revisar Accesibilidad y SEO**
-    - Asegurar que la web sea accesible y optimizada para buscadores.
+## 🎁 Componente Destacado: Popup de Descuento
 
-## 🚀 Estado Ideal para Lanzamiento a Producción
+### **Ubicación:** `components/discount_popup.py`
 
-- Todas las páginas y componentes implementados y funcionales.
-- Estados reactivos y navegación fluida.
-- Integración completa con backend y datos reales.
-- Estilos finales pulidos y responsivos.
-- Pruebas superadas y sin errores críticos.
-- Documentación actualizada y clara.
-- Imágenes y recursos optimizados.
-- Cumplimiento de buenas prácticas de seguridad, accesibilidad y SEO.
+### **Características Principales:**
+- **Posición:** Esquina inferior derecha (fixed)
+- **Tamaño:** 320px de ancho, responsive
+- **Animación:** Deslizamiento desde abajo
+- **Funcionalidad:** Registro de usuarios con 10% descuento
 
-## Contacto y soporte
-Para dudas o sugerencias, contacta al equipo de desarrollo.
+### **Estados del Popup:**
+```python
+show_popup: bool = True      # Controla visibilidad
+show_form: bool = False      # Alterna vista oferta/formulario
+nombre: str = ""             # Campo nombre
+email: str = ""              # Campo email  
+telefono: str = ""           # Campo teléfono
+is_loading: bool = False     # Estado de carga
+success_message: str = ""    # Mensaje de éxito
+error_message: str = ""      # Mensaje de error
+```
+
+### **Métodos Principales:**
+- `close_popup()`: Cierra el popup
+- `open_register()`: Muestra formulario
+- `back_to_offer()`: Vuelve a la oferta
+- `submit_registration()`: **⭐ Guarda en base de datos**
+
+### **Integración con Base de Datos:**
+El popup está completamente integrado con el sistema de base de datos:
+1. Valida datos del formulario
+2. Verifica emails duplicados
+3. Guarda registro en `users.db`
+4. Muestra mensajes de feedback
+5. Cierra automáticamente en éxito
+
+## 🗄️ Sistema de Base de Datos
+
+### **Ubicación Principal:** `models/user.py` + `utils/database_service.py`
+
+### **Tabla `user_registrations`:**
+- `id`: ID único
+- `nombre`: Nombre completo
+- `email`: Email (único)
+- `telefono`: Teléfono
+- `source`: Origen del registro
+- `is_contacted`: Estado de contacto
+- `created_at`: Fecha de creación
+- `updated_at`: Fecha de actualización
+
+### **Operaciones Disponibles:**
+- ✅ Crear usuario (`save_user_registration()`)
+- ✅ Buscar por email (`get_user_by_email()`)
+- ✅ Listar usuarios (`get_all_users()`)
+- ✅ Marcar contactado (`mark_user_contacted()`)
+- ✅ Obtener estadísticas (`get_stats()`)
+
+### **Validaciones Implementadas:**
+- Email formato válido
+- Teléfono mínimo 9 dígitos
+- Nombre obligatorio
+- No duplicados por email
+
+## 🧪 Testing y Verificación
+
+### **Scripts Disponibles:**
+
+| Script | Función | Comando |
+|--------|---------|---------|
+| `check_system.py` | Verificación completa | `python check_system.py` |
+| `test_database.py` | Pruebas de BD | `python test_database.py` |
+| `test_popup_workflow.py` | Simulación popup | `python test_popup_workflow.py` |
+| `view_users.py` | Ver registros | `python view_users.py` |
+
+### **Ejemplo de Verificación:**
+```bash
+# Verificar que todo funciona
+python check_system.py
+
+# Resultado esperado:
+# 🎉 ¡SISTEMA COMPLETAMENTE FUNCIONAL!
+# 🚀 Listo para usar en producción
+```
+
+## 📊 Monitoreo de Usuarios
+
+### **Ver Registros del Popup:**
+```bash
+python view_users.py
+```
+
+### **Estadísticas Disponibles:**
+- Total de usuarios registrados
+- Usuarios contactados vs pendientes
+- Registros por fuente (popup, formulario, etc.)
+- Tasa de conversión
+
+## 🛠️ Próximos Pasos para Completar
+
+1. **✅ Sistema de Base de Datos** - COMPLETADO
+2. **✅ Popup de Descuento** - COMPLETADO  
+3. **🔄 Páginas Completas** - En desarrollo
+4. **🔄 Estilos Finales** - En desarrollo
+5. **⏳ Selector de Vehículos** - Pendiente
+6. **⏳ Sistema de Email** - Pendiente
+7. **⏳ Dashboard Admin** - Pendiente
+
+## 🚀 Estado para Producción
+
+### **✅ Listo para Usar:**
+- Sistema de base de datos
+- Popup de descuento funcional
+- Estructura de componentes
+- Scripts de verificación
+- Documentación completa
+
+### **🔄 En Desarrollo:**
+- Integración completa de páginas
+- Estilos responsive finales
+- Optimización de rendimiento
+
+## 📞 Contacto y Soporte
+
+Para dudas sobre la implementación o el sistema de base de datos, revisar:
+- `DATABASE_DOCUMENTATION.md` - Documentación técnica completa
+- Scripts de prueba - Para verificar funcionamiento
+- Logs de la aplicación - Para debugging
 
 ---
-Equipo Reflex Potenciación de Coches
+**Equipo Reflex Potenciación de Coches**  
+*Sistema de Base de Datos implementado y funcional* ✅
+
+```
+
+### 3. **Verificar el Sistema**
+```bash
+# Verificación completa del sistema
+python check_system.py
+
+# Verificar base de datos específicamente
+python test_database.py
+```
+
+### 4. **Ejecutar la Aplicación**
+```bash
+# Iniciar el servidor de desarrollo
+reflex run
+
+# La aplicación estará disponible en:
+# Frontend: http://localhost:3000
+# Backend: http://localhost:8000
+```
+
+## 🎁 Componente Destacado: Popup de Descuento
+
+### **Ubicación:** `components/discount_popup.py`
+
+### **Características Principales:**
+- **Posición:** Esquina inferior derecha (fixed)
+- **Tamaño:** 320px de ancho, responsive
+- **Animación:** Deslizamiento desde abajo
+- **Funcionalidad:** Registro de usuarios con 10% descuento
+
+### **Estados del Popup:**
+```python
+show_popup: bool = True      # Controla visibilidad
+show_form: bool = False      # Alterna vista oferta/formulario
+nombre: str = ""             # Campo nombre
+email: str = ""              # Campo email  
+telefono: str = ""           # Campo teléfono
+is_loading: bool = False     # Estado de carga
+success_message: str = ""    # Mensaje de éxito
+error_message: str = ""      # Mensaje de error
+```
+
+### **Métodos Principales:**
+- `close_popup()`: Cierra el popup
+- `open_register()`: Muestra formulario
+- `back_to_offer()`: Vuelve a la oferta
+- `submit_registration()`: **⭐ Guarda en base de datos**
+
+### **Integración con Base de Datos:**
+El popup está completamente integrado con el sistema de base de datos:
+1. Valida datos del formulario
+2. Verifica emails duplicados
+3. Guarda registro en `users.db`
+4. Muestra mensajes de feedback
+5. Cierra automáticamente en éxito
+
+## 🗄️ Sistema de Base de Datos
+
+### **Ubicación Principal:** `models/user.py` + `utils/database_service.py`
+
+### **Tabla `user_registrations`:**
+- `id`: ID único
+- `nombre`: Nombre completo
+- `email`: Email (único)
+- `telefono`: Teléfono
+- `source`: Origen del registro
+- `is_contacted`: Estado de contacto
+- `created_at`: Fecha de creación
+- `updated_at`: Fecha de actualización
+
+### **Operaciones Disponibles:**
+- ✅ Crear usuario (`save_user_registration()`)
+- ✅ Buscar por email (`get_user_by_email()`)
+- ✅ Listar usuarios (`get_all_users()`)
+- ✅ Marcar contactado (`mark_user_contacted()`)
+- ✅ Obtener estadísticas (`get_stats()`)
+
+### **Validaciones Implementadas:**
+- Email formato válido
+- Teléfono mínimo 9 dígitos
+- Nombre obligatorio
+- No duplicados por email
+
+## 🧪 Testing y Verificación
+
+### **Scripts Disponibles:**
+
+| Script | Función | Comando |
+|--------|---------|---------|
+| `check_system.py` | Verificación completa | `python check_system.py` |
+| `test_database.py` | Pruebas de BD | `python test_database.py` |
+| `test_popup_workflow.py` | Simulación popup | `python test_popup_workflow.py` |
+| `view_users.py` | Ver registros | `python view_users.py` |
+
+### **Ejemplo de Verificación:**
+```bash
+# Verificar que todo funciona
+python check_system.py
+
+# Resultado esperado:
+# 🎉 ¡SISTEMA COMPLETAMENTE FUNCIONAL!
+# 🚀 Listo para usar en producción
+```
+
+## 📊 Monitoreo de Usuarios
+
+### **Ver Registros del Popup:**
+```bash
+python view_users.py
+```
+
+### **Estadísticas Disponibles:**
+- Total de usuarios registrados
+- Usuarios contactados vs pendientes
+- Registros por fuente (popup, formulario, etc.)
+- Tasa de conversión
+
+## 🛠️ Próximos Pasos para Completar
+
+1. **✅ Sistema de Base de Datos** - COMPLETADO
+2. **✅ Popup de Descuento** - COMPLETADO  
+3. **🔄 Páginas Completas** - En desarrollo
+4. **🔄 Estilos Finales** - En desarrollo
+5. **⏳ Selector de Vehículos** - Pendiente
+6. **⏳ Sistema de Email** - Pendiente
+7. **⏳ Dashboard Admin** - Pendiente
+
+## 🚀 Estado para Producción
+
+### **✅ Listo para Usar:**
+- Sistema de base de datos
+- Popup de descuento funcional
+- Estructura de componentes
+- Scripts de verificación
+- Documentación completa
+
+### **🔄 En Desarrollo:**
+- Integración completa de páginas
+- Estilos responsive finales
+- Optimización de rendimiento
+
+## 📞 Contacto y Soporte
+
+Para dudas sobre la implementación o el sistema de base de datos, revisar:
+- `DATABASE_DOCUMENTATION.md` - Documentación técnica completa
+- Scripts de prueba - Para verificar funcionamiento
+- Logs de la aplicación - Para debugging
+
+---
+**Equipo Reflex Potenciación de Coches**  
+*Sistema de Base de Datos implementado y funcional* ✅
