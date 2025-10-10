@@ -3,119 +3,111 @@ from state.vehicle_state import VehicleState
 
 
 def vehicle_selector() -> rx.Component:
-    """Selector de vehículos FUNCIONAL con estilos de interacción mejorados"""
+    """Selector de vehículos FUNCIONAL con estilos de interacción mejorados y CENTRADO COMPLETO"""
     return rx.box(
-        rx.center(
+        # Contenedor principal con centrado completo
+        rx.container(
             rx.vstack(
-                rx.heading(
-                    "🚗 Configurador de Centralitas", 
-                    size="8", 
-                    color="#FF6B35", 
-                    margin_bottom="2rem",
-                    text_align="center"
+                # Header centrado
+                rx.hstack(
+                    rx.icon("car", size=32, color="#FF6B35"),
+                    rx.heading(
+                        "Configurador de Centralitas", 
+                        size="8", 
+                        color="#FF6B35", 
+                        font_weight="700"
+                    ),
+                    align="center",
+                    spacing="3",
+                    justify="center",
+                    width="100%"
                 ),
                 
                 # Selector de Combustible
-                rx.box(
-                    rx.vstack(
-                        rx.text(
-                            "Paso 1: Tipo de Combustible", 
-                            weight="bold", 
-                            size="4", 
-                            color="white"
-                        ),
-                        rx.select(
-                            VehicleState.fuel_options,
-                            placeholder="Selecciona el tipo de combustible", 
-                            value=VehicleState.selected_fuel,
-                            on_change=VehicleState.select_fuel,
-                            width="100%",
-                            size="3",
-                        ),
-                        width="100%",
-                        spacing="2",
+                rx.vstack(
+                    rx.text(
+                        "Paso 1: Tipo de Combustible", 
+                        weight="bold", 
+                        size="4", 
+                        color="white"
                     ),
-                    position="relative",
-                    z_index="10",
+                    rx.select(
+                        VehicleState.fuel_options,
+                        placeholder="Selecciona el tipo de combustible", 
+                        value=VehicleState.selected_fuel,
+                        on_change=VehicleState.select_fuel,
+                        width="100%",
+                        size="3",
+                    ),
                     width="100%",
+                    spacing="2",
+                    align="center"
                 ),
                 
                 # Selector de Marca
-                rx.box(
-                    rx.vstack(
-                        rx.text(
-                            "Paso 2: Marca", 
-                            weight="bold", 
-                            size="4", 
-                            color="white"
-                        ),
-                        rx.select(
-                            VehicleState.available_brands,
-                            placeholder="Selecciona la marca",
-                            value=VehicleState.selected_brand,
-                            on_change=VehicleState.select_brand,
-                            disabled=VehicleState.selected_fuel == "",
-                            width="100%",
-                            size="3",
-                        ),
-                        width="100%",
-                        spacing="2",
+                rx.vstack(
+                    rx.text(
+                        "Paso 2: Marca", 
+                        weight="bold", 
+                        size="4", 
+                        color="white"
                     ),
-                    position="relative",
-                    z_index="9",
+                    rx.select(
+                        VehicleState.available_brands,
+                        placeholder="Selecciona la marca",
+                        value=VehicleState.selected_brand,
+                        on_change=VehicleState.select_brand,
+                        disabled=VehicleState.selected_fuel == "",
+                        width="100%",
+                        size="3",
+                    ),
                     width="100%",
+                    spacing="2",
+                    align="center"
                 ),
                 
                 # Selector de Modelo
-                rx.box(
-                    rx.vstack(
-                        rx.text(
-                            "Paso 3: Modelo", 
-                            weight="bold", 
-                            size="4", 
-                            color="white"
-                        ),
-                        rx.select(
-                            VehicleState.available_models,
-                            placeholder="Selecciona el modelo",
-                            value=VehicleState.selected_model,
-                            on_change=VehicleState.select_model,
-                            disabled=VehicleState.selected_brand == "",
-                            width="100%",
-                            size="3",
-                        ),
-                        width="100%",
-                        spacing="2",
+                rx.vstack(
+                    rx.text(
+                        "Paso 3: Modelo", 
+                        weight="bold", 
+                        size="4", 
+                        color="white"
                     ),
-                    position="relative",
-                    z_index="8",
+                    rx.select(
+                        VehicleState.available_models,
+                        placeholder="Selecciona el modelo",
+                        value=VehicleState.selected_model,
+                        on_change=VehicleState.select_model,
+                        disabled=VehicleState.selected_brand == "",
+                        width="100%",
+                        size="3",
+                    ),
                     width="100%",
+                    spacing="2",
+                    align="center"
                 ),
                 
                 # Selector de Año
-                rx.box(
-                    rx.vstack(
-                        rx.text(
-                            "Paso 4: Año", 
-                            weight="bold", 
-                            size="4", 
-                            color="white"
-                        ),
-                        rx.select(
-                            VehicleState.available_years,
-                            placeholder="Selecciona el año",
-                            value=VehicleState.selected_year,
-                            on_change=VehicleState.select_year,
-                            disabled=VehicleState.selected_model == "",
-                            width="100%",
-                            size="3",
-                        ),
-                        width="100%",
-                        spacing="2",
+                rx.vstack(
+                    rx.text(
+                        "Paso 4: Año", 
+                        weight="bold", 
+                        size="4", 
+                        color="white"
                     ),
-                    position="relative",
-                    z_index="7",
+                    rx.select(
+                        VehicleState.available_years,
+                        placeholder="Selecciona el año",
+                        value=VehicleState.selected_year,
+                        on_change=VehicleState.select_year,
+                        disabled=VehicleState.selected_model == "",
+                        width="100%",
+                        size="3",
+                    ),
                     width="100%",
+                    spacing="2",
+                    align="center"
                 ),
                 
                 # Resumen de selección
@@ -150,7 +142,7 @@ def vehicle_selector() -> rx.Component:
                                 spacing="2",
                             ),
                             spacing="3",
-                            align_items="start",
+                            align_items="center",
                         ),
                         margin_top="2rem",
                         width="100%",
@@ -158,15 +150,26 @@ def vehicle_selector() -> rx.Component:
                         border="1px solid #FF6B35",
                     ),
                 ),
+                
                 spacing="5",
                 width="100%",
-                max_width="600px",
-                align="center",
+                align="center",  # Centrar todos los elementos del vstack
             ),
-            width="100%",
+            
+            # PARÁMETROS DE CENTRADO DEL CONTENEDOR
+            max_width="600px",        # Ancho máximo del contenedor
+            margin="0 auto",          # Centrado horizontal automático
+            padding="40px 20px",      # Espaciado interno
+            center_content=True,      # Centrar contenido del contenedor
         ),
-        padding={"base": "3rem 1rem", "md": "4rem 2rem"},
-        bg="#1A1A1A",
+        
+        # PARÁMETROS DEL BOX PRINCIPAL PARA CENTRADO COMPLETO
         width="100%",
+        min_height="80vh",          # Altura mínima para centrado vertical
+        display="flex",
+        justify_content="center",   # Centrado horizontal del contenedor
+        align_items="center",       # Centrado vertical del contenedor
+        bg="#1A1A1A",
+        padding="20px",
         id="selector",
     )
