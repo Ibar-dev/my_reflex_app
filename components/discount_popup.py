@@ -396,10 +396,14 @@ def form_content() -> rx.Component:
                 cursor="pointer",
                 border="none",
                 box_shadow="0 4px 12px rgba(255, 107, 53, 0.4)",
-                _hover={
-                    "transform": "translateY(-2px)",
-                    "box_shadow": "0 6px 16px rgba(255, 107, 53, 0.6)",
-                } if not PopupState.is_loading else {},
+                _hover=rx.cond(
+                    ~PopupState.is_loading,
+                    {
+                        "transform": "translateY(-2px)",
+                        "box_shadow": "0 6px 16px rgba(255, 107, 53, 0.6)",
+                    },
+                    {}
+                ),
                 transition="all 0.3s ease",
                 flex="1",
                 disabled=PopupState.is_loading,
