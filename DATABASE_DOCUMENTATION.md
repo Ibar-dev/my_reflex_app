@@ -8,14 +8,14 @@ He implementado un sistema completo de base de datos SQLite para almacenar los r
 
 ### 1. **Modelo de Base de Datos** (`models/user.py`)
 - Tabla `user_registrations` con los campos:
-  - `id`: ID único autoincremental
-  - `nombre`: Nombre completo del usuario
-  - `email`: Email del usuario (único)
-  - `telefono`: Teléfono del usuario
-  - `source`: Fuente del registro ("discount_popup", "contact_form", etc.)
-  - `is_contacted`: Si ya fue contactado por el equipo
-  - `created_at`: Fecha y hora de registro
-  - `updated_at`: Fecha y hora de última actualización
+    - `id`: ID único autoincremental
+    - `nombre`: Nombre completo del usuario
+    - `email`: Email del usuario (único)
+    - `telefono`: Teléfono del usuario
+    - `source`: Fuente del registro ("discount_popup", "contact_form", etc.)
+    - `is_contacted`: Si ya fue contactado por el equipo
+    - `created_at`: Fecha y hora de registro
+    - `updated_at`: Fecha y hora de última actualización
 
 ### 2. **Servicio de Base de Datos** (`utils/database_service.py`)
 - **Validaciones automáticas**: Email, teléfono, nombre obligatorio
@@ -26,9 +26,9 @@ He implementado un sistema completo de base de datos SQLite para almacenar los r
 
 ### 3. **Integración con el Popup** (`components/discount_popup.py`)
 - **Estados añadidos**:
-  - `is_loading`: Indica cuando se está guardando
-  - `success_message`: Mensaje de éxito
-  - `error_message`: Mensaje de error
+    - `is_loading`: Indica cuando se está guardando
+    - `success_message`: Mensaje de éxito
+    - `error_message`: Mensaje de error
 - **Validaciones en tiempo real**
 - **Feedback visual**: Spinner de carga, mensajes de estado
 - **Experiencia de usuario mejorada**
@@ -106,17 +106,17 @@ if stats["success"]:
 2. **Hace clic en "REGISTRARME"** → `show_form = True`
 3. **Llena el formulario** → Campos se validan en tiempo real
 4. **Hace clic en "Enviar"** → 
-   - `is_loading = True` (muestra spinner)
-   - Se validan los datos
-   - Se guarda en base de datos
-   - `is_loading = False`
+    - `is_loading = True` (muestra spinner)
+    - Se validan los datos
+    - Se guarda en base de datos
+    - `is_loading = False`
 5. **Si es exitoso** →
-   - `success_message` se muestra
-   - Popup se cierra automáticamente
-   - Datos quedan guardados en `users.db`
+    - `success_message` se muestra
+    - Popup se cierra automáticamente
+    - Datos quedan guardados en `users.db`
 6. **Si hay error** →
-   - `error_message` se muestra
-   - Popup permanece abierto para corrección
+    - `error_message` se muestra
+    - Popup permanece abierto para corrección
 
 ## 🛡️ Validaciones Implementadas
 

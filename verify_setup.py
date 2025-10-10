@@ -148,12 +148,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-            data = json.load(f)
-        print(f"  ✓ JSON válido - {len(data)} vehículos encontrados")
-        return True
-    except Exception as e:
-        print(f"  ✗ Error en JSON: {e}")
-        return False
 
 def main():
     print("=" * 60)
