@@ -102,8 +102,9 @@ def contact() -> rx.Component:
                                     align="center"
                                 ),
                                 rx.text(
-                                    "Lunes - Viernes: 9:00 - 18:00\nSábados: 9:00 - 14:00",
+                                    "Lunes - Viernes:\n9:00 - 14:00",
                                     color="#CCCCCC",
+                                    white_space="pre-line",
                                     line_height="1.5",
                                     font_size="1.1rem"
                                 ),
