@@ -6,6 +6,7 @@ Popup modal que ofrece 10% de descuento para nuevos registros.
 """
 
 import reflex as rx
+from utils.database_service import DatabaseService
 
 
 class PopupState(rx.State):
@@ -18,6 +19,11 @@ class PopupState(rx.State):
     email: str = ""
     telefono: str = ""
     
+    # Estados para feedback y validación
+    is_loading: bool = False
+    success_message: str = ""
+    error_message: str = ""
+    
     def reset_popup(self):
         """Reinicia el popup cuando se recarga la página (F5)"""
         self.show_popup = True
@@ -25,34 +31,83 @@ class PopupState(rx.State):
         self.nombre = ""
         self.email = ""
         self.telefono = ""
+        self.clear_messages()
+    
+    def clear_messages(self):
+        """Limpia mensajes de éxito y error"""
+        self.success_message = ""
+        self.error_message = ""
+        self.is_loading = False
     
     def close_popup(self):
         """Cierra el popup completamente"""
         self.show_popup = False
         self.show_form = False
+        self.clear_messages()
     
     def open_register(self):
         """Muestra el formulario de registro dentro del popup"""
         self.show_form = True
+        self.clear_messages()
     
     def back_to_offer(self):
         """Vuelve a la vista de oferta desde el formulario"""
         self.show_form = False
+        self.clear_messages()
     
-    def submit_registration(self):
-        """Envía los datos del formulario al backend (tu compañero lo implementa)"""
-        # TODO: Tu compañero debe implementar la llamada al backend aquí
-        # Ejemplo: enviar self.nombre, self.email, self.telefono al servidor
-        print(f"Registro: {self.nombre}, {self.email}, {self.telefono}")
-        
-        # Después de enviar, cerrar el popup
-        self.show_popup = False
-        self.show_form = False
-        
-        # Limpiar campos
+    def reset_form(self):
+        """Resetea los campos del formulario"""
         self.nombre = ""
         self.email = ""
         self.telefono = ""
+        self.clear_messages()
+    
+    def submit_registration(self):
+        """Envía los datos del formulario al backend y guarda en base de datos"""
+        
+        # Limpiar mensajes previos
+        self.clear_messages()
+        
+        # Validaciones básicas
+        if not self.nombre.strip():
+            self.error_message = "El nombre es obligatorio"
+            return
+        
+        if not self.email.strip() or "@" not in self.email:
+            self.error_message = "Email inválido"
+            return
+            
+        if not self.telefono.strip():
+            self.error_message = "El teléfono es obligatorio"
+            return
+
+        # Mostrar loading
+        self.is_loading = True
+        
+        # Guardar en base de datos
+        try:
+            result = DatabaseService.save_user_registration(
+                nombre=self.nombre.strip(),
+                email=self.email.strip().lower(),
+                telefono=self.telefono.strip(),
+                source="discount_popup"
+            )
+            
+            self.is_loading = False
+            
+            if result["success"]:
+                self.success_message = result["message"]
+                # Programar cierre automático del popup después de mostrar éxito
+                self.reset_form()
+                # Cerrar popup después de 3 segundos para que el usuario vea el mensaje
+                self.show_popup = False
+            else:
+                self.error_message = result["message"]
+                
+        except Exception as e:
+            self.is_loading = False
+            self.error_message = "Error interno. Inténtalo más tarde."
+            print(f"Error en submit_registration: {str(e)}")  # Para debug
 
 
 def offer_content() -> rx.Component:
@@ -155,6 +210,45 @@ def form_content() -> rx.Component:
             mb="2",
         ),
         
+        # Mensajes de error/éxito
+        rx.cond(
+            PopupState.error_message != "",
+            rx.box(
+                rx.text(
+                    PopupState.error_message,
+                    color="#ff4444",
+                    font_size="0.8rem",
+                    text_align="center",
+                    font_weight="600",
+                ),
+                bg="rgba(255, 68, 68, 0.1)",
+                border="1px solid #ff4444",
+                border_radius="8px",
+                padding="0.5rem",
+                width="100%",
+                mb="2",
+            )
+        ),
+        
+        rx.cond(
+            PopupState.success_message != "",
+            rx.box(
+                rx.text(
+                    PopupState.success_message,
+                    color="#22c55e",
+                    font_size="0.8rem",
+                    text_align="center",
+                    font_weight="600",
+                ),
+                bg="rgba(34, 197, 94, 0.1)",
+                border="1px solid #22c55e",
+                border_radius="8px",
+                padding="0.5rem",
+                width="100%",
+                mb="2",
+            )
+        ),
+        
         # Campo: Nombre
         rx.vstack(
             rx.text("Nombre completo", color="white", font_size="0.85rem", font_weight="600"),
@@ -177,6 +271,7 @@ def form_content() -> rx.Component:
                     "box_shadow": "0 0 0 1px #FF6B35",
                     "bg": "#2a2a2a",
                 },
+                disabled=PopupState.is_loading,
             ),
             spacing="1",
             width="100%",
@@ -206,6 +301,7 @@ def form_content() -> rx.Component:
                     "box_shadow": "0 0 0 1px #FF6B35",
                     "bg": "#2a2a2a",
                 },
+                disabled=PopupState.is_loading,
             ),
             spacing="1",
             width="100%",
@@ -235,6 +331,7 @@ def form_content() -> rx.Component:
                     "box_shadow": "0 0 0 1px #FF6B35",
                     "bg": "#2a2a2a",
                 },
+                disabled=PopupState.is_loading,
             ),
             spacing="1",
             width="100%",
@@ -260,14 +357,23 @@ def form_content() -> rx.Component:
                 _hover={"bg": "#4a4a4a"},
                 transition="all 0.3s ease",
                 flex="1",
+                disabled=PopupState.is_loading,
             ),
             
             # Botón Enviar
             rx.button(
-                rx.hstack(
-                    rx.icon("send", size=14),
-                    rx.text("Enviar", font_size="0.8rem", font_weight="700"),
-                    spacing="1",
+                rx.cond(
+                    PopupState.is_loading,
+                    rx.hstack(
+                        rx.spinner(size="sm", color="white"),
+                        rx.text("Enviando...", font_size="0.8rem", font_weight="700"),
+                        spacing="1",
+                    ),
+                    rx.hstack(
+                        rx.icon("send", size=14),
+                        rx.text("Enviar", font_size="0.8rem", font_weight="700"),
+                        spacing="1",
+                    ),
                 ),
                 on_click=PopupState.submit_registration,
                 bg="linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%)",
@@ -280,9 +386,10 @@ def form_content() -> rx.Component:
                 _hover={
                     "transform": "translateY(-2px)",
                     "box_shadow": "0 6px 16px rgba(255, 107, 53, 0.6)",
-                },
+                } if not PopupState.is_loading else {},
                 transition="all 0.3s ease",
                 flex="1",
+                disabled=PopupState.is_loading,
             ),
             
             spacing="2",
