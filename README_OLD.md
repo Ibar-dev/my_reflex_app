@@ -12,7 +12,6 @@ El objetivo de esta página web es ofrecer una plataforma moderna y profesional 
 - ✅ **Componentes principales** desarrollados
 - ✅ **Validaciones y manejo de errores** implementado
 - ✅ **Scripts de prueba y verificación** disponibles
-- ✅ **Compatibilidad Reflex 0.9.0** - Errores de deployment corregidos
 - 🔄 **En desarrollo:** integración completa de páginas y estilos finales
 
 ## 📁 Estructura del Proyecto y Componentes Principales
@@ -43,7 +42,6 @@ El objetivo de esta página web es ofrecer una plataforma moderna y profesional 
   - Formulario de registro integrado
   - Validaciones en tiempo real
   - Integración completa con base de datos
-  - **✅ Compatible con Reflex 0.9.0**
 
 ### 📄 **Páginas** (`pages/`)
 - **📍 `pages/home.py`**: Página principal
@@ -167,7 +165,6 @@ reflex run
 - **Tamaño:** 320px de ancho, responsive
 - **Animación:** Deslizamiento desde abajo
 - **Funcionalidad:** Registro de usuarios con 10% descuento
-- **✅ Compatible con Reflex 0.9.0**
 
 ### **Estados del Popup:**
 ```python
@@ -186,7 +183,6 @@ error_message: str = ""      # Mensaje de error
 - `open_register()`: Muestra formulario
 - `back_to_offer()`: Vuelve a la oferta
 - `submit_registration()`: **⭐ Guarda en base de datos**
-- `set_nombre()`, `set_email()`, `set_telefono()`: **✅ Setters explícitos para Reflex 0.9.0**
 
 ### **Integración con Base de Datos:**
 El popup está completamente integrado con el sistema de base de datos:
@@ -257,57 +253,15 @@ python view_users.py
 - Registros por fuente (popup, formulario, etc.)
 - Tasa de conversión
 
-## 🔧 Mejores Prácticas de Reflex Implementadas
-
-### **Variables de Estado (State Variables):**
-- ✅ **Uso correcto de `rx.cond()`** para expresiones condicionales
-- ✅ **Setters explícitos** para evitar warnings en Reflex 0.9.0
-- ✅ **Operadores bitwise** (`~`, `&`, `|`) en lugar de booleanos (`not`, `and`, `or`)
-
-### **Componentes:**
-- ✅ **Propiedades válidas** para todos los componentes
-- ✅ **Spinner con size correcto** (`size="2"` en lugar de `size="sm"`)
-- ✅ **Estados reactivos** sin uso directo de variables en `if/else`
-
-### **Ejemplo de Código Corregido:**
-```python
-# ❌ INCORRECTO (causa VarTypeError)
-_hover={
-    "transform": "translateY(-2px)"
-} if not PopupState.is_loading else {}
-
-# ✅ CORRECTO (compatible con Reflex)
-_hover=rx.cond(
-    ~PopupState.is_loading,
-    {"transform": "translateY(-2px)"},
-    {}
-)
-```
-
-## 🛠️ Correcciones de Deployment Implementadas
-
-### **🐛 Errores Corregidos para Render:**
-- **✅ VarTypeError corregido**: Uso de `rx.cond()` en lugar de expresiones booleanas directas
-- **✅ Setters explícitos**: Añadidos métodos `set_nombre()`, `set_email()`, `set_telefono()`
-- **✅ Spinner component**: Cambiado `size="sm"` por `size="2"` para compatibilidad
-- **✅ Reflex best practices**: Implementación conforme a las últimas versiones
-
-### **🔧 Cambios Técnicos Realizados:**
-1. **Expresiones condicionales**: Reemplazadas con `rx.cond()`
-2. **Setters del estado**: Añadidos métodos explícitos para cada campo
-3. **Componentes Spinner**: Actualizados con propiedades válidas
-4. **Operadores bitwise**: Uso de `~` en lugar de `not`
-
 ## 🛠️ Próximos Pasos para Completar
 
 1. **✅ Sistema de Base de Datos** - COMPLETADO
 2. **✅ Popup de Descuento** - COMPLETADO  
-3. **✅ Compatibilidad Reflex 0.9.0** - COMPLETADO
-4. **🔄 Páginas Completas** - En desarrollo
-5. **🔄 Estilos Finales** - En desarrollo
-6. **⏳ Selector de Vehículos** - Pendiente
-7. **⏳ Sistema de Email** - Pendiente
-8. **⏳ Dashboard Admin** - Pendiente
+3. **🔄 Páginas Completas** - En desarrollo
+4. **🔄 Estilos Finales** - En desarrollo
+5. **⏳ Selector de Vehículos** - Pendiente
+6. **⏳ Sistema de Email** - Pendiente
+7. **⏳ Dashboard Admin** - Pendiente
 
 ## 🚀 Estado para Producción
 
@@ -317,8 +271,6 @@ _hover=rx.cond(
 - Estructura de componentes
 - Scripts de verificación
 - Documentación completa
-- **✅ Compatibilidad con Reflex 0.9.0** - Errores de deployment corregidos
-- **✅ Deployment en Render** - Sin errores VarTypeError
 
 ### **🔄 En Desarrollo:**
 - Integración completa de páginas
@@ -334,5 +286,157 @@ Para dudas sobre la implementación o el sistema de base de datos, revisar:
 
 ---
 **Equipo Reflex Potenciación de Coches**  
-*Sistema de Base de Datos implementado y funcional* ✅  
-*Compatible con Reflex 0.9.0 y deployable en producción* 🚀
+*Sistema de Base de Datos implementado y funcional* ✅
+
+```
+
+### 3. **Verificar el Sistema**
+```bash
+# Verificación completa del sistema
+python check_system.py
+
+# Verificar base de datos específicamente
+python test_database.py
+```
+
+### 4. **Ejecutar la Aplicación**
+```bash
+# Iniciar el servidor de desarrollo
+reflex run
+
+# La aplicación estará disponible en:
+# Frontend: http://localhost:3000
+# Backend: http://localhost:8000
+```
+
+## 🎁 Componente Destacado: Popup de Descuento
+
+### **Ubicación:** `components/discount_popup.py`
+
+### **Características Principales:**
+- **Posición:** Esquina inferior derecha (fixed)
+- **Tamaño:** 320px de ancho, responsive
+- **Animación:** Deslizamiento desde abajo
+- **Funcionalidad:** Registro de usuarios con 10% descuento
+
+### **Estados del Popup:**
+```python
+show_popup: bool = True      # Controla visibilidad
+show_form: bool = False      # Alterna vista oferta/formulario
+nombre: str = ""             # Campo nombre
+email: str = ""              # Campo email  
+telefono: str = ""           # Campo teléfono
+is_loading: bool = False     # Estado de carga
+success_message: str = ""    # Mensaje de éxito
+error_message: str = ""      # Mensaje de error
+```
+
+### **Métodos Principales:**
+- `close_popup()`: Cierra el popup
+- `open_register()`: Muestra formulario
+- `back_to_offer()`: Vuelve a la oferta
+- `submit_registration()`: **⭐ Guarda en base de datos**
+
+### **Integración con Base de Datos:**
+El popup está completamente integrado con el sistema de base de datos:
+1. Valida datos del formulario
+2. Verifica emails duplicados
+3. Guarda registro en `users.db`
+4. Muestra mensajes de feedback
+5. Cierra automáticamente en éxito
+
+## 🗄️ Sistema de Base de Datos
+
+### **Ubicación Principal:** `models/user.py` + `utils/database_service.py`
+
+### **Tabla `user_registrations`:**
+- `id`: ID único
+- `nombre`: Nombre completo
+- `email`: Email (único)
+- `telefono`: Teléfono
+- `source`: Origen del registro
+- `is_contacted`: Estado de contacto
+- `created_at`: Fecha de creación
+- `updated_at`: Fecha de actualización
+
+### **Operaciones Disponibles:**
+- ✅ Crear usuario (`save_user_registration()`)
+- ✅ Buscar por email (`get_user_by_email()`)
+- ✅ Listar usuarios (`get_all_users()`)
+- ✅ Marcar contactado (`mark_user_contacted()`)
+- ✅ Obtener estadísticas (`get_stats()`)
+
+### **Validaciones Implementadas:**
+- Email formato válido
+- Teléfono mínimo 9 dígitos
+- Nombre obligatorio
+- No duplicados por email
+
+## 🧪 Testing y Verificación
+
+### **Scripts Disponibles:**
+
+| Script | Función | Comando |
+|--------|---------|---------|
+| `check_system.py` | Verificación completa | `python check_system.py` |
+| `test_database.py` | Pruebas de BD | `python test_database.py` |
+| `test_popup_workflow.py` | Simulación popup | `python test_popup_workflow.py` |
+| `view_users.py` | Ver registros | `python view_users.py` |
+
+### **Ejemplo de Verificación:**
+```bash
+# Verificar que todo funciona
+python check_system.py
+
+# Resultado esperado:
+# 🎉 ¡SISTEMA COMPLETAMENTE FUNCIONAL!
+# 🚀 Listo para usar en producción
+```
+
+## 📊 Monitoreo de Usuarios
+
+### **Ver Registros del Popup:**
+```bash
+python view_users.py
+```
+
+### **Estadísticas Disponibles:**
+- Total de usuarios registrados
+- Usuarios contactados vs pendientes
+- Registros por fuente (popup, formulario, etc.)
+- Tasa de conversión
+
+## 🛠️ Próximos Pasos para Completar
+
+1. **✅ Sistema de Base de Datos** - COMPLETADO
+2. **✅ Popup de Descuento** - COMPLETADO  
+3. **🔄 Páginas Completas** - En desarrollo
+4. **🔄 Estilos Finales** - En desarrollo
+5. **⏳ Selector de Vehículos** - Pendiente
+6. **⏳ Sistema de Email** - Pendiente
+7. **⏳ Dashboard Admin** - Pendiente
+
+## 🚀 Estado para Producción
+
+### **✅ Listo para Usar:**
+- Sistema de base de datos
+- Popup de descuento funcional
+- Estructura de componentes
+- Scripts de verificación
+- Documentación completa
+
+### **🔄 En Desarrollo:**
+- Integración completa de páginas
+- Estilos responsive finales
+- Optimización de rendimiento
+
+## 📞 Contacto y Soporte
+
+Para dudas sobre la implementación o el sistema de base de datos, revisar:
+- `DATABASE_DOCUMENTATION.md` - Documentación técnica completa
+- Scripts de prueba - Para verificar funcionamiento
+- Logs de la aplicación - Para debugging
+
+---
+**Equipo Reflex Potenciación de Coches**  
+*Sistema de Base de Datos implementado y funcional* ✅
