@@ -100,6 +100,137 @@ def submit_registration(self):
 - **Estilos CSS:** `assets/styles.css` (animación `popupSlideInBottomRight`)
 - **Integración:** `app/app.py` (línea donde se importa y usa)
 
+---
+
+## 🚗 Componente: Selector de Vehículos con Botón de Envío
+
+### 📍 Ubicación del Botón para Backend
+**⚠️ IMPORTANTE PARA EQUIPO DE BACKEND ⚠️**
+
+El botón de envío de datos del selector de vehículos se encuentra en:
+
+```
+📂 Archivo: components/vehicle_selector.py
+📍 Línea: ~153-176 (aproximadamente)
+🔍 Buscar: "⚠️ BOTÓN PARA BACKEND"
+```
+
+### 🎯 Método que Debes Implementar
+
+**Archivo:** `state/vehicle_state.py`  
+**Método:** `submit_vehicle_selection()`  
+**Línea:** ~132
+
+```python
+def submit_vehicle_selection(self):
+    """
+    ⚠️ MÉTODO PARA BACKEND ⚠️
+    
+    Datos disponibles para enviar:
+    - self.selected_fuel: Tipo de combustible (diesel/gasolina)
+    - self.selected_brand: Marca del vehículo
+    - self.selected_model: Modelo del vehículo
+    - self.selected_year: Año del vehículo
+    
+    TODO BACKEND: Implementar aquí la llamada a tu API
+    """
+```
+
+### 📊 Datos que Recibe el Backend
+
+Cuando el usuario hace clic en **"Solicitar Presupuesto"**, se dispara el método `submit_vehicle_selection()` que tiene acceso a:
+
+| Variable | Descripción | Tipo | Ejemplo |
+|----------|-------------|------|---------|
+| `self.selected_fuel` | Tipo de combustible | string | "diesel" o "gasolina" |
+| `self.selected_brand` | Marca del vehículo | string | "Volkswagen" |
+| `self.selected_model` | Modelo del vehículo | string | "Golf" |
+| `self.selected_year` | Año del vehículo | string | "2023" |
+
+### 💡 Ejemplo de Implementación
+
+```python
+def submit_vehicle_selection(self):
+    """Envía la selección del vehículo al backend"""
+    import requests
+    
+    try:
+        response = requests.post(
+            "https://tu-api.com/vehicle/quote",
+            json={
+                "fuel": self.selected_fuel,
+                "brand": self.selected_brand,
+                "model": self.selected_model,
+                "year": self.selected_year
+            },
+            headers={"Content-Type": "application/json"}
+        )
+        
+        if response.status_code == 200:
+            print("✅ Presupuesto solicitado correctamente")
+            # Aquí puedes mostrar un mensaje de éxito al usuario
+            # Ejemplo: self.show_success_message = True
+        else:
+            print(f"❌ Error: {response.status_code}")
+            # Mostrar mensaje de error al usuario
+            
+    except Exception as e:
+        print(f"❌ Error al enviar datos: {str(e)}")
+        # Manejar el error apropiadamente
+```
+
+### 🎨 Características del Botón
+
+**Diseño:**
+- Fondo: Gradiente naranja (#FF6B35 → #FF8C42)
+- Icono: "send" (sobre/enviar)
+- Texto: "Solicitar Presupuesto"
+- Tamaño: Completo (width: 100%)
+- Padding: 1.5rem
+- Efecto hover: Elevación y cambio de gradiente
+
+**Comportamiento:**
+- Solo visible cuando se completan los 4 pasos del selector
+- Al hacer clic ejecuta `VehicleState.submit_vehicle_selection()`
+- Efecto visual de elevación al pasar el mouse
+
+### 📝 Validación de Datos
+
+El botón solo aparece cuando:
+1. ✅ Se ha seleccionado el combustible
+2. ✅ Se ha seleccionado la marca
+3. ✅ Se ha seleccionado el modelo  
+4. ✅ Se ha seleccionado el año
+
+**Código de validación:**
+```python
+rx.cond(
+    VehicleState.selected_year != "",  # Solo muestra si hay año seleccionado
+    # ... botón y resumen ...
+)
+```
+
+### 🔗 Archivos Relacionados
+
+| Archivo | Descripción | Línea Aprox |
+|---------|-------------|-------------|
+| `components/vehicle_selector.py` | Componente del botón visual | ~153-176 |
+| `state/vehicle_state.py` | Lógica de envío (método a implementar) | ~132-191 |
+| `app/app.py` | Integración del selector en la app | ~270 |
+
+### 🎯 Checklist para Backend
+
+- [ ] Revisar el método `submit_vehicle_selection()` en `state/vehicle_state.py`
+- [ ] Implementar la llamada a tu API REST/GraphQL
+- [ ] Manejar respuestas exitosas (200)
+- [ ] Manejar errores (4xx, 5xx)
+- [ ] Implementar timeout y reintentos si es necesario
+- [ ] Agregar logging para debugging
+- [ ] Mostrar feedback visual al usuario (éxito/error)
+- [ ] (Opcional) Limpiar el selector después del envío exitoso
+
+---
+
 ## 🛠️ Pasos Lógicos para Completar el Proyecto
 
 1. **Implementar Componentes Base**
