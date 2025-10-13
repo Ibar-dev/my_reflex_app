@@ -129,3 +129,64 @@ class VehicleState(rx.State):
         print(f"   Marca: {self.selected_brand}")
         print(f"   Modelo: {self.selected_model}")
         print(f"   Año: {self.selected_year}")
+    
+    def submit_vehicle_selection(self):
+        """
+        ⚠️ MÉTODO PARA BACKEND ⚠️
+        
+        Envía la selección del vehículo al backend.
+        
+        TODO BACKEND: Implementar la llamada a la API aquí
+        
+        Datos disponibles:
+        - self.selected_fuel: Tipo de combustible (diesel/gasolina)
+        - self.selected_brand: Marca del vehículo
+        - self.selected_model: Modelo del vehículo
+        - self.selected_year: Año del vehículo
+        
+        Ejemplo de implementación:
+        
+        import requests
+        
+        response = requests.post(
+            "https://tu-api.com/vehicle/submit",
+            json={
+                "fuel": self.selected_fuel,
+                "brand": self.selected_brand,
+                "model": self.selected_model,
+                "year": self.selected_year
+            }
+        )
+        
+        if response.status_code == 200:
+            print("✅ Datos enviados correctamente")
+            # Mostrar mensaje de éxito al usuario
+        else:
+            print("❌ Error al enviar los datos")
+            # Mostrar mensaje de error al usuario
+        """
+        
+        # Log temporal - ELIMINAR cuando se implemente el backend
+        print("\n" + "="*60)
+        print("📤 DATOS LISTOS PARA ENVIAR AL BACKEND:")
+        print("="*60)
+        print(f"🔥 Combustible: {self.selected_fuel}")
+        print(f"🏭 Marca: {self.selected_brand}")
+        print(f"🚗 Modelo: {self.selected_model}")
+        print(f"📅 Año: {self.selected_year}")
+        print("="*60)
+        print("⚠️  TODO: Implementar llamada al backend aquí")
+        print("="*60 + "\n")
+        
+        # TODO BACKEND: Implementar aquí la lógica de envío
+        # Ejemplo:
+        # try:
+        #     response = tu_api_call(
+        #         fuel=self.selected_fuel,
+        #         brand=self.selected_brand,
+        #         model=self.selected_model,
+        #         year=self.selected_year
+        #     )
+        #     return {"success": True, "message": "Datos enviados correctamente"}
+        # except Exception as e:
+        #     return {"success": False, "message": str(e)}

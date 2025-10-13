@@ -113,41 +113,70 @@ def vehicle_selector() -> rx.Component:
                 # Resumen de selección
                 rx.cond(
                     VehicleState.selected_year != "",
-                    rx.card(
-                        rx.vstack(
-                            rx.heading(
-                                "✅ Vehículo Seleccionado", 
-                                size="6", 
-                                color="#FF6B35"
+                    rx.vstack(
+                        rx.card(
+                            rx.vstack(
+                                rx.heading(
+                                    "✅ Vehículo Seleccionado", 
+                                    size="6", 
+                                    color="#FF6B35"
+                                ),
+                                rx.divider(),
+                                rx.hstack(
+                                    rx.text("Combustible:", weight="bold", color="white"),
+                                    rx.text(VehicleState.selected_fuel, color="#FF6B35"),
+                                    spacing="2",
+                                ),
+                                rx.hstack(
+                                    rx.text("Marca:", weight="bold", color="white"),
+                                    rx.text(VehicleState.selected_brand, color="#FF6B35"),
+                                    spacing="2",
+                                ),
+                                rx.hstack(
+                                    rx.text("Modelo:", weight="bold", color="white"),
+                                    rx.text(VehicleState.selected_model, color="#FF6B35"),
+                                    spacing="2",
+                                ),
+                                rx.hstack(
+                                    rx.text("Año:", weight="bold", color="white"),
+                                    rx.text(VehicleState.selected_year, color="#FF6B35"),
+                                    spacing="2",
+                                ),
+                                spacing="3",
+                                align_items="center",
                             ),
-                            rx.divider(),
-                            rx.hstack(
-                                rx.text("Combustible:", weight="bold", color="white"),
-                                rx.text(VehicleState.selected_fuel, color="#FF6B35"),
-                                spacing="2",
-                            ),
-                            rx.hstack(
-                                rx.text("Marca:", weight="bold", color="white"),
-                                rx.text(VehicleState.selected_brand, color="#FF6B35"),
-                                spacing="2",
-                            ),
-                            rx.hstack(
-                                rx.text("Modelo:", weight="bold", color="white"),
-                                rx.text(VehicleState.selected_model, color="#FF6B35"),
-                                spacing="2",
-                            ),
-                            rx.hstack(
-                                rx.text("Año:", weight="bold", color="white"),
-                                rx.text(VehicleState.selected_year, color="#FF6B35"),
-                                spacing="2",
-                            ),
-                            spacing="3",
-                            align_items="center",
+                            width="100%",
+                            bg="#1a1a1a",
+                            border="1px solid #FF6B35",
                         ),
-                        margin_top="2rem",
+                        
+                        # ⚠️ BOTÓN PARA BACKEND - Enviar selección al servidor ⚠️
+                        rx.button(
+                            rx.hstack(
+                                rx.icon("send", size=20),
+                                rx.text("Solicitar Presupuesto", font_size="1.1rem", font_weight="600"),
+                                spacing="2",
+                                align="center",
+                            ),
+                            on_click=VehicleState.submit_vehicle_selection,
+                            bg="linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%)",
+                            color="white",
+                            size="4",
+                            width="100%",
+                            padding="1.5rem",
+                            border_radius="12px",
+                            cursor="pointer",
+                            _hover={
+                                "transform": "translateY(-2px)",
+                                "box_shadow": "0 10px 30px rgba(255, 107, 53, 0.4)",
+                                "bg": "linear-gradient(135deg, #FF8C42 0%, #FFA55E 100%)",
+                            },
+                            transition="all 0.3s ease",
+                            box_shadow="0 4px 15px rgba(255, 107, 53, 0.3)",
+                        ),
+                        
+                        spacing="4",
                         width="100%",
-                        bg="#1a1a1a",
-                        border="1px solid #FF6B35",
                     ),
                 ),
                 
