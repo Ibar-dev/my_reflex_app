@@ -244,6 +244,10 @@ class VehicleState(rx.State):
     
     def select_year(self, year: str):
         """Cuando se selecciona un año"""
+        if not year:
+            print("⚠️ Año vacío recibido, ignorando...")
+            return
+            
         print(f"📅 [SELECT] Año seleccionado: '{year}'")
         
         self.selected_year = year
