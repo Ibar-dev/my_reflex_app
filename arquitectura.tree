@@ -1,7 +1,6 @@
 .
 |-- DATABASE_DOCUMENTATION.md
 |-- README.md
-|-- README_OLD.md
 |-- __pycache__
 |   `-- rxconfig.cpython-313.pyc
 |-- app
@@ -19,27 +18,23 @@
 |   |   `-- logo_astrotech.png
 |   |-- selector-fix.css
 |   `-- styles.css
-|-- backend
-|   `-- app.py
-|-- check_files.py
-|-- check_system.py
 |-- components
 |   |-- __init__.py
 |   |-- __pycache__
 |   |   |-- __init__.cpython-313.pyc
 |   |   |-- benefits.cpython-313.pyc
 |   |   |-- contact.cpython-313.pyc
+|   |   |-- cookie_banner.cpython-313.pyc (NUEVO)
 |   |   |-- discount_popup.cpython-313.pyc
 |   |   |-- faq.cpython-313.pyc
 |   |   |-- footer.cpython-313.pyc
 |   |   |-- header.cpython-313.pyc
 |   |   |-- hero.cpython-313.pyc
 |   |   |-- services.cpython-313.pyc
-|   |   |-- simple_selector.cpython-313.pyc
-|   |   |-- vehicle_selector.cpython-313.pyc
-|   |   `-- vehicle_selector_fixed.cpython-313.pyc
+|   |   `-- vehicle_selector.cpython-313.pyc
 |   |-- benefits.py
 |   |-- contact.py
+|   |-- cookie_banner.py (NUEVO - Banner RGPD)
 |   |-- discount_popup.py
 |   |-- faq.py
 |   |-- footer.py
@@ -69,15 +64,14 @@
 |   |-- __pycache__
 |   |   |-- __init__.cpython-313.pyc
 |   |   |-- contact_state.cpython-313.pyc
+|   |   |-- cookie_state.cpython-313.pyc (NUEVO)
 |   |   |-- global_state.cpython-313.pyc
-|   |   |-- vehicle_state.cpython-313.pyc
-|   |   `-- vehicle_state_new.cpython-313.pyc
+|   |   `-- vehicle_state.cpython-313.pyc
 |   |-- contact_state.py
+|   |-- cookie_state.py (NUEVO - Estado cookies RGPD)
 |   |-- global_state.py
 |   `-- vehicle_state.py
 |-- test_database.py
-|-- test_json.py
-|-- test_popup_integration.py
 |-- test_popup_workflow.py
 |-- users.db
 |-- utils
@@ -90,7 +84,18 @@
 |   |-- email_service.py
 |   |-- popup_state.py
 |   `-- vehicle_data.py
-|-- verify_setup.py
 `-- view_users.py
 
-17 directories, 76 files
+ARCHIVOS ELIMINADOS (redundantes/obsoletos):
+- check_files.py (redundante con check_system.py)
+- test_json.py (test específico ya no necesario)
+- test_popup_integration.py (test adicional redundante)
+- verify_setup.py (redundante con check_system.py)
+- backend/app.py (archivo vacío/no usado)
+- README_OLD.md (versión obsoleta)
+
+ARCHIVOS NUEVOS AÑADIDOS:
++ components/cookie_banner.py (Banner de cookies RGPD)
++ state/cookie_state.py (Gestión de estado de cookies)
+
+15 directories, 69 files

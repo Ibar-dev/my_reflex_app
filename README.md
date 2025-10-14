@@ -12,7 +12,9 @@ El objetivo de esta página web es ofrecer una plataforma moderna y profesional 
 - ✅ **Componentes principales** desarrollados
 - ✅ **Validaciones y manejo de errores** implementado
 - ✅ **Scripts de prueba y verificación** disponibles
-- ✅ **Compatibilidad Reflex 0.9.0** - Errores de deployment corregidos
+- ✅ **Compatibilidad Reflex 0.8.14+** - Errores de deployment corregidos
+- ✅ **Banner de cookies RGPD** - Cumplimiento legal implementado
+- ✅ **Despliegue en producción** - App funcionando en Reflex Cloud
 - 🔄 **En desarrollo:** integración completa de páginas y estilos finales
 
 ## 📁 Estructura del Proyecto y Componentes Principales
@@ -43,7 +45,13 @@ El objetivo de esta página web es ofrecer una plataforma moderna y profesional 
   - Formulario de registro integrado
   - Validaciones en tiempo real
   - Integración completa con base de datos
-  - **✅ Compatible con Reflex 0.9.0**
+  - **✅ Compatible con Reflex 0.8.14+**
+- **📍 `components/cookie_banner.py`**: **⭐ BANNER DE COOKIES RGPD**
+  - Cumplimiento total con RGPD
+  - Modal de configuración granular
+  - Opciones: Esenciales, Analíticas, Marketing
+  - Persistencia de preferencias del usuario
+  - **✅ Desplegado en producción**
 
 ### 📄 **Páginas** (`pages/`)
 - **📍 `pages/home.py`**: Página principal
@@ -56,6 +64,11 @@ El objetivo de esta página web es ofrecer una plataforma moderna y profesional 
 - **📍 `state/global_state.py`**: Estado global de la aplicación
 - **📍 `state/vehicle_state.py`**: Gestión del selector de vehículos
 - **📍 `state/contact_state.py`**: Formulario de contacto
+- **📍 `state/cookie_state.py`**: **⭐ GESTIÓN DE COOKIES RGPD**
+  - Persistencia de preferencias de cookies
+  - Estados para diferentes tipos de cookies
+  - Métodos de aceptación/rechazo
+  - **✅ Funcional en producción**
 
 ### 🗄️ **Sistema de Base de Datos**
 - **📍 `models/user.py`**: **⭐ MODELO DE DATOS**
@@ -291,7 +304,47 @@ rx.cond(
 ---
 
 ## 🛠️ Pasos Lógicos para Completar el Proyecto
-## 🎁 Componente Destacado: Popup de Descuento
+## � Sistema de Cookies RGPD
+
+### **Ubicación:** `components/cookie_banner.py` + `state/cookie_state.py`
+
+### **Características Principales:**
+- **Cumplimiento RGPD:** Totalmente conforme con la normativa europea
+- **Opciones Granulares:** Esenciales, Analíticas, Marketing
+- **Persistencia:** Preferencias guardadas en cookies del navegador
+- **Modal Configuración:** Interface detallada para gestionar preferencias
+- **Responsive:** Optimizado para móviles y desktop
+
+### **Estados del Banner:**
+```python
+cookies_accepted: bool = False       # Control principal de visibilidad
+show_settings: bool = False          # Modal de configuración
+essential_cookies: bool = True       # Siempre activadas
+analytics_cookies: bool = False      # Opcionales
+marketing_cookies: bool = False      # Opcionales
+```
+
+### **Métodos Principales:**
+- `accept_all()`: Acepta todas las cookies
+- `accept_essential_only()`: Solo cookies esenciales
+- `open_config()`: Abre modal de configuración
+- `save_custom_settings()`: Guarda preferencias personalizadas
+- `on_load()`: **⭐ Carga preferencias desde cookies**
+
+### **Integración Legal:**
+- Texto explicativo sobre uso de datos
+- Enlaces a política de privacidad
+- Gestión de datos de contacto (nombre, email, teléfono)
+- Transparencia sobre almacenamiento local
+
+### **Comportamiento:**
+1. **Primera visita:** Banner visible en parte inferior
+2. **Interacción:** Usuario elige entre 3 opciones principales
+3. **Configuración:** Modal detallado con checkboxes granulares
+4. **Persistencia:** Preferencias guardadas automáticamente
+5. **Visitas posteriores:** Banner oculto, preferencias recordadas
+
+## �🎁 Componente Destacado: Popup de Descuento
 
 ### **Ubicación:** `components/discount_popup.py`
 
@@ -435,23 +488,27 @@ _hover=rx.cond(
 
 1. **✅ Sistema de Base de Datos** - COMPLETADO
 2. **✅ Popup de Descuento** - COMPLETADO  
-3. **✅ Compatibilidad Reflex 0.9.0** - COMPLETADO
-4. **🔄 Páginas Completas** - En desarrollo
-5. **🔄 Estilos Finales** - En desarrollo
-6. **⏳ Selector de Vehículos** - Pendiente
-7. **⏳ Sistema de Email** - Pendiente
-8. **⏳ Dashboard Admin** - Pendiente
+3. **✅ Banner de Cookies RGPD** - COMPLETADO
+4. **✅ Compatibilidad Reflex 0.8.14+** - COMPLETADO
+5. **✅ Despliegue en Producción** - COMPLETADO
+6. **🔄 Páginas Completas** - En desarrollo
+7. **🔄 Estilos Finales** - En desarrollo
+8. **⏳ Selector de Vehículos** - Pendiente
+9. **⏳ Sistema de Email** - Pendiente
+10. **⏳ Dashboard Admin** - Pendiente
 
 ## 🚀 Estado para Producción
 
-### **✅ Listo para Usar:**
+### **✅ Desplegado y Funcionando:**
+- **🌐 URL Producción:** https://app-silver-grass.reflex.run
 - Sistema de base de datos
 - Popup de descuento funcional
+- **Banner de cookies RGPD completo**
 - Estructura de componentes
 - Scripts de verificación
 - Documentación completa
-- **✅ Compatibilidad con Reflex 0.9.0** - Errores de deployment corregidos
-- **✅ Deployment en Render** - Sin errores VarTypeError
+- **✅ Compatibilidad con Reflex 0.8.14+** - Sin errores en deployment
+- **✅ Cumplimiento legal RGPD** - Banner de cookies funcional
 
 ### **🔄 En Desarrollo:**
 - Integración completa de páginas
@@ -468,4 +525,6 @@ Para dudas sobre la implementación o el sistema de base de datos, revisar:
 ---
 **Equipo Reflex Potenciación de Coches**  
 *Sistema de Base de Datos implementado y funcional* ✅  
-*Compatible con Reflex 0.9.0 y deployable en producción* 🚀
+*Banner de Cookies RGPD desplegado y operativo* 🍪  
+*Compatible con Reflex 0.8.14+ y funcionando en producción* 🚀  
+*URL Producción: https://app-silver-grass.reflex.run* 🌐
