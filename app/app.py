@@ -415,12 +415,12 @@ def index() -> rx.Component:
         discount_popup(),
         
         # Cookie banner - solo se muestra si no se han aceptado las cookies
-        rx.cond(~CookieState.cookies_accepted, cookie_banner()),
+        rx.cond(CookieState.should_show_banner, cookie_banner()),
         
         bg="#121212",
         min_height="100vh",
         width="100%",
-        on_mount=PopupState.reset_popup,  # Resetea el popup al cargar la página
+        on_mount=[PopupState.reset_popup, CookieState.on_load],  # Resetea el popup y carga cookies al cargar la página
     )
 
 def services_page() -> rx.Component:
