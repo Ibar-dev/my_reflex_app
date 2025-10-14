@@ -1,9 +1,33 @@
 
-reflex>=0.8.13
+# Core Reflex framework
+reflex>=0.8.14
 
-# Email functionality
-python-dotenv>=1.0.0
-secure-smtplib>=0.1.1
+# Web framework dependencies
+fastapi>=0.116.1
+uvicorn>=0.37.0
+starlette>=0.48.0
+pydantic>=2.11.9
+httpx>=0.28.1
 
 # Database functionality
-sqlalchemy>=1.4.0
+sqlalchemy>=2.0.43
+sqlmodel>=0.0.25
+alembic>=1.16.5
+
+# Environment and configuration
+python-dotenv>=1.1.1
+PyYAML>=6.0.2
+
+# Additional utilities that might be needed
+requests>=2.32.5
+jinja2>=3.1.6
+click>=8.3.0
+rich>=14.1.0
+watchfiles>=1.1.0
+psutil>=7.1.0
+
+# Authentication/Security (if needed)
+PyJWT>=2.10.1
+
+# Email functionality (if used)
+# secure-smtplib>=0.1.1
