@@ -7,6 +7,7 @@ SOLUCIÓN: Handlers simplificados sin yield para inputs reactivos
 
 import reflex as rx
 import re
+import asyncio
 
 class ContactState(rx.State):
     """
@@ -56,7 +57,7 @@ class ContactState(rx.State):
         self.message = value
     
     async def submit_form(self):
-        """Procesar el envío del formulario - Listo para backend"""
+        """Procesar el envío del formulario - INTEGRADO CON EMAIL"""
         print("🚀 Enviando formulario...")  # Debug
         
         # Limpiar errores anteriores
@@ -91,39 +92,39 @@ class ContactState(rx.State):
         self.is_loading = True
         
         try:
-            # TODO: INTEGRAR ENDPOINT DEL BACKEND AQUÍ
-            # Ejemplo:
-            # response = await send_contact_email({
-            #     "name": self.name,
-            #     "email": self.email,
-            #     "phone": self.phone,
-            #     "message": self.message
-            # })
+            # 🚀 ENVIAR EMAIL REAL
+            from utils.email_service import send_contact_form_email
             
-            # Por ahora, simulamos un delay de red
-            import asyncio
-            await asyncio.sleep(1.5)
+            print(f"📧 Enviando email a Astrotechreprogramaciones@gmail.com...")
             
-            # Log de datos listos para backend
-            print(f"✅ Formulario válido")
-            print(f"📧 Datos listos para enviar al backend:")
-            print(f"   - Nombre: {self.name}")
-            print(f"   - Email: {self.email}")
-            print(f"   - Teléfono: {self.phone or 'No proporcionado'}")
-            print(f"   - Mensaje: {self.message[:50]}...")
+            email_result = await send_contact_form_email(
+                name=self.name,
+                email=self.email,
+                phone=self.phone,
+                message=self.message
+            )
             
-            # Mostrar éxito
-            self.show_success = True
-            self.is_loading = False
+            if email_result["success"]:
+                print(f"✅ Email enviado correctamente: {email_result['message']}")
+                
+                # Mostrar éxito
+                self.show_success = True
+                self.is_loading = False
+                
+                # Limpiar formulario
+                self.reset_form()
+                
+                # Ocultar mensaje de éxito después de 5 segundos
+                await asyncio.sleep(5)
+                self.show_success = False
+            else:
+                # Error en el envío del email
+                print(f"❌ Error enviando email: {email_result['message']}")
+                self.form_error = f"Error al enviar: {email_result['message']}"
+                self.is_loading = False
             
-            # Limpiar formulario
-            self.reset_form()
-            
-            # Ocultar mensaje de éxito después de 5 segundos
-            await asyncio.sleep(5)
-            self.show_success = False
         except Exception as e:
-            # Manejo de errores
+            # Manejo de errores generales
             self.is_loading = False
             self.form_error = f"Error al enviar: {str(e)}"
             print(f"❌ Error en submit_form: {e}")
