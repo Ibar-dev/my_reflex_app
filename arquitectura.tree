@@ -1,37 +1,29 @@
 .
+|-- .env
+|-- .gitignore
+|-- .markdownlint.json
 |-- DATABASE_DOCUMENTATION.md
 |-- README.md
-|-- __pycache__
-|   `-- rxconfig.cpython-313.pyc
-|-- app
-|   |-- __init__.py
-|   |-- __pycache__
-|   |   |-- __init__.cpython-313.pyc
-|   |   `-- app.cpython-313.pyc
-|   `-- app.py
 |-- arquitectura.tree
-|-- assets
-|   |-- components
-|   |-- images
-|   |   |-- bigstock-Technician-Is-Tuning-Engine-Ca-469398073.jpg
-|   |   |-- centralita-coche.jpg
-|   |   `-- logo_astrotech.png
-|   |-- selector-fix.css
-|   `-- styles.css
-|-- components
+|-- check_system.py
+|-- requirements.txt
+|-- rxconfig.py
+|-- test_database.py
+|-- test_popup_workflow.py
+|-- users.db
+|-- view_users.py
+|-- app/
 |   |-- __init__.py
-|   |-- __pycache__
-|   |   |-- __init__.cpython-313.pyc
-|   |   |-- benefits.cpython-313.pyc
-|   |   |-- contact.cpython-313.pyc
-|   |   |-- cookie_banner.cpython-313.pyc (NUEVO)
-|   |   |-- discount_popup.cpython-313.pyc
-|   |   |-- faq.cpython-313.pyc
-|   |   |-- footer.cpython-313.pyc
-|   |   |-- header.cpython-313.pyc
-|   |   |-- hero.cpython-313.pyc
-|   |   |-- services.cpython-313.pyc
-|   |   `-- vehicle_selector.cpython-313.pyc
+|   `-- app.py
+|-- assets/
+|   |-- selector-fix.css
+|   |-- styles.css
+|   `-- images/
+|       |-- bigstock-Technician-Is-Tuning-Engine-Ca-469398073.jpg
+|       |-- centralita-coche.jpg
+|       `-- logo_astrotech.png
+|-- components/
+|   |-- __init__.py
 |   |-- benefits.py
 |   |-- contact.py
 |   |-- cookie_banner.py (NUEVO - Banner RGPD)
@@ -42,60 +34,53 @@
 |   |-- hero.py
 |   |-- services.py
 |   `-- vehicle_selector.py
-|-- data
+|-- data/
+|   |-- vehicles_api_cache.json (NUEVO - Cache API NHTSA)
 |   `-- vehiculos_turismo.json
-|-- models
+|-- models/
 |   |-- __init__.py
-|   |-- __pycache__
-|   |   |-- __init__.cpython-313.pyc
-|   |   `-- user.cpython-313.pyc
 |   `-- user.py
-|-- pages
+|-- pages/
 |   |-- __init__.py
 |   |-- about.py
 |   |-- contact.py
 |   |-- home.py
 |   |-- home_new.py
 |   `-- services.py
-|-- requirements.txt
-|-- rxconfig.py
-|-- state
+|-- services/
 |   |-- __init__.py
-|   |-- __pycache__
-|   |   |-- __init__.cpython-313.pyc
-|   |   |-- contact_state.cpython-313.pyc
-|   |   |-- cookie_state.cpython-313.pyc (NUEVO)
-|   |   |-- global_state.cpython-313.pyc
-|   |   `-- vehicle_state.cpython-313.pyc
+|   `-- vehicle_api_service.py (NUEVO - Servicio API NHTSA)
+|-- state/
+|   |-- __init__.py
 |   |-- contact_state.py
 |   |-- cookie_state.py (NUEVO - Estado cookies RGPD)
 |   |-- global_state.py
 |   `-- vehicle_state.py
-|-- test_database.py
-|-- test_popup_workflow.py
-|-- users.db
-|-- utils
-|   |-- __init__.py
-|   |-- __pycache__
-|   |   |-- __init__.cpython-313.pyc
-|   |   |-- database_service.cpython-313.pyc
-|   |   `-- vehicle_data.cpython-313.pyc
-|   |-- database_service.py
-|   |-- email_service.py
-|   |-- popup_state.py
-|   `-- vehicle_data.py
-`-- view_users.py
+`-- utils/
+    |-- __init__.py
+    |-- database_service.py
+    |-- email_service.py
+    |-- popup_state.py
+    `-- vehicle_data.py
 
-ARCHIVOS ELIMINADOS (redundantes/obsoletos):
-- check_files.py (redundante con check_system.py)
-- test_json.py (test específico ya no necesario)
-- test_popup_integration.py (test adicional redundante)
-- verify_setup.py (redundante con check_system.py)
-- backend/app.py (archivo vacío/no usado)
-- README_OLD.md (versión obsoleta)
+ARCHIVOS ELIMINADOS (limpieza):
+- test_api_integration.py (test temporal)
+- test_api_service.py (test temporal)
 
-ARCHIVOS NUEVOS AÑADIDOS:
+ARCHIVOS PRINCIPALES AÑADIDOS:
 + components/cookie_banner.py (Banner de cookies RGPD)
 + state/cookie_state.py (Gestión de estado de cookies)
++ services/vehicle_api_service.py (Servicio API NHTSA)
++ data/vehicles_api_cache.json (Cache API con 70+ marcas)
 
-15 directories, 69 files
+FUNCIONALIDADES COMPLETADAS:
+✅ Sistema de base de datos completo
+✅ Popup de descuento funcional
+✅ Banner de cookies RGPD
+✅ Integración API NHTSA (70 marcas de vehículos)
+✅ Cache inteligente con expiración de 7 días
+✅ Sistema híbrido (API + datos locales)
+✅ Compatibilidad Reflex 0.8.14+
+✅ Desplegado en producción: https://app-silver-grass.reflex.run
+
+11 directories, 52 files

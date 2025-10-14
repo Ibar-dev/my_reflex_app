@@ -4,10 +4,11 @@ Estado simplificado del selector de vehículos - Compatible con rx.select
 """
 
 import reflex as rx
+import asyncio
 
 
 class VehicleState(rx.State):
-    """Estado simplificado del selector de vehículos"""
+    """Estado simplificado del selector de vehículos con soporte para API externa"""
     
     # Valores seleccionados
     selected_fuel: str = ""
@@ -21,8 +22,15 @@ class VehicleState(rx.State):
     available_models: list[str] = []
     available_years: list[str] = []
     
+    # Nuevas variables para API
+    api_loading: bool = False
+    api_last_sync: str = ""
+    api_total_vehicles: int = 0
+    api_data_source: str = "local"  # "local" | "api" | "cache"
+    
     # Flag para saber si ya se cargaron los datos
     _data_loaded: bool = False
+    _api_data: dict = {}
     
     @rx.var
     def fuel_options(self) -> list[str]:
@@ -39,22 +47,107 @@ class VehicleState(rx.State):
         print("🚀 VehicleState cargando datos iniciales...")
         
         try:
-            from utils.vehicle_data import get_fuel_types, load_vehicle_data
+            # Intentar cargar desde API cache primero
+            from services.vehicle_api_service import get_api_cache_stats
+            cache_stats = get_api_cache_stats()
             
-            # Cargar datos para verificar conexión
-            vehicles = load_vehicle_data()
-            print(f"✅ Cargados {len(vehicles)} vehículos")
-            
-            # Cargar tipos de combustible
-            self.available_fuel_types = get_fuel_types()
-            print(f"🔥 Tipos de combustible: {self.available_fuel_types}")
-            
-            self._data_loaded = True
+            if cache_stats.get("cached") and cache_stats.get("cache_valid"):
+                print("✅ Usando datos de API (cache válido)")
+                self._load_from_api_cache()
+                self.api_data_source = "cache"
+            else:
+                # Fallback a datos locales
+                print("⚠️ Cache API no válido, usando datos locales")
+                self._load_from_local_json()
+                self.api_data_source = "local"
             
         except Exception as e:
             print(f"❌ Error cargando datos: {e}")
-            self.available_fuel_types = ["diesel", "gasolina"]
-            self._data_loaded = True
+            # Fallback seguro a datos locales
+            self._load_from_local_json()
+            self.api_data_source = "local"
+        
+        self._data_loaded = True
+    
+    def _load_from_local_json(self):
+        """Cargar desde JSON local (fallback)"""
+        try:
+            from utils.vehicle_data import get_fuel_types, load_vehicle_data
+            
+            vehicles = load_vehicle_data()
+            print(f"✅ Cargados {len(vehicles)} vehículos desde JSON local")
+            
+            self.available_fuel_types = get_fuel_types()
+            print(f"🔥 Tipos de combustible: {self.available_fuel_types}")
+            
+            # Extraer marcas únicas
+            brands = set()
+            for vehicle in vehicles:
+                brands.add(vehicle.get("marca", ""))
+            
+            self.available_brands = sorted(list(brands))
+            print(f"🚗 Marcas disponibles: {len(self.available_brands)}")
+            
+        except Exception as e:
+            print(f"❌ Error cargando datos locales: {e}")
+    
+    def _load_from_api_cache(self):
+        """Cargar desde cache de API"""
+        try:
+            from services.vehicle_api_service import VehicleAPIService
+            service = VehicleAPIService()
+            cached_data = service._load_cache()
+            
+            if cached_data and 'data' in cached_data:
+                self._api_data = cached_data['data']
+                self.available_brands = sorted(list(self._api_data.keys()))
+                self.api_total_vehicles = sum(len(models) for models in self._api_data.values())
+                self.api_last_sync = cached_data.get('cached_at', 'Desconocido')
+                
+                print(f"✅ Cargados {len(self.available_brands)} marcas desde API cache")
+                print(f"📊 Total vehículos API: {self.api_total_vehicles}")
+                
+        except Exception as e:
+            print(f"❌ Error cargando desde API cache: {e}")
+    
+    async def sync_vehicles_from_api(self):
+        """Sincronizar vehículos desde APIs externas"""
+        self.api_loading = True
+        
+        try:
+            print("🔄 Iniciando sincronización desde APIs externas...")
+            from services.vehicle_api_service import sync_vehicles_from_api
+            
+            # Sincronizar datos
+            api_data = await sync_vehicles_from_api()
+            
+            if api_data:
+                self._api_data = api_data
+                self.available_brands = sorted(list(api_data.keys()))
+                self.api_total_vehicles = sum(len(models) for models in api_data.values())
+                self.api_last_sync = "Ahora mismo"
+                self.api_data_source = "api"
+                
+                # Limpiar selecciones actuales para forzar actualización
+                self.selected_brand = ""
+                self.selected_model = ""
+                self.selected_year = ""
+                self.available_models = []
+                self.available_years = []
+                
+                print(f"✅ Sincronización completada: {len(self.available_brands)} marcas")
+            else:
+                print("⚠️ No se pudieron obtener datos de API")
+                
+        except Exception as e:
+            print(f"❌ Error sincronizando desde API: {e}")
+        finally:
+            self.api_loading = False
+    
+    def get_api_stats(self) -> dict:
+        """Obtener estadísticas de la API"""
+        from services.vehicle_api_service import get_api_cache_stats
+        return get_api_cache_stats()
     
     def select_fuel(self, fuel: str):
         """Cuando se selecciona un tipo de combustible"""
@@ -66,13 +159,19 @@ class VehicleState(rx.State):
         self.selected_year = ""
         
         # Cargar marcas disponibles para este combustible
-        try:
-            from utils.vehicle_data import get_brands_by_fuel
-            self.available_brands = get_brands_by_fuel(fuel)
-            print(f"✅ Marcas cargadas: {len(self.available_brands)}")
-        except Exception as e:
-            print(f"❌ Error cargando marcas: {e}")
-            self.available_brands = []
+        if self.api_data_source in ["api", "cache"] and self._api_data:
+            # Usar datos de API
+            self.available_brands = sorted(list(self._api_data.keys()))
+            print(f"✅ Marcas cargadas desde API: {len(self.available_brands)}")
+        else:
+            # Fallback a datos locales
+            try:
+                from utils.vehicle_data import get_brands_by_fuel
+                self.available_brands = get_brands_by_fuel(fuel)
+                print(f"✅ Marcas cargadas desde local: {len(self.available_brands)}")
+            except Exception as e:
+                print(f"❌ Error cargando marcas: {e}")
+                self.available_brands = []
         
         # Limpiar opciones posteriores
         self.available_models = []
@@ -86,14 +185,21 @@ class VehicleState(rx.State):
         self.selected_model = ""
         self.selected_year = ""
         
-        # Cargar modelos disponibles para esta marca y combustible
-        try:
-            from utils.vehicle_data import get_models_by_fuel_and_brand
-            self.available_models = get_models_by_fuel_and_brand(self.selected_fuel, brand)
-            print(f"✅ Modelos cargados: {len(self.available_models)}")
-        except Exception as e:
-            print(f"❌ Error cargando modelos: {e}")
-            self.available_models = []
+        # Cargar modelos disponibles para esta marca
+        if self.api_data_source in ["api", "cache"] and self._api_data and brand in self._api_data:
+            # Usar datos de API
+            models_data = self._api_data[brand]
+            self.available_models = [model_info["model"] for model_info in models_data]
+            print(f"✅ Modelos cargados desde API: {len(self.available_models)}")
+        else:
+            # Fallback a datos locales
+            try:
+                from utils.vehicle_data import get_models_by_fuel_and_brand
+                self.available_models = get_models_by_fuel_and_brand(self.selected_fuel, brand)
+                print(f"✅ Modelos cargados desde local: {len(self.available_models)}")
+            except Exception as e:
+                print(f"❌ Error cargando modelos: {e}")
+                self.available_models = []
         
         # Limpiar opciones posteriores
         self.available_years = []
@@ -105,7 +211,25 @@ class VehicleState(rx.State):
         self.selected_model = model
         self.selected_year = ""
         
-        # Cargar años disponibles para este modelo, marca y combustible
+        # Usar datos de API si están disponibles
+        if self.api_data_source == "api" and hasattr(self, '_vehicle_api_data'):
+            try:
+                # Filtrar años de los datos de API
+                api_years = set()
+                for vehicle in self._vehicle_api_data.get('vehicles', []):
+                    if (vehicle.get('brand', '').lower() == self.selected_brand.lower() and 
+                        vehicle.get('model', '').lower() == model.lower()):
+                        year = vehicle.get('year')
+                        if year:
+                            api_years.add(str(year))
+                
+                self.available_years = sorted(list(api_years), reverse=True)
+                print(f"✅ Años cargados desde API: {len(self.available_years)}")
+                return
+            except Exception as e:
+                print(f"❌ Error procesando años de API: {e}")
+        
+        # Fallback a datos locales
         try:
             from utils.vehicle_data import get_years_by_fuel_brand_model
             self.available_years = get_years_by_fuel_brand_model(
@@ -113,7 +237,7 @@ class VehicleState(rx.State):
                 self.selected_brand, 
                 model
             )
-            print(f"✅ Años cargados: {len(self.available_years)}")
+            print(f"✅ Años cargados desde datos locales: {len(self.available_years)}")
         except Exception as e:
             print(f"❌ Error cargando años: {e}")
             self.available_years = []
