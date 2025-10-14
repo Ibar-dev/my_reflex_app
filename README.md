@@ -6,22 +6,23 @@ El objetivo de esta página web es ofrecer una plataforma moderna y profesional 
 
 ## 🚦 Estado Actual del Proyecto
 
-- ✅ **Estructura de carpetas y archivos** creada y optimizada
-- ✅ **Sistema de base de datos** completamente implementado
-- ✅ **Popup de descuento** funcional con persistencia de datos
-- ✅ **Componentes principales** desarrollados y probados
-- ✅ **Validaciones y manejo de errores** implementado
-- ✅ **Scripts de prueba y verificación** disponibles
-- ✅ **Compatibilidad Reflex 0.8.14+** - Errores de deployment corregidos
-- ✅ **Banner de cookies RGPD** - Cumplimiento legal implementado
-- ✅ **Despliegue en producción** - App funcionando en Reflex Cloud
-- ✅ **Integración API NHTSA** - Base de datos de 70+ marcas de vehículos
+- ✅ **Estructura de carpetas y archivos** optimizada y limpia
+- ✅ **Sistema de base de datos** completamente implementado con SQLite
+- ✅ **Popup de descuento** funcional con validaciones y persistencia
+- ✅ **Banner de cookies RGPD** - Cumplimiento legal total
+- ✅ **Componentes UI** desarrollados y probados (10 componentes)
+- ✅ **Selector de vehículos** con integración API NHTSA (70+ marcas)
 - ✅ **Sistema de caché inteligente** - Cache de 7 días con fallback local
-- ✅ **Proyecto completado** - Listo para uso en producción
+- ✅ **Validaciones robustas** - Email, teléfono, duplicados
+- ✅ **Scripts de gestión** - Testing y monitoreo de BD
+- ✅ **Compatibilidad Reflex 0.8.14+** - Sin errores de deployment
+- ✅ **Despliegue en producción** - Funcionando en Reflex Cloud
+- ✅ **Correcciones finales** - Cookie banner y selector año funcionando con API
 
 ### 🏆 **PROYECTO COMPLETADO AL 100%**
-**✅ Todas las funcionalidades principales implementadas y probadas**  
-**🚀 Aplicación desplegada en producción: https://app-silver-grass.reflex.run**
+**✅ Todas las funcionalidades implementadas, probadas y corregidas**  
+**🚀 Aplicación en producción: https://app-silver-grass.reflex.run**  
+**🔧 Últimas correcciones:** Banner cookies + Selector con datos API funcionando
 
 ## 📁 Estructura del Proyecto y Componentes Principales
 
@@ -93,9 +94,9 @@ El objetivo de esta página web es ofrecer una plataforma moderna y profesional 
 - **📍 `users.db`**: Base de datos SQLite (generada automáticamente)
 
 ### 🛠️ **Utilidades** (`utils/`)
-- **📍 `utils/email_service.py`**: Servicio de envío de emails
-- **📍 `utils/vehicle_data.py`**: Datos de vehículos disponibles (local)
-- **📍 `utils/popup_state.py`**: Estado del popup (vacío, lógica en discount_popup.py)
+- **📍 `utils/database_service.py`**: Servicio de base de datos con operaciones CRUD
+- **📍 `utils/email_service.py`**: Servicio de envío de emails (configuración pendiente)
+- **📍 `utils/vehicle_data.py`**: Gestión de datos locales de vehículos (fallback)
 
 ### 🚗 **API de Vehículos** (`services/`)
 - **📍 `services/vehicle_api_service.py`**: **⭐ SERVICIO DE API NHTSA**
@@ -103,28 +104,57 @@ El objetivo de esta página web es ofrecer una plataforma moderna y profesional 
   - Sistema de caché con expiración de 7 días
   - Filtrado automático de marcas ECU populares
   - Manejo asíncrono de solicitudes HTTP
-  - **Incluye:** Audi, BMW, Mercedes, Porsche, Volkswagen, etc.
+  - Fallback automático a datos locales
+  - **Incluye:** 70+ marcas (Audi, BMW, Mercedes, Porsche, VW, etc.)
+
+### 📊 **Datos** (`data/`)
+- **📍 `data/vehicles_api_cache.json`**: Cache de la API NHTSA (70+ marcas)
+- **📍 `data/vehiculos_turismo.json`**: Base de datos local de respaldo
+
+### 💾 **Base de Datos**
+- **📍 `users.db`**: Base de datos SQLite (generada automáticamente)
+  - Tabla: `user_registrations`
+  - Campos: id, nombre, email, telefono, source, is_contacted, timestamps
 
 ### 🧪 **Scripts de Verificación y Pruebas**
+
+#### **Scripts Activos (Mantenimiento y Testing):**
+
 - **📍 `test_database.py`**: **⭐ PRUEBAS COMPLETAS DE BD**
-  - Prueba todas las operaciones de base de datos
-  - Validaciones y casos límite
+  - Prueba todas las operaciones CRUD de base de datos
+  - Validaciones de email, teléfono y duplicados
+  - Casos límite y manejo de errores
   - **Ejecutar:** `python test_database.py`
 
 - **📍 `test_popup_workflow.py`**: **⭐ SIMULACIÓN DEL POPUP**
-  - Simula el flujo completo del popup
+  - Simula el flujo completo del popup de descuento
   - Prueba casos válidos e inválidos
+  - Verifica integración con BD
   - **Ejecutar:** `python test_popup_workflow.py`
 
 - **📍 `view_users.py`**: **⭐ VISOR DE REGISTROS**
-  - Muestra todos los usuarios registrados
-  - Estadísticas del sistema
+  - Muestra todos los usuarios registrados en BD
+  - Estadísticas del sistema (total, contactados, pendientes)
+  - Información detallada de cada registro
   - **Ejecutar:** `python view_users.py`
 
 - **📍 `check_system.py`**: **⭐ VERIFICACIÓN COMPLETA**
-  - Verifica que todo el sistema funcione
-  - Chequea imports, BD, validaciones
+  - Verifica que todo el sistema funcione correctamente
+  - Chequea imports, BD, validaciones y servicios
+  - Diagnóstico completo del proyecto
   - **Ejecutar:** `python check_system.py`
+
+#### **Archivos de Documentación:**
+
+- **📍 `FIX_FINAL.md`**: Documentación de las correcciones finales
+  - Explicación del fix del banner de cookies
+  - Corrección del selector de vehículos con API
+  - Instrucciones de testing y deploy
+
+- **📍 `DATABASE_DOCUMENTATION.md`**: Documentación técnica de BD
+  - Explicación detallada del sistema de base de datos
+  - Ejemplos de uso y flujo de datos
+  - Referencia de operaciones disponibles
 
 ### 🎨 **Recursos** (`assets/`)
 - **📍 `assets/styles.css`**: Estilos CSS personalizados
@@ -136,12 +166,17 @@ El objetivo de esta página web es ofrecer una plataforma moderna y profesional 
 - **📍 `data/vehiculos_turismo.json`**: Base de datos de vehículos
 
 ### 📚 **Documentación**
-- **📍 `DATABASE_DOCUMENTATION.md`**: **⭐ DOCUMENTACIÓN COMPLETA DE BD**
-  - Explicación detallada del sistema
-  - Ejemplos de uso
-  - Flujo de datos
-
-- **📍 `README.md`**: Este archivo (documentación principal)
+- **📍 `README.md`**: Documentación principal del proyecto (este archivo)
+- **📍 `DATABASE_DOCUMENTATION.md`**: **⭐ DOCUMENTACIÓN TÉCNICA DE BD**
+  - Explicación detallada del sistema de base de datos
+  - Ejemplos de uso y operaciones CRUD
+  - Flujo de datos del popup al almacenamiento
+- **📍 `FIX_FINAL.md`**: **⭐ DOCUMENTACIÓN DE CORRECCIONES**
+  - Explicación de las correcciones del banner de cookies
+  - Fix del selector de vehículos para usar API correctamente
+  - Root cause analysis y soluciones implementadas
+  - Instrucciones de testing y deploy
+- **📍 `arquitectura.tree`**: Estructura de archivos del proyecto
 
 ## 🚀 Instalación y Ejecución
 
@@ -599,21 +634,25 @@ AstroTech Reflex App
     └── CDN optimizado ✅
 ```
 
-### 📊 **Métricas del Proyecto:**
-- **🏗️ Arquitectura**: 11 directorios, 52 archivos
-- **🧩 Componentes**: 10 componentes React personalizados
+## 📊 **Métricas del Proyecto:**
+- **🏗️ Arquitectura**: 11 directorios principales, archivos optimizados
+- **🧩 Componentes UI**: 10 componentes React personalizados
 - **📄 Páginas**: 5 páginas completas implementadas
-- **🔧 Estados**: 4 estados de gestión complejos
-- **🗄️ Modelos**: 1 modelo de datos con 8 campos
-- **� Datos**: 70+ marcas de vehículos vía API
-- **⚡ Performance**: Cache inteligente de 7 días
+- **🔧 Estados**: 4 estados de gestión (Vehicle, Contact, Cookie, Global)
+- **🗄️ Modelo de Datos**: 1 tabla con 8 campos + validaciones
+- **🚗 Vehículos**: 70+ marcas desde NHTSA API + cache local
+- **⚡ Performance**: Cache de 7 días + fallback automático
+- **🧪 Testing**: 4 scripts de verificación y monitoreo
+- **📝 Documentación**: 3 archivos de documentación técnica
 
 ### 🎯 **Casos de Uso Cubiertos:**
-1. **✅ Visitante llega al sitio** → Ve cookies banner y acepta
-2. **✅ Usuario navega** → Ve popup de descuento después de tiempo
-3. **✅ Usuario se registra** → Datos guardados en BD automáticamente
-4. **✅ Usuario selecciona vehículo** → Acceso a 70+ marcas vía API
-5. **✅ Administrador revisa** → Scripts de gestión de usuarios
+1. **✅ Primera visita al sitio** → Banner de cookies aparece inmediatamente
+2. **✅ Usuario acepta cookies** → Preferencias guardadas, banner desaparece
+3. **✅ Usuario navega por el sitio** → Popup de descuento aparece después de tiempo
+4. **✅ Usuario registra datos** → Validación + guardado en BD automático
+5. **✅ Usuario selecciona vehículo** → Acceso a 70+ marcas con años desde API
+6. **✅ Usuario solicita presupuesto** → Datos completos disponibles para backend
+7. **✅ Administrador revisa leads** → Scripts de gestión de usuarios disponibles
 
 ### 🚀 **Estado para Producción:**
 

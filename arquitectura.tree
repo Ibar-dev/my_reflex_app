@@ -1,32 +1,42 @@
 .
-|-- .env
-|-- .gitignore
-|-- .markdownlint.json
 |-- DATABASE_DOCUMENTATION.md
+|-- FIX_FINAL.md
 |-- README.md
-|-- arquitectura.tree
-|-- check_system.py
-|-- requirements.txt
-|-- rxconfig.py
-|-- test_database.py
-|-- test_popup_workflow.py
-|-- users.db
-|-- view_users.py
-|-- app/
+|-- __pycache__
+|   `-- rxconfig.cpython-313.pyc
+|-- app
 |   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-313.pyc
+|   |   `-- app.cpython-313.pyc
 |   `-- app.py
-|-- assets/
+|-- arquitectura.tree
+|-- assets
+|   |-- components
+|   |-- images
+|   |   |-- bigstock-Technician-Is-Tuning-Engine-Ca-469398073.jpg
+|   |   |-- centralita-coche.jpg
+|   |   `-- logo_astrotech.png
 |   |-- selector-fix.css
-|   |-- styles.css
-|   `-- images/
-|       |-- bigstock-Technician-Is-Tuning-Engine-Ca-469398073.jpg
-|       |-- centralita-coche.jpg
-|       `-- logo_astrotech.png
-|-- components/
+|   `-- styles.css
+|-- check_system.py
+|-- components
 |   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-313.pyc
+|   |   |-- benefits.cpython-313.pyc
+|   |   |-- contact.cpython-313.pyc
+|   |   |-- cookie_banner.cpython-313.pyc
+|   |   |-- discount_popup.cpython-313.pyc
+|   |   |-- faq.cpython-313.pyc
+|   |   |-- footer.cpython-313.pyc
+|   |   |-- header.cpython-313.pyc
+|   |   |-- hero.cpython-313.pyc
+|   |   |-- services.cpython-313.pyc
+|   |   `-- vehicle_selector.cpython-313.pyc
 |   |-- benefits.py
 |   |-- contact.py
-|   |-- cookie_banner.py (NUEVO - Banner RGPD)
+|   |-- cookie_banner.py
 |   |-- discount_popup.py
 |   |-- faq.py
 |   |-- footer.py
@@ -34,53 +44,56 @@
 |   |-- hero.py
 |   |-- services.py
 |   `-- vehicle_selector.py
-|-- data/
-|   |-- vehicles_api_cache.json (NUEVO - Cache API NHTSA)
+|-- data
+|   |-- vehicles_api_cache.json
 |   `-- vehiculos_turismo.json
-|-- models/
+|-- models
 |   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-313.pyc
+|   |   `-- user.cpython-313.pyc
 |   `-- user.py
-|-- pages/
+|-- pages
 |   |-- __init__.py
 |   |-- about.py
 |   |-- contact.py
 |   |-- home.py
 |   |-- home_new.py
 |   `-- services.py
-|-- services/
+|-- requirements.txt
+|-- rxconfig.py
+|-- services
 |   |-- __init__.py
-|   `-- vehicle_api_service.py (NUEVO - Servicio API NHTSA)
-|-- state/
+|   |-- __pycache__
+|   |   |-- __init__.cpython-313.pyc
+|   |   `-- vehicle_api_service.cpython-313.pyc
+|   `-- vehicle_api_service.py
+|-- state
 |   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-313.pyc
+|   |   |-- contact_state.cpython-313.pyc
+|   |   |-- cookie_state.cpython-313.pyc
+|   |   |-- global_state.cpython-313.pyc
+|   |   `-- vehicle_state.cpython-313.pyc
 |   |-- contact_state.py
-|   |-- cookie_state.py (NUEVO - Estado cookies RGPD)
+|   |-- cookie_state.py
 |   |-- global_state.py
 |   `-- vehicle_state.py
-`-- utils/
-    |-- __init__.py
-    |-- database_service.py
-    |-- email_service.py
-    |-- popup_state.py
-    `-- vehicle_data.py
+|-- test_database.py
+|-- test_popup_workflow.py
+|-- users.db
+|-- utils
+|   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-313.pyc
+|   |   |-- database_service.cpython-313.pyc
+|   |   `-- vehicle_data.cpython-313.pyc
+|   |-- database_service.py
+|   |-- email_service.py
+|   |-- popup_state.py
+|   `-- vehicle_data.py
+|-- verify_project.py
+`-- view_users.py
 
-ARCHIVOS ELIMINADOS (limpieza):
-- test_api_integration.py (test temporal)
-- test_api_service.py (test temporal)
-
-ARCHIVOS PRINCIPALES AÑADIDOS:
-+ components/cookie_banner.py (Banner de cookies RGPD)
-+ state/cookie_state.py (Gestión de estado de cookies)
-+ services/vehicle_api_service.py (Servicio API NHTSA)
-+ data/vehicles_api_cache.json (Cache API con 70+ marcas)
-
-FUNCIONALIDADES COMPLETADAS:
-✅ Sistema de base de datos completo
-✅ Popup de descuento funcional
-✅ Banner de cookies RGPD
-✅ Integración API NHTSA (70 marcas de vehículos)
-✅ Cache inteligente con expiración de 7 días
-✅ Sistema híbrido (API + datos locales)
-✅ Compatibilidad Reflex 0.8.14+
-✅ Desplegado en producción: https://app-silver-grass.reflex.run
-
-11 directories, 52 files
+18 directories, 78 files

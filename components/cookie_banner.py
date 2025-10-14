@@ -34,13 +34,41 @@ def cookie_banner() -> rx.Component:
                     ),
                     rx.text(
                         "Utilizamos cookies esenciales para el funcionamiento del sitio y cookies de análisis "
-                        "para mejorar nuestros servicios. Los datos de contacto que proporcionas (nombre, email, teléfono) "
-                        "se almacenan localmente para procesar tu solicitud de presupuesto de reprogramación ECU. "
-                        "Puedes gestionar tus preferencias de cookies a continuación.",
+                        "para mejorar nuestros servicios. ",
                         color="#CCCCCC",
                         font_size="0.9rem",
                         line_height="1.4",
                         max_width="600px",
+                    ),
+                    rx.text(
+                        "📋 Almacenamiento de Datos: ",
+                        "Los datos de contacto que proporcionas voluntariamente (nombre, email, teléfono) "
+                        "a través del popup de descuento o formularios se almacenan en nuestra base de datos local "
+                        "únicamente para:",
+                        color="#CCCCCC",
+                        font_size="0.85rem",
+                        line_height="1.4",
+                        max_width="600px",
+                        mt="2",
+                    ),
+                    rx.unordered_list(
+                        rx.list_item("Procesar tu solicitud de presupuesto de reprogramación ECU", color="#CCCCCC", font_size="0.8rem"),
+                        rx.list_item("Mejorar la calidad de nuestro servicio", color="#CCCCCC", font_size="0.8rem"),
+                        rx.list_item("Contactarte sobre tu consulta", color="#CCCCCC", font_size="0.8rem"),
+                        spacing="1",
+                        ml="4",
+                        max_width="600px",
+                    ),
+                    rx.text(
+                        "🔒 Tus Derechos: ",
+                        "Puedes solicitar la eliminación de tus datos de nuestra base de datos en cualquier momento "
+                        "contactándonos a través de los canales indicados en nuestra Política de Privacidad.",
+                        color="#FFD700",
+                        font_size="0.85rem",
+                        line_height="1.4",
+                        max_width="600px",
+                        font_weight="500",
+                        mt="2",
                     ),
                     rx.hstack(
                         rx.link(
@@ -150,7 +178,8 @@ def cookie_banner() -> rx.Component:
                             
                             rx.text(
                                 "Gestiona qué tipos de cookies y datos quieres permitir. "
-                                "Ten en cuenta que rechazar cookies esenciales puede afectar la funcionalidad del sitio:",
+                                "Al aceptar cookies esenciales, autorizas el almacenamiento de tus datos de contacto "
+                                "(proporcionados voluntariamente) para procesar tu solicitud:",
                                 color="#CCCCCC",
                                 font_size="1rem",
                             ),
@@ -171,7 +200,10 @@ def cookie_banner() -> rx.Component:
                                         ),
                                         rx.text(
                                             "Necesarias para formularios de contacto, selector de vehículos y funcionamiento básico del sitio. "
-                                            "Incluye almacenamiento de preferencias de cookies.",
+                                            "Incluye almacenamiento de preferencias de cookies y datos de contacto (nombre, email, teléfono) "
+                                            "proporcionados voluntariamente en el popup de descuento (10% OFF) o formularios de contacto, "
+                                            "guardados en base de datos local únicamente para mejorar la calidad del servicio. "
+                                            "Puedes solicitar su eliminación en cualquier momento.",
                                             color="#CCCCCC",
                                             font_size="0.9rem",
                                         ),
