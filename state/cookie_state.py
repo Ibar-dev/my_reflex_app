@@ -16,38 +16,41 @@ class CookieState(rx.State):
 	marketing_store: str = rx.Cookie(name="astrotech_marketing", path="/", max_age=31536000)
 	
 	def on_load(self):
-		"""Carga las preferencias desde cookies al inicializar"""
+		"""Carga las preferencias desde cookies al inicializar
+		
+		IMPORTANTE: cookies_accepted controla la VISIBILIDAD del banner
+		- False (default) → Banner VISIBLE y permanece hasta que usuario interactúe
+		- True (solo después de clic del usuario) → Banner OCULTO
+		"""
 		print(f"🍪 [COOKIE] Inicializando banner de cookies...")
 		print(f"🍪 [COOKIE] cookies_accepted_store: '{self.cookies_accepted_store}'")
 		
 		# Solo establecer como aceptado si explícitamente está en "1"
 		if self.cookies_accepted_store == "1":
-			self.cookies_accepted = True
+			self.cookies_accepted = True  # Ocultar banner
 			self.analytics_cookies = (self.analytics_store == "1")
 			self.marketing_cookies = (self.marketing_store == "1")
-			print(f"🍪 [COOKIE] Cookies ya aceptadas anteriormente")
+			print(f"🍪 [COOKIE] Cookies ya aceptadas anteriormente - Banner OCULTO")
 		else:
 			# Primera visita o no hay cookies - mostrar banner
-			self.cookies_accepted = False
+			self.cookies_accepted = False  # Mostrar banner y MANTENERLO hasta clic
 			self.analytics_cookies = False
 			self.marketing_cookies = False
-			print(f"🍪 [COOKIE] Primera visita - mostrando banner")
+			print(f"🍪 [COOKIE] Primera visita - Banner VISIBLE (permanecerá hasta que usuario haga clic)")
 	
 	@rx.var
 	def should_show_banner(self) -> bool:
-		"""Determina si se debe mostrar el banner de cookies"""
-		# CRÍTICO: Verificar explícitamente el valor de la cookie
-		# cookies_accepted_store puede ser: None, "", o "1"
-		cookie_value = self.cookies_accepted_store
+		"""Determina si se debe mostrar el banner de cookies
+		
+		El banner permanece visible hasta que el usuario haga clic
+		en cualquiera de las opciones (Aceptar todas, Solo esenciales, Configurar)
+		"""
+		# Invertir cookies_accepted: si NO ha aceptado → mostrar banner
+		# cookies_accepted solo cambia a True cuando usuario hace clic en un botón
+		should_show = not self.cookies_accepted
 		
 		# Logging para debugging
-		print(f"🔍 [BANNER] Evaluando visibilidad - cookie_value: '{cookie_value}' (tipo: {type(cookie_value)})")
-		
-		# Mostrar banner SOLO si la cookie NO es "1"
-		# None, "", "0", etc. → Mostrar banner
-		# "1" → NO mostrar banner
-		should_show = (cookie_value != "1")
-		print(f"🔍 [BANNER] Resultado: should_show = {should_show}")
+		print(f"🔍 [BANNER] cookies_accepted={self.cookies_accepted}, should_show={should_show}")
 		
 		return should_show
 
