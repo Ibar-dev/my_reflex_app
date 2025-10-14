@@ -1,75 +1,96 @@
 .
-|-- DEPLOYMENT.md
+|-- DATABASE_DOCUMENTATION.md
 |-- README.md
+|-- README_OLD.md
 |-- __pycache__
 |   `-- rxconfig.cpython-313.pyc
-|-- arquitectura.tree
-|-- backend
-|   |-- app.py
-|   |-- state
-|   `-- utils
-|-- frontend
-|   |-- README.md
+|-- app
+|   |-- __init__.py
 |   |-- __pycache__
-|   |   `-- rxconfig.cpython-313.pyc
-|   |-- app
-|   |   |-- __init__.py
-|   |   |-- __pycache__
-|   |   |   |-- __init__.cpython-313.pyc
-|   |   |   `-- app.cpython-313.pyc
-|   |   `-- app.py
-|   |-- assets
-|   |   |-- components
-|   |   |-- images
-|   |   |   |-- bigstock-Technician-Is-Tuning-Engine-Ca-469398073.jpg
-|   |   |   `-- centralita-coche.jpg
-|   |   |-- selector-fix.css
-|   |   `-- styles.css
+|   |   |-- __init__.cpython-313.pyc
+|   |   `-- app.cpython-313.pyc
+|   `-- app.py
+|-- arquitectura.tree
+|-- assets
 |   |-- components
-|   |   |-- __init__.py
-|   |   |-- __pycache__
-|   |   |   |-- __init__.cpython-313.pyc
-|   |   |   |-- benefits.cpython-313.pyc
-|   |   |   |-- contact.cpython-313.pyc
-|   |   |   |-- faq.cpython-313.pyc
-|   |   |   |-- footer.cpython-313.pyc
-|   |   |   |-- header.cpython-313.pyc
-|   |   |   |-- hero.cpython-313.pyc
-|   |   |   |-- services.cpython-313.pyc
-|   |   |   `-- vehicle_selector.cpython-313.pyc
-|   |   |-- benefits.py
-|   |   |-- contact.py
-|   |   |-- faq.py
-|   |   |-- footer.py
-|   |   |-- header.py
-|   |   |-- hero.py
-|   |   |-- services.py
-|   |   |-- vehicle_selector.py
-|   |   `-- vehicle_selector_simple.py
-|   |-- data
-|   |   |-- vehiculos_turismo.json
-|   |   `-- vehiculos_turismo_backup.json
-|   |-- pages
-|   |   |-- __init__.py
-|   |   |-- about.py
-|   |   |-- contact.py
-|   |   |-- home.py
-|   |   `-- services.py
-|   |-- requirements.txt
-|   |-- rxconfig.py
-|   |-- state
-|   |   |-- __init__.py
-|   |   |-- contact_state.py
-|   |   |-- global_state.py
-|   |   `-- vehicle_state.py
-|   `-- utils
-|       |-- __init__.py
-|       |-- __pycache__
-|       |   |-- __init__.cpython-313.pyc
-|       |   `-- vehicle_data.cpython-313.pyc
-|       `-- vehicle_data.py
+|   |-- images
+|   |   |-- bigstock-Technician-Is-Tuning-Engine-Ca-469398073.jpg
+|   |   |-- centralita-coche.jpg
+|   |   `-- logo_astrotech.png
+|   |-- selector-fix.css
+|   `-- styles.css
+|-- backend
+|   `-- app.py
+|-- check_files.py
+|-- check_system.py
+|-- components
+|   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-313.pyc
+|   |   |-- benefits.cpython-313.pyc
+|   |   |-- contact.cpython-313.pyc
+|   |   |-- discount_popup.cpython-313.pyc
+|   |   |-- faq.cpython-313.pyc
+|   |   |-- footer.cpython-313.pyc
+|   |   |-- header.cpython-313.pyc
+|   |   |-- hero.cpython-313.pyc
+|   |   |-- services.cpython-313.pyc
+|   |   |-- simple_selector.cpython-313.pyc
+|   |   |-- vehicle_selector.cpython-313.pyc
+|   |   `-- vehicle_selector_fixed.cpython-313.pyc
+|   |-- benefits.py
+|   |-- contact.py
+|   |-- discount_popup.py
+|   |-- faq.py
+|   |-- footer.py
+|   |-- header.py
+|   |-- hero.py
+|   |-- services.py
+|   `-- vehicle_selector.py
+|-- data
+|   `-- vehiculos_turismo.json
+|-- models
+|   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-313.pyc
+|   |   `-- user.cpython-313.pyc
+|   `-- user.py
+|-- pages
+|   |-- __init__.py
+|   |-- about.py
+|   |-- contact.py
+|   |-- home.py
+|   |-- home_new.py
+|   `-- services.py
 |-- requirements.txt
-|-- test
-`-- verify_setup.py
+|-- rxconfig.py
+|-- state
+|   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-313.pyc
+|   |   |-- contact_state.cpython-313.pyc
+|   |   |-- global_state.cpython-313.pyc
+|   |   |-- vehicle_state.cpython-313.pyc
+|   |   `-- vehicle_state_new.cpython-313.pyc
+|   |-- contact_state.py
+|   |-- global_state.py
+|   `-- vehicle_state.py
+|-- test_database.py
+|-- test_json.py
+|-- test_popup_integration.py
+|-- test_popup_workflow.py
+|-- users.db
+|-- utils
+|   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-313.pyc
+|   |   |-- database_service.cpython-313.pyc
+|   |   `-- vehicle_data.cpython-313.pyc
+|   |-- database_service.py
+|   |-- email_service.py
+|   |-- popup_state.py
+|   `-- vehicle_data.py
+|-- verify_setup.py
+`-- view_users.py
 
-19 directories, 53 files
+17 directories, 76 files
