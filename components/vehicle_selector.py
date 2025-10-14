@@ -35,7 +35,7 @@ def vehicle_selector() -> rx.Component:
                         VehicleState.fuel_options,
                         placeholder="Selecciona el tipo de combustible", 
                         value=VehicleState.selected_fuel,
-                        on_change=VehicleState.select_fuel,
+                        on_change=lambda value: VehicleState.select_fuel(value),  # Lambda explícita
                         width="100%",
                         size="3",
                     ),
@@ -56,7 +56,7 @@ def vehicle_selector() -> rx.Component:
                         VehicleState.available_brands,
                         placeholder="Selecciona la marca",
                         value=VehicleState.selected_brand,
-                        on_change=VehicleState.select_brand,
+                        on_change=lambda value: VehicleState.select_brand(value),  # Lambda explícita
                         disabled=VehicleState.selected_fuel == "",
                         width="100%",
                         size="3",
@@ -78,7 +78,7 @@ def vehicle_selector() -> rx.Component:
                         VehicleState.available_models,
                         placeholder="Selecciona el modelo",
                         value=VehicleState.selected_model,
-                        on_change=VehicleState.select_model,
+                        on_change=lambda value: VehicleState.select_model(value),  # Lambda explícita
                         disabled=VehicleState.selected_brand == "",
                         width="100%",
                         size="3",
@@ -100,7 +100,7 @@ def vehicle_selector() -> rx.Component:
                         VehicleState.available_years,
                         placeholder="Selecciona el año",
                         value=VehicleState.selected_year,
-                        on_change=VehicleState.select_year,
+                        on_change=lambda value: VehicleState.select_year(value),  # Lambda explícita
                         disabled=VehicleState.selected_model == "",
                         width="100%",
                         size="3",

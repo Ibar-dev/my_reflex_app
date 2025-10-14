@@ -211,22 +211,40 @@ class VehicleState(rx.State):
         self.selected_model = model
         self.selected_year = ""
         
-        # Usar datos de API si están disponibles
-        if self.api_data_source == "api" and hasattr(self, '_vehicle_api_data'):
+        # Usar datos de API cache si están disponibles
+        if self.api_data_source in ["api", "cache"] and self._api_data:
             try:
-                # Filtrar años de los datos de API
-                api_years = set()
-                for vehicle in self._vehicle_api_data.get('vehicles', []):
-                    if (vehicle.get('brand', '').lower() == self.selected_brand.lower() and 
-                        vehicle.get('model', '').lower() == model.lower()):
-                        year = vehicle.get('year')
-                        if year:
-                            api_years.add(str(year))  # Convertir a string
+                print(f"🔍 [API] Buscando años para {self.selected_brand} {model}")
                 
-                # Asegurar que todos sean strings y ordenar
-                self.available_years = sorted([str(y) for y in api_years], reverse=True)
-                print(f"✅ Años cargados desde API: {len(self.available_years)} → {self.available_years[:5]}")
-                return
+                # Buscar la marca en los datos de API
+                brand_models = self._api_data.get(self.selected_brand, [])
+                
+                # Buscar el modelo específico
+                api_years = []
+                for vehicle_model in brand_models:
+                    if vehicle_model.get('model', '').lower() == model.lower():
+                        # Obtener años del modelo
+                        years_list = vehicle_model.get('years', [])
+                        
+                        # Filtrar por combustible si está seleccionado
+                        if self.selected_fuel:
+                            fuel_types = vehicle_model.get('fuel_types', [])
+                            if self.selected_fuel in fuel_types:
+                                api_years = years_list
+                                print(f"✅ [API] Combustible '{self.selected_fuel}' compatible")
+                        else:
+                            api_years = years_list
+                        
+                        break
+                
+                # Convertir a strings y ordenar
+                if api_years:
+                    self.available_years = sorted([str(y) for y in api_years], reverse=True)
+                    print(f"✅ Años cargados desde API: {len(self.available_years)} → {self.available_years[:5]}")
+                    return
+                else:
+                    print(f"⚠️ [API] No se encontraron años para {self.selected_brand} {model}")
+                    
             except Exception as e:
                 print(f"❌ Error procesando años de API: {e}")
         

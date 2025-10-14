@@ -36,9 +36,20 @@ class CookieState(rx.State):
 	@rx.var
 	def should_show_banner(self) -> bool:
 		"""Determina si se debe mostrar el banner de cookies"""
-		# Mostrar banner si NO hay cookie guardada (independiente de banner_initialized)
-		# Esto permite que se muestre en el primer render
-		return self.cookies_accepted_store != "1"
+		# CRÍTICO: Verificar explícitamente el valor de la cookie
+		# cookies_accepted_store puede ser: None, "", o "1"
+		cookie_value = self.cookies_accepted_store
+		
+		# Logging para debugging
+		print(f"🔍 [BANNER] Evaluando visibilidad - cookie_value: '{cookie_value}' (tipo: {type(cookie_value)})")
+		
+		# Mostrar banner SOLO si la cookie NO es "1"
+		# None, "", "0", etc. → Mostrar banner
+		# "1" → NO mostrar banner
+		should_show = (cookie_value != "1")
+		print(f"🔍 [BANNER] Resultado: should_show = {should_show}")
+		
+		return should_show
 
 	def accept_all(self):
 		"""Acepta todas las cookies"""
