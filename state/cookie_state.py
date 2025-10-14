@@ -1,13 +1,13 @@
 import reflex as rx
 
 class CookieState(rx.State):
-	cookies_accepted: bool = rx.Cookie(name="cookies_accepted", path="/", default=False)
+	cookies_accepted: bool = rx.Cookie(name="cookies_accepted", path="/")
 	show_settings: bool = False
 	
 	# Tipos específicos de cookies
 	essential_cookies: bool = True  # Siempre true, no se puede desactivar
-	analytics_cookies: bool = rx.Cookie(name="analytics_cookies", path="/", default=False) 
-	marketing_cookies: bool = rx.Cookie(name="marketing_cookies", path="/", default=False)
+	analytics_cookies: bool = rx.Cookie(name="analytics_cookies", path="/") 
+	marketing_cookies: bool = rx.Cookie(name="marketing_cookies", path="/")
 
 	def accept_all(self):
 		"""Acepta todas las cookies"""
