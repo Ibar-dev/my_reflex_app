@@ -221,10 +221,11 @@ class VehicleState(rx.State):
                         vehicle.get('model', '').lower() == model.lower()):
                         year = vehicle.get('year')
                         if year:
-                            api_years.add(str(year))
+                            api_years.add(str(year))  # Convertir a string
                 
-                self.available_years = sorted(list(api_years), reverse=True)
-                print(f"✅ Años cargados desde API: {len(self.available_years)}")
+                # Asegurar que todos sean strings y ordenar
+                self.available_years = sorted([str(y) for y in api_years], reverse=True)
+                print(f"✅ Años cargados desde API: {len(self.available_years)} → {self.available_years[:5]}")
                 return
             except Exception as e:
                 print(f"❌ Error procesando años de API: {e}")
@@ -232,25 +233,34 @@ class VehicleState(rx.State):
         # Fallback a datos locales
         try:
             from utils.vehicle_data import get_years_by_fuel_brand_model
-            self.available_years = get_years_by_fuel_brand_model(
+            years_local = get_years_by_fuel_brand_model(
                 self.selected_fuel, 
                 self.selected_brand, 
                 model
             )
-            print(f"✅ Años cargados desde datos locales: {len(self.available_years)}")
+            # Asegurar que todos sean strings
+            self.available_years = [str(y) for y in years_local]
+            print(f"✅ Años cargados desde datos locales: {len(self.available_years)} → {self.available_years[:5]}")
         except Exception as e:
             print(f"❌ Error cargando años: {e}")
             self.available_years = []
     
     def select_year(self, year: str):
         """Cuando se selecciona un año"""
-        if not year:
-            print("⚠️ Año vacío recibido, ignorando...")
+        # Debug detallado
+        print(f"📊 [DEBUG] select_year llamado con: tipo={type(year)}, valor='{year}', repr={repr(year)}")
+        
+        # Convertir a string y limpiar
+        year_str = str(year).strip()
+        
+        # Validar - solo rechazar None, vacío o "None" literal
+        if not year_str or year_str == "None" or year_str == "null":
+            print(f"⚠️ [SELECT] Año inválido recibido: '{year_str}', ignorando...")
             return
             
-        print(f"📅 [SELECT] Año seleccionado: '{year}'")
+        print(f"📅 [SELECT] Año seleccionado: '{year_str}'")
         
-        self.selected_year = year
+        self.selected_year = year_str
         
         print(f"🎉 Selección completa:")
         print(f"   Combustible: {self.selected_fuel}")

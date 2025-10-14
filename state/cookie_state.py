@@ -4,7 +4,6 @@ class CookieState(rx.State):
 	# Variables de estado simples inicializadas a False
 	cookies_accepted: bool = False
 	show_settings: bool = False
-	banner_initialized: bool = False  # Nueva bandera para controlar inicialización
 	
 	# Tipos específicos de cookies
 	essential_cookies: bool = True  # Siempre true, no se puede desactivar
@@ -20,9 +19,6 @@ class CookieState(rx.State):
 		"""Carga las preferencias desde cookies al inicializar"""
 		print(f"🍪 [COOKIE] Inicializando banner de cookies...")
 		print(f"🍪 [COOKIE] cookies_accepted_store: '{self.cookies_accepted_store}'")
-		
-		# Marcar como inicializado
-		self.banner_initialized = True
 		
 		# Solo establecer como aceptado si explícitamente está en "1"
 		if self.cookies_accepted_store == "1":
@@ -40,8 +36,9 @@ class CookieState(rx.State):
 	@rx.var
 	def should_show_banner(self) -> bool:
 		"""Determina si se debe mostrar el banner de cookies"""
-		# Solo mostrar si está inicializado y no se han aceptado las cookies
-		return self.banner_initialized and not self.cookies_accepted
+		# Mostrar banner si NO hay cookie guardada (independiente de banner_initialized)
+		# Esto permite que se muestre en el primer render
+		return self.cookies_accepted_store != "1"
 
 	def accept_all(self):
 		"""Acepta todas las cookies"""
