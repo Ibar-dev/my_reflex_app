@@ -1,7 +1,9 @@
 .
+|-- COOKIES_PRIVACY_INFO.md
 |-- DATABASE_DOCUMENTATION.md
 |-- FIX_FINAL.md
 |-- README.md
+|-- RESUMEN_LIMPIEZA_LEGAL.md
 |-- __pycache__
 |   `-- rxconfig.cpython-313.pyc
 |-- app
@@ -91,9 +93,7 @@
 |   |   `-- vehicle_data.cpython-313.pyc
 |   |-- database_service.py
 |   |-- email_service.py
-|   |-- popup_state.py
 |   `-- vehicle_data.py
-|-- verify_project.py
 `-- view_users.py
 
 18 directories, 78 files
