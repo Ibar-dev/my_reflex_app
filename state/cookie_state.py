@@ -3,6 +3,8 @@ import reflex as rx
 class CookieState(rx.State):
 	# Variables de estado simples inicializadas a False
 	cookies_accepted: bool = False
+	# Nuevo: indica si el usuario ya interactuó explícitamente con el banner
+	has_user_interacted: bool = False
 	show_settings: bool = False
 	
 	# Tipos específicos de cookies
@@ -28,12 +30,14 @@ class CookieState(rx.State):
 		# Solo establecer como aceptado si explícitamente está en "1"
 		if self.cookies_accepted_store == "1":
 			self.cookies_accepted = True  # Ocultar banner
+			self.has_user_interacted = True  # Ya hubo consentimiento previo
 			self.analytics_cookies = (self.analytics_store == "1")
 			self.marketing_cookies = (self.marketing_store == "1")
 			print(f"🍪 [COOKIE] Cookies ya aceptadas anteriormente - Banner OCULTO")
 		else:
 			# Primera visita o no hay cookies - mostrar banner
 			self.cookies_accepted = False  # Mostrar banner y MANTENERLO hasta clic
+			self.has_user_interacted = False
 			self.analytics_cookies = False
 			self.marketing_cookies = False
 			print(f"🍪 [COOKIE] Primera visita - Banner VISIBLE (permanecerá hasta que usuario haga clic)")
@@ -45,12 +49,12 @@ class CookieState(rx.State):
 		El banner permanece visible hasta que el usuario haga clic
 		en cualquiera de las opciones (Aceptar todas, Solo esenciales, Configurar)
 		"""
-		# Invertir cookies_accepted: si NO ha aceptado → mostrar banner
-		# cookies_accepted solo cambia a True cuando usuario hace clic en un botón
-		should_show = not self.cookies_accepted
+		# Mostrar mientras NO haya interacción explícita del usuario.
+		# Esto evita ocultar el banner por cualquier cambio lateral en cookies_accepted.
+		should_show = not self.has_user_interacted
 		
 		# Logging para debugging
-		print(f"🔍 [BANNER] cookies_accepted={self.cookies_accepted}, should_show={should_show}")
+		print(f"🔍 [BANNER] cookies_accepted={self.cookies_accepted}, has_user_interacted={self.has_user_interacted}, should_show={should_show}")
 		
 		return should_show
 
@@ -58,6 +62,7 @@ class CookieState(rx.State):
 		"""Acepta todas las cookies"""
 		print("🍪 [COOKIE] Aceptando todas las cookies...")
 		self.cookies_accepted = True
+		self.has_user_interacted = True
 		self.analytics_cookies = True
 		self.marketing_cookies = True
 		self.show_settings = False
@@ -71,6 +76,7 @@ class CookieState(rx.State):
 		"""Rechaza cookies no esenciales"""
 		print("🍪 [COOKIE] Rechazando cookies no esenciales...")
 		self.cookies_accepted = True  # Marca como procesado
+		self.has_user_interacted = True
 		self.analytics_cookies = False
 		self.marketing_cookies = False
 		self.show_settings = False
@@ -84,6 +90,7 @@ class CookieState(rx.State):
 		"""Acepta solo cookies esenciales"""
 		print("🍪 [COOKIE] Aceptando solo cookies esenciales...")
 		self.cookies_accepted = True
+		self.has_user_interacted = True
 		self.analytics_cookies = False
 		self.marketing_cookies = False
 		self.show_settings = False
@@ -105,6 +112,7 @@ class CookieState(rx.State):
 		"""Guarda configuración personalizada del modal"""
 		print("🍪 [COOKIE] Guardando configuración personalizada...")
 		self.cookies_accepted = True
+		self.has_user_interacted = True
 		self.show_settings = False
 		# Guardar en cookies
 		self.cookies_accepted_store = "1"
