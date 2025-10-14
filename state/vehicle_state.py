@@ -321,8 +321,7 @@ class VehicleState(rx.State):
             print("❌ Error al enviar los datos")
             # Mostrar mensaje de error al usuario
         """
-        
-        # Log temporal - ELIMINAR cuando se implemente el backend
+        # 1) Log informativo (útil en desarrollo)
         print("\n" + "="*60)
         print("📤 DATOS LISTOS PARA ENVIAR AL BACKEND:")
         print("="*60)
@@ -331,18 +330,45 @@ class VehicleState(rx.State):
         print(f"🚗 Modelo: {self.selected_model}")
         print(f"📅 Año: {self.selected_year}")
         print("="*60)
-        print("⚠️  TODO: Implementar llamada al backend aquí")
-        print("="*60 + "\n")
         
-        # TODO BACKEND: Implementar aquí la lógica de envío
-        # Ejemplo:
-        # try:
-        #     response = tu_api_call(
-        #         fuel=self.selected_fuel,
-        #         brand=self.selected_brand,
-        #         model=self.selected_model,
-        #         year=self.selected_year
-        #     )
-        #     return {"success": True, "message": "Datos enviados correctamente"}
-        # except Exception as e:
-        #     return {"success": False, "message": str(e)}
+        # 2) Prefill del mensaje de contacto y scroll a la sección "Contacto"
+        try:
+            from state.contact_state import ContactState
+        except Exception as e:
+            print(f"❌ No se pudo importar ContactState: {e}")
+            ContactState = None  # fallback para evitar crash
+
+        # Componer un mensaje claro para el usuario
+        resumen = (
+            "Hola, me gustaría solicitar presupuesto para mi "
+            f"{self.selected_brand} {self.selected_model} ({self.selected_year}, {self.selected_fuel}). "
+            "¿Podríais confirmarme disponibilidad y precio? Gracias."
+        )
+
+        actions = []
+        if ContactState is not None:
+            # Usamos el handler existente para fijar el valor del textarea
+            actions.append(ContactState.handle_message_change(resumen))
+        
+        # Opcional: marcar la sección de contacto como activa en el header si el estado está disponible
+        try:
+            from components.header import HeaderState
+            actions.append(HeaderState.set_active_section("contacto"))
+        except Exception as e:
+            print(f"ℹ️ HeaderState no disponible para actualizar sección activa: {e}")
+        
+        # Desplazar suavemente hasta la sección de contacto y enfocar el textarea
+        scroll_and_focus = """
+        (function(){
+            const section = document.getElementById('contacto');
+            if(section){ section.scrollIntoView({behavior:'smooth'}); }
+            setTimeout(()=>{
+                const ta = document.querySelector('#contacto textarea[name="message"]');
+                if(ta){ ta.focus(); }
+            }, 350);
+        })();
+        """
+        actions.append(rx.call_script(scroll_and_focus))
+
+        # 3) Devolver acciones para que Reflex las ejecute en el cliente
+        return actions
