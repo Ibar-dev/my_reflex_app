@@ -33,13 +33,33 @@ def cookie_banner() -> rx.Component:
                         align="center",
                     ),
                     rx.text(
-                        "Utilizamos cookies para mejorar tu experiencia de navegación, "
-                        "analizar el tráfico del sitio y personalizar el contenido. "
-                        "Al continuar navegando, aceptas nuestro uso de cookies.",
+                        "Utilizamos cookies esenciales para el funcionamiento del sitio y cookies de análisis "
+                        "para mejorar nuestros servicios. Los datos de contacto que proporcionas (nombre, email, teléfono) "
+                        "se almacenan localmente para procesar tu solicitud de presupuesto de reprogramación ECU. "
+                        "Puedes gestionar tus preferencias de cookies a continuación.",
                         color="#CCCCCC",
                         font_size="0.9rem",
                         line_height="1.4",
                         max_width="600px",
+                    ),
+                    rx.hstack(
+                        rx.link(
+                            "Política de Privacidad",
+                            href="/privacy",
+                            color="#FF6B35",
+                            font_size="0.8rem",
+                            _hover={"color": "#FF8C42", "text_decoration": "underline"},
+                        ),
+                        rx.text("•", color="#666666", font_size="0.8rem"),
+                        rx.link(
+                            "Gestión de Datos",
+                            href="/data-management", 
+                            color="#FF6B35",
+                            font_size="0.8rem",
+                            _hover={"color": "#FF8C42", "text_decoration": "underline"},
+                        ),
+                        spacing="2",
+                        mt="2",
                     ),
                     spacing="2",
                     align="start",
@@ -60,12 +80,12 @@ def cookie_banner() -> rx.Component:
                         ),
                         # Botón rechazar
                         rx.button(
-                            "Rechazar",
+                            "Solo Esenciales",
                             size="2",
                             variant="outline",
-                            color_scheme="red",
-                            on_click=CookieState.reject_all,
-                            _hover={"bg": "#FF4444", "color": "white"},
+                            color_scheme="gray",
+                            on_click=CookieState.accept_essential_only,
+                            _hover={"bg": "#3A3A3A", "color": "white"},
                         ),
                         # Botón aceptar
                         rx.button(
@@ -129,7 +149,8 @@ def cookie_banner() -> rx.Component:
                             ),
                             
                             rx.text(
-                                "Personaliza qué tipos de cookies quieres permitir:",
+                                "Gestiona qué tipos de cookies y datos quieres permitir. "
+                                "Ten en cuenta que rechazar cookies esenciales puede afectar la funcionalidad del sitio:",
                                 color="#CCCCCC",
                                 font_size="1rem",
                             ),
@@ -149,7 +170,8 @@ def cookie_banner() -> rx.Component:
                                             color="white",
                                         ),
                                         rx.text(
-                                            "Necesarias para el funcionamiento básico del sitio",
+                                            "Necesarias para formularios de contacto, selector de vehículos y funcionamiento básico del sitio. "
+                                            "Incluye almacenamiento de preferencias de cookies.",
                                             color="#CCCCCC",
                                             font_size="0.9rem",
                                         ),
@@ -166,7 +188,8 @@ def cookie_banner() -> rx.Component:
                                 rx.hstack(
                                     rx.box(
                                         rx.checkbox(
-                                            default_checked=True,
+                                            checked=CookieState.analytics_cookies,
+                                            on_change=CookieState.toggle_analytics,
                                             color_scheme="orange",
                                         ),
                                         width="30px",
@@ -178,7 +201,8 @@ def cookie_banner() -> rx.Component:
                                             color="white",
                                         ),
                                         rx.text(
-                                            "Nos ayudan a entender cómo interactúas con el sitio",
+                                            "Nos ayudan a entender cómo interactúas con nuestro selector de vehículos y formularios "
+                                            "para mejorar nuestros servicios de reprogramación ECU. Datos anonimizados.",
                                             color="#CCCCCC",
                                             font_size="0.9rem",
                                         ),
@@ -195,7 +219,8 @@ def cookie_banner() -> rx.Component:
                                 rx.hstack(
                                     rx.box(
                                         rx.checkbox(
-                                            default_checked=False,
+                                            checked=CookieState.marketing_cookies,
+                                            on_change=CookieState.toggle_marketing,
                                             color_scheme="orange",
                                         ),
                                         width="30px",
@@ -207,7 +232,8 @@ def cookie_banner() -> rx.Component:
                                             color="white",
                                         ),
                                         rx.text(
-                                            "Utilizadas para mostrarte anuncios relevantes",
+                                            "Para mostrar ofertas relevantes de servicios de reprogramación ECU "
+                                            "basadas en tu tipo de vehículo y preferencias expresadas.",
                                             color="#CCCCCC",
                                             font_size="0.9rem",
                                         ),
@@ -226,11 +252,19 @@ def cookie_banner() -> rx.Component:
                             # Botones del modal
                             rx.hstack(
                                 rx.button(
+                                    "Solo Esenciales",
+                                    size="3",
+                                    variant="outline",
+                                    color_scheme="gray",
+                                    on_click=CookieState.accept_essential_only,
+                                    flex="1",
+                                ),
+                                rx.button(
                                     "Guardar Configuración",
                                     size="3",
                                     bg="linear-gradient(45deg, #FF6B35, #FF8C42)",
                                     color="white",
-                                    on_click=CookieState.accept_all,
+                                    on_click=CookieState.save_custom_settings,
                                     flex="1",
                                 ),
                                 spacing="2",
