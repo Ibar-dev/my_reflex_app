@@ -1,1 +1,1 @@
-export default {"basename": "/", "future": {"unstable_optimizeDeps": true}, "ssr": false};
+export default {"basename": "/", "future": {"unstable_optimizeDeps": true}, "ssr": false, "prerender": true, "build": "build"};
