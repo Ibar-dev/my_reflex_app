@@ -44,7 +44,7 @@ class VehicleState(rx.State):
         if self._data_loaded:
             return
             
-        print("🚀 VehicleState cargando datos iniciales...")
+        print("[VehicleState] cargando datos iniciales...")
         
         try:
             # Intentar cargar desde API cache primero

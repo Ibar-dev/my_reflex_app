@@ -65,13 +65,13 @@ class EmailService:
         
         # Log de configuración al inicializar
         if EmailConfig.is_configured():
-            logger.info("📧 Configuración SMTP activada - emails se enviarán realmente")
-            logger.info(f"📧 Servidor: {self.config['server']}:{self.config['port']}")
-            logger.info(f"📧 Desde: {self.config['sender_email']}")
-            logger.info(f"📧 Para: {self.config['recipient_email']}")
+            logger.info("[EMAIL] Configuración SMTP activada - emails se enviarán realmente")
+            logger.info(f"[EMAIL] Servidor: {self.config['server']}:{self.config['port']}")
+            logger.info(f"[EMAIL] Desde: {self.config['sender_email']}")
+            logger.info(f"[EMAIL] Para: {self.config['recipient_email']}")
         else:
-            logger.info("📧 MODO SIMULACIÓN - Falta configuración SMTP en .env")
-            logger.info("📧 Ver GMAIL_SETUP_INSTRUCTIONS.md para configurar")
+            logger.info("[EMAIL] MODO SIMULACIÓN - Falta configuración SMTP en .env")
+            logger.info("[EMAIL] Ver GMAIL_SETUP_INSTRUCTIONS.md para configurar")
     
     async def send_contact_email(self, contact_data: Dict[str, str]) -> Dict[str, any]:
         """
@@ -106,11 +106,11 @@ class EmailService:
             # Enviar el email
             if not EmailConfig.is_configured():
                 # Modo simulación - solo logging
-                logger.info("📧 MODO SIMULACIÓN - Email no enviado (falta configuración SMTP)")
-                logger.info("📧 Ver GMAIL_SETUP_INSTRUCTIONS.md para configurar el envío real")
-                logger.info(f"📧 Para: {self.config['recipient_email']}")
-                logger.info(f"📧 Asunto: {msg['Subject']}")
-                logger.info(f"📧 Contenido:\n{body}")
+                logger.info("[EMAIL] MODO SIMULACIÓN - Email no enviado (falta configuración SMTP)")
+                logger.info("[EMAIL] Ver GMAIL_SETUP_INSTRUCTIONS.md para configurar el envío real")
+                logger.info(f"[EMAIL] Para: {self.config['recipient_email']}")
+                logger.info(f"[EMAIL] Asunto: {msg['Subject']}")
+                logger.info(f"[EMAIL] Contenido:\n{body}")
                 
                 return {
                     "success": True,
@@ -123,7 +123,7 @@ class EmailService:
                 server.login(self.config["sender_email"], self.config["sender_password"])
                 server.send_message(msg)
             
-            logger.info(f"✅ Email enviado correctamente a {self.config['recipient_email']}")
+            logger.info(f"[EMAIL] Email enviado correctamente a {self.config['recipient_email']}")
             
             return {
                 "success": True,

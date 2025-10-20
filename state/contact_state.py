@@ -36,7 +36,7 @@ class ContactState(rx.State):
         
     def handle_email_change(self, value: str):
         """Handler corregido para el email"""
-        print(f"📧 Cambiando email: '{value}'")  # Debug
+        print(f"[CONTACT] Cambiando email: '{value}'")  # Debug
         self.email = value
         if value and not self.validate_email(value):
             self.email_error = "Formato de email inválido"
@@ -92,20 +92,20 @@ class ContactState(rx.State):
         self.is_loading = True
         
         try:
-            # 🚀 ENVIAR EMAIL REAL
+            # ENVIAR EMAIL REAL
             from utils.email_service import send_contact_form_email
-            
-            print(f"📧 Enviando email a Astrotechreprogramaciones@gmail.com...")
-            
+
+            print(f"[CONTACT] Enviando email a Astrotechreprogramaciones@gmail.com...")
+
             email_result = await send_contact_form_email(
                 name=self.name,
                 email=self.email,
                 phone=self.phone,
                 message=self.message
             )
-            
+
             if email_result["success"]:
-                print(f"✅ Email enviado correctamente: {email_result['message']}")
+                print(f"[CONTACT] Email enviado correctamente: {email_result['message']}")
                 
                 # Mostrar éxito
                 self.show_success = True
@@ -119,15 +119,15 @@ class ContactState(rx.State):
                 self.show_success = False
             else:
                 # Error en el envío del email
-                print(f"❌ Error enviando email: {email_result['message']}")
+                print(f"[CONTACT] Error enviando email: {email_result['message']}")
                 self.form_error = f"Error al enviar: {email_result['message']}"
                 self.is_loading = False
-            
+
         except Exception as e:
             # Manejo de errores generales
             self.is_loading = False
             self.form_error = f"Error al enviar: {str(e)}"
-            print(f"❌ Error en submit_form: {e}")
+            print(f"[CONTACT] Error en submit_form: {e}")
     
     def reset_form(self):
         """Reiniciar el formulario a su estado inicial"""

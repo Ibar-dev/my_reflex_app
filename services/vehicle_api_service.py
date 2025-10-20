@@ -88,15 +88,15 @@ class VehicleAPIService:
     
     async def sync_vehicle_data(self) -> Dict:
         """Sincronizar datos de vehículos desde APIs externas"""
-        print("🔄 Iniciando sincronización de vehículos desde APIs...")
+        print("[API] Iniciando sincronización de vehículos desde APIs...")
         
         # Intentar cargar desde cache primero
         cached_data = self._load_cache()
         if cached_data:
-            print("✅ Datos cargados desde cache (válido)")
+            print("[API] Datos cargados desde cache (válido)")
             return cached_data['data']
         
-        print("📡 Cache expirado o no existe, obteniendo datos frescos...")
+        print("[API] Cache expirado o no existe, obteniendo datos frescos...")
         
         vehicle_data = {}
         total_vehicles = 0
@@ -146,7 +146,7 @@ class VehicleAPIService:
                                 vehicle_data[make_name].append(vehicle_info)
                                 total_vehicles += 1
                         
-                        print(f"    ✅ {len(models)} modelos procesados")
+                        print(f"    [OK] {len(models)} modelos procesados")
                     
                     # Limitar requests para evitar rate limiting
                     await asyncio.sleep(0.5)
@@ -154,14 +154,14 @@ class VehicleAPIService:
             # Guardar en cache
             self._save_cache(vehicle_data)
             
-            print(f"🎉 Sincronización completada: {len(vehicle_data)} marcas, {total_vehicles} vehículos")
+            print(f"[API] Sincronización completada: {len(vehicle_data)} marcas, {total_vehicles} vehículos")
             
         except Exception as e:
-            print(f"❌ Error durante sincronización: {e}")
+            print(f"[API] Error durante sincronización: {e}")
             # Intentar devolver datos de cache aunque esté expirado
             cached_data = self._load_cache()
             if cached_data:
-                print("⚠️ Usando datos de cache expirados como respaldo")
+                print("[API] Usando datos de cache expirados como respaldo")
                 return cached_data['data']
         
         return vehicle_data
