@@ -37,7 +37,7 @@ def load_vehicle_data() -> List[Dict[str, Any]]:
     try:
         json_path = get_data_path()
         
-        print(f"🔍 Intentando cargar desde: {json_path.absolute()}")
+        print(f"[DATA] Intentando cargar desde: {json_path.absolute()}")
         
         if not json_path.exists():
             print(f"❌ Archivo NO encontrado: {json_path.absolute()}")
@@ -289,20 +289,43 @@ def get_models_by_fuel_and_brand(fuel_type: str, brand: str) -> List[str]:
         return []
 
 
+def get_versions_by_fuel_brand_model_year(fuel_type: str, brand: str, model: str, year: str) -> List[str]:
+    """Obtener versiones disponibles para combustible, marca, modelo y año específicos"""
+    try:
+        vehicles = load_vehicle_data()
+        versions = set()
+
+        for vehicle in vehicles:
+            if (vehicle.get('fuel_type', '').lower() == fuel_type.lower() and
+                vehicle.get('make', '').strip() == brand and
+                vehicle.get('model', '').strip() == model and
+                str(vehicle.get('year')) == str(year)):
+                version = vehicle.get('version', '').strip()
+                if version:
+                    versions.add(version)
+
+        result = sorted(list(versions))  # Ordenar alfabéticamente
+        print(f"🔧 Versiones para {brand} {model} {year} ({fuel_type}): {len(result)} versiones")
+        return result
+    except Exception as e:
+        print(f"❌ Error obteniendo versiones: {e}")
+        return []
+
+
 def get_years_by_fuel_brand_model(fuel_type: str, brand: str, model: str) -> List[str]:
     """Obtener años disponibles para combustible, marca y modelo específicos"""
     try:
         vehicles = load_vehicle_data()
         years = set()
-        
+
         for vehicle in vehicles:
-            if (vehicle.get('fuel_type', '').lower() == fuel_type.lower() and 
+            if (vehicle.get('fuel_type', '').lower() == fuel_type.lower() and
                 vehicle.get('make', '').strip() == brand and
                 vehicle.get('model', '').strip() == model):
                 year = vehicle.get('year')
                 if year:
                     years.add(str(year))
-        
+
         result = sorted(list(years), reverse=True)  # Años más recientes primero
         print(f"📅 Años para {brand} {model} ({fuel_type}): {len(result)} años")
         return result

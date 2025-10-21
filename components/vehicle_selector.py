@@ -91,9 +91,9 @@ def vehicle_selector() -> rx.Component:
                 # Selector de Año
                 rx.vstack(
                     rx.text(
-                        "Paso 4: Año", 
-                        weight="bold", 
-                        size="4", 
+                        "Paso 4: Año",
+                        weight="bold",
+                        size="4",
                         color="white"
                     ),
                     rx.select(
@@ -109,16 +109,38 @@ def vehicle_selector() -> rx.Component:
                     spacing="2",
                     align="center"
                 ),
+
+                # Selector de Versión
+                rx.vstack(
+                    rx.text(
+                        "Paso 5: Versión",
+                        weight="bold",
+                        size="4",
+                        color="white"
+                    ),
+                    rx.select(
+                        VehicleState.available_versions,
+                        placeholder="Selecciona la versión",
+                        value=VehicleState.selected_version,
+                        on_change=lambda value: VehicleState.select_version(value),  # Lambda explícita
+                        disabled=VehicleState.selected_year == "",
+                        width="100%",
+                        size="3",
+                    ),
+                    width="100%",
+                    spacing="2",
+                    align="center"
+                ),
                 
                 # Resumen de selección
                 rx.cond(
-                    VehicleState.selected_year != "",
+                    VehicleState.selected_version != "",
                     rx.vstack(
                         rx.card(
                             rx.vstack(
                                 rx.heading(
-                                    "✅ Vehículo Seleccionado", 
-                                    size="6", 
+                                    "✅ Vehículo Seleccionado",
+                                    size="6",
                                     color="#FF6B35"
                                 ),
                                 rx.divider(),
@@ -142,6 +164,11 @@ def vehicle_selector() -> rx.Component:
                                     rx.text(VehicleState.selected_year, color="#FF6B35"),
                                     spacing="2",
                                 ),
+                                rx.hstack(
+                                    rx.text("Versión:", weight="bold", color="white"),
+                                    rx.text(VehicleState.selected_version, color="#FF6B35"),
+                                    spacing="2",
+                                ),
                                 spacing="3",
                                 align_items="center",
                             ),
@@ -149,7 +176,7 @@ def vehicle_selector() -> rx.Component:
                             bg="#1a1a1a",
                             border="1px solid #FF6B35",
                         ),
-                        
+
                         # ⚠️ BOTÓN PARA BACKEND - Enviar selección al servidor ⚠️
                         rx.button(
                             rx.hstack(
@@ -174,7 +201,7 @@ def vehicle_selector() -> rx.Component:
                             transition="all 0.3s ease",
                             box_shadow="0 4px 15px rgba(255, 107, 53, 0.3)",
                         ),
-                        
+
                         spacing="4",
                         width="100%",
                     ),

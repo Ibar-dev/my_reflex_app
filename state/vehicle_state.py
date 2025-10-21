@@ -15,12 +15,14 @@ class VehicleState(rx.State):
     selected_brand: str = ""
     selected_model: str = ""
     selected_year: str = ""
-    
+    selected_version: str = ""
+
     # Opciones disponibles para cada dropdown - Inicializadas con valores por defecto
     available_fuel_types: list[str] = ["diesel", "gasolina"]
     available_brands: list[str] = []
     available_models: list[str] = []
     available_years: list[str] = []
+    available_versions: list[str] = []
     
     # Nuevas variables para API
     api_loading: bool = False
@@ -157,7 +159,8 @@ class VehicleState(rx.State):
         self.selected_brand = ""
         self.selected_model = ""
         self.selected_year = ""
-        
+        self.selected_version = ""
+
         # Cargar marcas disponibles para este combustible
         if self.api_data_source in ["api", "cache"] and self._api_data:
             # Usar datos de API
@@ -176,6 +179,7 @@ class VehicleState(rx.State):
         # Limpiar opciones posteriores
         self.available_models = []
         self.available_years = []
+        self.available_versions = []
     
     def select_brand(self, brand: str):
         """Cuando se selecciona una marca"""
@@ -184,7 +188,8 @@ class VehicleState(rx.State):
         self.selected_brand = brand
         self.selected_model = ""
         self.selected_year = ""
-        
+        self.selected_version = ""
+
         # Cargar modelos disponibles para esta marca
         if self.api_data_source in ["api", "cache"] and self._api_data and brand in self._api_data:
             # Usar datos de API
@@ -203,6 +208,7 @@ class VehicleState(rx.State):
         
         # Limpiar opciones posteriores
         self.available_years = []
+        self.available_versions = []
     
     def select_model(self, model: str):
         """Cuando se selecciona un modelo"""
@@ -210,7 +216,8 @@ class VehicleState(rx.State):
         
         self.selected_model = model
         self.selected_year = ""
-        
+        self.selected_version = ""
+
         # Usar datos de API cache si están disponibles
         if self.api_data_source in ["api", "cache"] and self._api_data:
             try:
@@ -262,30 +269,109 @@ class VehicleState(rx.State):
         except Exception as e:
             print(f"❌ Error cargando años: {e}")
             self.available_years = []
+            self.available_versions = []
     
     def select_year(self, year: str):
         """Cuando se selecciona un año"""
         # Debug detallado
         print(f"📊 [DEBUG] select_year llamado con: tipo={type(year)}, valor='{year}', repr={repr(year)}")
-        
+
         # Convertir a string y limpiar
         year_str = str(year).strip()
-        
+
         # Validar - solo rechazar None, vacío o "None" literal
         if not year_str or year_str == "None" or year_str == "null":
             print(f"⚠️ [SELECT] Año inválido recibido: '{year_str}', ignorando...")
             return
-            
+
         print(f"📅 [SELECT] Año seleccionado: '{year_str}'")
-        
+
         self.selected_year = year_str
-        
+        self.selected_version = ""  # Resetear versión
+
+        # Cargar versiones disponibles para este año
+        if self.api_data_source in ["api", "cache"] and self._api_data:
+            # Usar datos de API cache si están disponibles
+            try:
+                print(f"🔍 [API] Buscando versiones para {self.selected_brand} {self.selected_model} {year_str}")
+
+                # Buscar la marca en los datos de API
+                brand_models = self._api_data.get(self.selected_brand, [])
+
+                # Buscar el modelo específico
+                api_versions = []
+                for vehicle_model in brand_models:
+                    if vehicle_model.get('model', '').lower() == self.selected_model.lower():
+                        # Obtener años del modelo
+                        years_list = vehicle_model.get('years', [])
+
+                        # Filtrar por año si coincide
+                        if year_str in [str(y) for y in years_list]:
+                            # Obtener versiones disponibles
+                            versions_list = vehicle_model.get('versions', [])
+
+                            # Filtrar por combustible si está seleccionado
+                            if self.selected_fuel:
+                                fuel_types = vehicle_model.get('fuel_types', [])
+                                if self.selected_fuel in fuel_types:
+                                    api_versions = versions_list
+                                    print(f"✅ [API] Combustible '{self.selected_fuel}' compatible")
+                            else:
+                                api_versions = versions_list
+
+                            break
+
+                # Convertir a strings y ordenar
+                if api_versions:
+                    self.available_versions = sorted([str(v) for v in api_versions])
+                    print(f"✅ Versiones cargadas desde API: {len(self.available_versions)} → {self.available_versions}")
+                    return
+                else:
+                    print(f"⚠️ [API] No se encontraron versiones para {self.selected_brand} {self.selected_model} {year_str}")
+
+            except Exception as e:
+                print(f"❌ Error procesando versiones de API: {e}")
+
+        # Fallback a datos locales
+        try:
+            from utils.vehicle_data import get_versions_by_fuel_brand_model_year
+            versions_local = get_versions_by_fuel_brand_model_year(
+                self.selected_fuel,
+                self.selected_brand,
+                self.selected_model,
+                year_str
+            )
+            # Asegurar que todos sean strings
+            self.available_versions = [str(v) for v in versions_local]
+            print(f"✅ Versiones cargadas desde datos locales: {len(self.available_versions)} → {self.available_versions[:5]}")
+        except Exception as e:
+            print(f"❌ Error cargando versiones: {e}")
+            self.available_versions = []
+
+    def select_version(self, version: str):
+        """Cuando se selecciona una versión"""
+        # Debug detallado
+        print(f"🔧 [DEBUG] select_version llamado con: tipo={type(version)}, valor='{version}', repr={repr(version)}")
+
+        # Convertir a string y limpiar
+        version_str = str(version).strip()
+
+        # Validar
+        if not version_str or version_str == "None" or version_str == "null":
+            print(f"⚠️ [SELECT] Versión inválida recibida: '{version_str}', ignorando...")
+            return
+
+        print(f"🔧 [SELECT] Versión seleccionada: '{version_str}'")
+
+        self.selected_version = version_str
+
         print(f"🎉 Selección completa:")
         print(f"   Combustible: {self.selected_fuel}")
         print(f"   Marca: {self.selected_brand}")
         print(f"   Modelo: {self.selected_model}")
         print(f"   Año: {self.selected_year}")
-    
+        print(f"   Versión: {self.selected_version}")
+
     def submit_vehicle_selection(self):
         """
         ⚠️ MÉTODO PARA BACKEND ⚠️
@@ -329,6 +415,7 @@ class VehicleState(rx.State):
         print(f"🏭 Marca: {self.selected_brand}")
         print(f"🚗 Modelo: {self.selected_model}")
         print(f"📅 Año: {self.selected_year}")
+        print(f"🔧 Versión: {self.selected_version}")
         print("="*60)
         
         # 2) Prefill del mensaje de contacto y scroll a la sección "Contacto"
@@ -341,7 +428,7 @@ class VehicleState(rx.State):
         # Componer un mensaje claro para el usuario
         resumen = (
             "Hola, me gustaría solicitar presupuesto para mi "
-            f"{self.selected_brand} {self.selected_model} ({self.selected_year}, {self.selected_fuel}). "
+            f"{self.selected_brand} {self.selected_model} {self.selected_version} ({self.selected_year}, {self.selected_fuel}). "
             "¿Podríais confirmarme disponibilidad y precio? Gracias."
         )
 
