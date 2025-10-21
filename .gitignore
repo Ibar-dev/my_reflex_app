@@ -82,3 +82,6 @@ htmlcov/
 *.temp
 .cache/
 .claude/
+.venv/
+.venv
+venv

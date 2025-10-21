@@ -6,16 +6,6 @@ Servicios para manejar operaciones de base de datos relacionadas con usuarios
 """
 
 from models.user import UserRegistration, SessionLocal, init_database
-from models.vehicle import Base
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-DATABASE_URL = "sqlite:///vehicles.db"
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-def init_db():
-    Base.metadata.create_all(bind=engine)
 from sqlalchemy.exc import IntegrityError
 import logging
 from datetime import datetime
@@ -313,6 +303,6 @@ class DatabaseService:
 
 # Inicializar la base de datos al importar
 try:
-    init_db()
+    init_database()
 except Exception as e:
     logger.error(f"Error al inicializar la base de datos: {str(e)}")
