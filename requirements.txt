@@ -17,8 +17,6 @@ MarkupSafe==3.0.3
 mdurl==0.1.2
 packaging==25.0
 platformdirs==4.5.0
-polars==1.34.0
-polars-runtime-32==1.34.0
 psutil==7.1.1
 pydantic==2.12.3
 pydantic_core==2.41.4

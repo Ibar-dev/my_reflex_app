@@ -5,10 +5,15 @@ Servicio de Base de Datos - Gestión de Usuarios
 Servicios para manejar operaciones de base de datos relacionadas con usuarios
 """
 
+
 from models.user import UserRegistration, SessionLocal, init_database
-from models.vehicle import Base
+from models.vehicle import Base, Vehicle
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import IntegrityError
+from datetime import datetime
+import re
+from logging_config import get_logger
 
 DATABASE_URL = "sqlite:///vehicles.db"
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
@@ -16,14 +21,61 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def init_db():
     Base.metadata.create_all(bind=engine)
-from sqlalchemy.exc import IntegrityError
-import logging
-from datetime import datetime
-import re
 
-# Configurar logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+# Logger centralizado
+logger = get_logger("database_service")
+
+# Comprobación exhaustiva de la tabla vehicles
+def check_vehicles_table(verbose: bool = True) -> dict:
+    """
+    Comprueba si la tabla vehicles existe y tiene datos válidos.
+    Devuelve un resumen y loguea los resultados.
+    """
+    db = SessionLocal()
+    result = {
+        "exists": False,
+        "count": 0,
+        "fuels": [],
+        "brands": [],
+        "sample": [],
+        "error": None
+    }
+    try:
+        # ¿Existen vehículos?
+        count = db.query(Vehicle).count()
+        result["count"] = count
+        result["exists"] = count > 0
+        if count > 0:
+            fuels = db.query(Vehicle.fuel_type).distinct().all()
+            brands = db.query(Vehicle.brand).distinct().all()
+            result["fuels"] = sorted(list(set([f[0] for f in fuels if f[0]])))
+            result["brands"] = sorted(list(set([b[0] for b in brands if b[0]])))
+            # Muestra 3 ejemplos
+            sample = db.query(Vehicle).limit(3).all()
+            result["sample"] = [
+                {
+                    "fuel_type": v.fuel_type,
+                    "brand": v.brand,
+                    "model": v.model,
+                    "year": v.year,
+                    "version": v.version
+                } for v in sample
+            ]
+            logger.info(f"La tabla vehicles contiene {count} registros. Ejemplo: {result['sample']}")
+        else:
+            logger.warning("La tabla vehicles está vacía.")
+        if verbose:
+            print("\n[CHECK] Tabla vehicles:")
+            print(f"  Registros: {result['count']}")
+            print(f"  Tipos de combustible: {result['fuels']}")
+            print(f"  Marcas: {result['brands']}")
+            print(f"  Ejemplo: {result['sample']}")
+    except Exception as e:
+        logger.error(f"Error comprobando tabla vehicles: {e}")
+        result["error"] = str(e)
+    finally:
+        db.close()
+    return result
 
 class DatabaseService:
     """Servicio para operaciones de base de datos de usuarios"""
