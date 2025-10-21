@@ -105,7 +105,7 @@ class DatabaseService:
             db.commit()
             db.refresh(new_user)
             
-            logger.info(f"✅ Usuario registrado exitosamente: {email_clean} (ID: {new_user.id})")
+            logger.info(f"OK Usuario registrado exitosamente: {email_clean} (ID: {new_user.id})")
             
             return {
                 "success": True,

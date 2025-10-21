@@ -40,20 +40,20 @@ def load_vehicle_data() -> List[Dict[str, Any]]:
         print(f"[DATA] Intentando cargar desde: {json_path.absolute()}")
         
         if not json_path.exists():
-            print(f"❌ Archivo NO encontrado: {json_path.absolute()}")
-            print(f"📁 Directorio actual: {Path.cwd()}")
+            print(f"ERROR Archivo NO encontrado: {json_path.absolute()}")
+            print(f"[DIR] Directorio actual: {Path.cwd()}")
             return []
         
-        print(f"✅ Archivo encontrado, cargando...")
+        print(f"OK Archivo encontrado, cargando...")
         
         with open(json_path, 'r', encoding='utf-8') as f:
             vehicles = json.load(f)
         
         if not isinstance(vehicles, list):
-            print(f"❌ El JSON no es una lista, es: {type(vehicles)}")
+            print(f"ERROR El JSON no es una lista, es: {type(vehicles)}")
             return []
         
-        print(f"✅ Cargados {len(vehicles)} vehículos")
+        print(f"OK Cargados {len(vehicles)} vehículos")
         
         # Verificar estructura del primer vehículo
         if vehicles:
@@ -61,18 +61,18 @@ def load_vehicle_data() -> List[Dict[str, Any]]:
             required_fields = ['make', 'model', 'fuel_type', 'year']
             missing = [f for f in required_fields if f not in first]
             if missing:
-                print(f"⚠️  Faltan campos en el JSON: {missing}")
+                print(f"AVISO  Faltan campos en el JSON: {missing}")
             else:
-                print(f"✅ Estructura del JSON correcta")
+                print(f"OK Estructura del JSON correcta")
                 print(f"   Ejemplo: {first.get('make')} {first.get('model')} ({first.get('year')})")
         
         return vehicles
         
     except json.JSONDecodeError as e:
-        print(f"❌ Error de sintaxis en JSON: {e}")
+        print(f"ERROR Error de sintaxis en JSON: {e}")
         return []
     except Exception as e:
-        print(f"❌ Error inesperado cargando datos: {e}")
+        print(f"ERROR Error inesperado cargando datos: {e}")
         import traceback
         traceback.print_exc()
         return []
@@ -87,7 +87,7 @@ def get_fuel_types() -> List[str]:
     try:
         vehicles = load_vehicle_data()
         if not vehicles:
-            print("⚠️  No hay vehículos cargados, usando tipos por defecto")
+            print("AVISO  No hay vehículos cargados, usando tipos por defecto")
             return ["diesel", "gasolina"]
         
         # Extraer tipos únicos
@@ -99,25 +99,25 @@ def get_fuel_types() -> List[str]:
         
         # Convertir a lista ordenada
         unique_types = sorted(list(fuel_types))
-        print(f"🔥 Tipos de combustible encontrados: {unique_types}")
+        print(f"[FUEL] Tipos de combustible encontrados: {unique_types}")
         
         return unique_types if unique_types else ["diesel", "gasolina"]
         
     except Exception as e:
-        print(f"❌ Error obteniendo tipos de combustible: {e}")
+        print(f"ERROR Error obteniendo tipos de combustible: {e}")
         return ["diesel", "gasolina"]
 
 def get_brands_by_fuel(fuel_type: str) -> List[str]:
     """
     Obtener marcas disponibles por tipo de combustible.
     """
-    print(f"\n🔧 get_brands_by_fuel('{fuel_type}')")
+    print(f"\n[VERSION] get_brands_by_fuel('{fuel_type}')")
     
     try:
         vehicles = load_vehicle_data()
         
         if not vehicles:
-            print(f"⚠️  No hay vehículos, usando fallback")
+            print(f"AVISO  No hay vehículos, usando fallback")
             return ["Audi", "BMW", "Ford", "Mercedes-Benz", "Volkswagen", "Peugeot", "Renault", "SEAT"]
         
         brands = set()
@@ -136,24 +136,24 @@ def get_brands_by_fuel(fuel_type: str) -> List[str]:
                 fuel_matches += 1
         
         result = sorted(list(brands))
-        print(f"✅ Encontradas {len(result)} marcas para '{fuel_type}'")
+        print(f"OK Encontradas {len(result)} marcas para '{fuel_type}'")
         print(f"   Marcas: {result[:5]}{'...' if len(result) > 5 else ''}")
         
         if not result:
-            print(f"⚠️  No hay marcas para '{fuel_type}', verificar JSON")
+            print(f"AVISO  No hay marcas para '{fuel_type}', verificar JSON")
             return ["Audi", "BMW", "Ford"]
         
         return result
         
     except Exception as e:
-        print(f"❌ Error en get_brands_by_fuel: {e}")
+        print(f"ERROR Error en get_brands_by_fuel: {e}")
         return ["Audi", "BMW", "Ford"]
 
 def get_models_by_brand(brand: str, fuel_type: str) -> List[str]:
     """
     Obtener modelos disponibles por marca y combustible.
     """
-    print(f"\n🔧 get_models_by_brand('{brand}', '{fuel_type}')")
+    print(f"\n[VERSION] get_models_by_brand('{brand}', '{fuel_type}')")
     
     try:
         vehicles = load_vehicle_data()
@@ -177,20 +177,20 @@ def get_models_by_brand(brand: str, fuel_type: str) -> List[str]:
                 models.add(v_model)
         
         result = sorted(list(models))
-        print(f"✅ Encontrados {len(result)} modelos")
+        print(f"OK Encontrados {len(result)} modelos")
         print(f"   Modelos: {result[:5]}{'...' if len(result) > 5 else ''}")
         
         return result if result else [f"{brand} Genérico"]
         
     except Exception as e:
-        print(f"❌ Error en get_models_by_brand: {e}")
+        print(f"ERROR Error en get_models_by_brand: {e}")
         return [f"{brand} Genérico"]
 
 def get_vehicles_by_brand_model(brand: str, model: str, fuel_type: str) -> List[Dict[str, Any]]:
     """
     Obtener vehículos específicos.
     """
-    print(f"\n🔧 get_vehicles_by_brand_model('{brand}', '{model}', '{fuel_type}')")
+    print(f"\n[VERSION] get_vehicles_by_brand_model('{brand}', '{model}', '{fuel_type}')")
     
     try:
         vehicles = load_vehicle_data()
@@ -216,7 +216,7 @@ def get_vehicles_by_brand_model(brand: str, model: str, fuel_type: str) -> List[
         ]
         
         result = sorted(filtered, key=lambda x: x.get('year', 0), reverse=True)
-        print(f"✅ Encontrados {len(result)} vehículos")
+        print(f"OK Encontrados {len(result)} vehículos")
         
         return result if result else [{
             "make": brand,
@@ -228,7 +228,7 @@ def get_vehicles_by_brand_model(brand: str, model: str, fuel_type: str) -> List[
         }]
         
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"ERROR Error: {e}")
         return []
 
 # Resto de funciones sin cambios...
@@ -261,10 +261,10 @@ def get_brands_by_fuel(fuel_type: str) -> List[str]:
                     brands.add(brand)
         
         result = sorted(list(brands))
-        print(f"🏭 Marcas para {fuel_type}: {len(result)} marcas")
+        print(f"[BRAND] Marcas para {fuel_type}: {len(result)} marcas")
         return result
     except Exception as e:
-        print(f"❌ Error obteniendo marcas: {e}")
+        print(f"ERROR Error obteniendo marcas: {e}")
         return []
 
 
@@ -282,10 +282,10 @@ def get_models_by_fuel_and_brand(fuel_type: str, brand: str) -> List[str]:
                     models.add(model)
         
         result = sorted(list(models))
-        print(f"🚗 Modelos para {brand} ({fuel_type}): {len(result)} modelos")
+        print(f"[MODEL] Modelos para {brand} ({fuel_type}): {len(result)} modelos")
         return result
     except Exception as e:
-        print(f"❌ Error obteniendo modelos: {e}")
+        print(f"ERROR Error obteniendo modelos: {e}")
         return []
 
 
@@ -305,10 +305,10 @@ def get_versions_by_fuel_brand_model_year(fuel_type: str, brand: str, model: str
                     versions.add(version)
 
         result = sorted(list(versions))  # Ordenar alfabéticamente
-        print(f"🔧 Versiones para {brand} {model} {year} ({fuel_type}): {len(result)} versiones")
+        print(f"[VERSION] Versiones para {brand} {model} {year} ({fuel_type}): {len(result)} versiones")
         return result
     except Exception as e:
-        print(f"❌ Error obteniendo versiones: {e}")
+        print(f"ERROR Error obteniendo versiones: {e}")
         return []
 
 
@@ -327,8 +327,8 @@ def get_years_by_fuel_brand_model(fuel_type: str, brand: str, model: str) -> Lis
                     years.add(str(year))
 
         result = sorted(list(years), reverse=True)  # Años más recientes primero
-        print(f"📅 Años para {brand} {model} ({fuel_type}): {len(result)} años")
+        print(f"[YEAR] Años para {brand} {model} ({fuel_type}): {len(result)} años")
         return result
     except Exception as e:
-        print(f"❌ Error obteniendo años: {e}")
+        print(f"ERROR Error obteniendo años: {e}")
         return []
