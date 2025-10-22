@@ -62,7 +62,6 @@ El objetivo de esta página web es ofrecer una plataforma moderna y profesional 
 
 ### 📄 **Páginas** (`pages/`)
 - **📍 `pages/home.py`**: Página principal
-- **📍 `pages/home_new.py`**: Versión alternativa de inicio
 - **📍 `pages/about.py`**: Página "Acerca de nosotros"
 - **📍 `pages/services.py`**: Página de servicios detallados
 - **📍 `pages/contact.py`**: Página de contacto
