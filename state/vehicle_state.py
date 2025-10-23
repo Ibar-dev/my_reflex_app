@@ -4,12 +4,11 @@ Estado simplificado del selector de vehículos - Compatible con rx.select
 """
 
 import reflex as rx
-import asyncio
 
 
 class VehicleState(rx.State):
     """Estado simplificado del selector de vehículos con soporte para API externa"""
-    
+
     # Valores seleccionados
     selected_fuel: str = ""
     selected_brand: str = ""
@@ -18,29 +17,35 @@ class VehicleState(rx.State):
     selected_version: str = ""
 
     # Opciones disponibles para cada dropdown - Inicializadas con valores por defecto
-    available_fuel_types: list[str] = []
+    available_fuel_types: list[str] = ["gasolina", "diesel"]
     available_brands: list[str] = []
     available_models: list[str] = []
     available_years: list[str] = []
     available_versions: list[str] = []
-    
+
     # Nuevas variables para API
     api_loading: bool = False
     api_last_sync: str = ""
     api_total_vehicles: int = 0
     api_data_source: str = "local"  # "local" | "api" | "cache"
-    
+
     # Flag para saber si ya se cargaron los datos
     _data_loaded: bool = False
     _api_data: dict = {}
-    
 
-    @rx.var
-    def fuel_options(self) -> list[str]:
-        """Opciones de combustible disponibles desde la base de datos"""
-        from services.vehicle_api_service import get_fuel_types
-        self.available_fuel_types = get_fuel_types()
-        return self.available_fuel_types
+    def on_load(self):
+        """Inicializa los datos cuando el estado se carga en la aplicación"""
+        if not self._data_loaded:
+            try:
+                from services.vehicle_api_service import get_fuel_types
+                fuel_types = get_fuel_types()
+                self.available_fuel_types = fuel_types
+                self._data_loaded = True
+                print(f"[VEHICLE_STATE] Datos cargados con {len(fuel_types)} tipos de combustible")
+            except Exception as e:
+                print(f"[VEHICLE_STATE] Error cargando datos: {str(e)}")
+                self.available_fuel_types = ["gasolina", "diesel"]
+                self._data_loaded = True
 
     def select_fuel(self, fuel: str):
         print(f"[FUEL] [SELECT] Combustible seleccionado: '{fuel}'")

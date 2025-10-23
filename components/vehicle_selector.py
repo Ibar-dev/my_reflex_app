@@ -32,10 +32,10 @@ def vehicle_selector() -> rx.Component:
                         color="white"
                     ),
                     rx.select(
-                        VehicleState.fuel_options,
-                        placeholder="Selecciona el tipo de combustible", 
+                        VehicleState.available_fuel_types,
+                        placeholder="Selecciona el tipo de combustible",
                         value=VehicleState.selected_fuel,
-                        on_change=lambda value: VehicleState.select_fuel(value),  # Lambda explícita
+                        on_change=VehicleState.select_fuel,
                         width="100%",
                         size="3",
                     ),
