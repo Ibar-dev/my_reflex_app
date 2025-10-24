@@ -88,32 +88,10 @@ def vehicle_selector() -> rx.Component:
                     align="center"
                 ),
                 
-                # Selector de Año
-                rx.vstack(
-                    rx.text(
-                        "Paso 4: Año",
-                        weight="bold",
-                        size="4",
-                        color="white"
-                    ),
-                    rx.select(
-                        VehicleState.available_years,
-                        placeholder="Selecciona el año",
-                        value=VehicleState.selected_year,
-                        on_change=lambda value: VehicleState.select_year(value),  # Lambda explícita
-                        disabled=VehicleState.selected_model == "",
-                        width="100%",
-                        size="3",
-                    ),
-                    width="100%",
-                    spacing="2",
-                    align="center"
-                ),
-
                 # Selector de Versión
                 rx.vstack(
                     rx.text(
-                        "Paso 5: Versión",
+                        "Paso 4: Versión",
                         weight="bold",
                         size="4",
                         color="white"
@@ -123,7 +101,7 @@ def vehicle_selector() -> rx.Component:
                         placeholder="Selecciona la versión",
                         value=VehicleState.selected_version,
                         on_change=lambda value: VehicleState.select_version(value),  # Lambda explícita
-                        disabled=VehicleState.selected_year == "",
+                        disabled=VehicleState.selected_model == "",
                         width="100%",
                         size="3",
                     ),
@@ -157,11 +135,6 @@ def vehicle_selector() -> rx.Component:
                                 rx.hstack(
                                     rx.text("Modelo:", weight="bold", color="white"),
                                     rx.text(VehicleState.selected_model, color="#FF6B35"),
-                                    spacing="2",
-                                ),
-                                rx.hstack(
-                                    rx.text("Año:", weight="bold", color="white"),
-                                    rx.text(VehicleState.selected_year, color="#FF6B35"),
                                     spacing="2",
                                 ),
                                 rx.hstack(
