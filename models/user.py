@@ -17,7 +17,7 @@ Base = declarative_base()
 class UserRegistration(Base):
     """Modelo para almacenar registros de usuarios del popup de descuento"""
     __tablename__ = "user_registrations"
-    
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     nombre = Column(String(100), nullable=False)
     email = Column(String(150), nullable=False, unique=True)
@@ -26,10 +26,10 @@ class UserRegistration(Base):
     is_contacted = Column(Boolean, default=False)  # Si ya fue contactado
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    
+
     def __repr__(self):
         return f"<UserRegistration(id={self.id}, nombre='{self.nombre}', email='{self.email}')>"
-    
+
     def to_dict(self):
         """Convierte el objeto a diccionario para JSON"""
         return {
@@ -42,6 +42,60 @@ class UserRegistration(Base):
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None
         }
+
+    @staticmethod
+    def find_by_email(email: str) -> dict:
+        """
+        Busca un usuario por email de forma optimizada
+
+        Args:
+            email: Email a buscar
+
+        Returns:
+            dict: {"success": bool, "user": dict or None, "found": bool, "message": str}
+        """
+        if not email:
+            return {
+                "success": False,
+                "user": None,
+                "found": False,
+                "message": "Email no proporcionado"
+            }
+
+        # Limpiar email para búsqueda
+        email_clean = email.strip().lower()
+
+        db = SessionLocal()
+        try:
+            user = db.query(UserRegistration).filter(
+                UserRegistration.email == email_clean
+            ).first()
+
+            if user:
+                return {
+                    "success": True,
+                    "user": user.to_dict(),
+                    "found": True,
+                    "message": "Usuario encontrado"
+                }
+            else:
+                return {
+                    "success": True,
+                    "user": None,
+                    "found": False,
+                    "message": "Usuario no encontrado"
+                }
+
+        except Exception as e:
+            print(f"Error buscando usuario por email: {str(e)}")
+            return {
+                "success": False,
+                "user": None,
+                "found": False,
+                "message": f"Error en búsqueda: {str(e)}"
+            }
+        finally:
+            db.close()
 
 # Configuración de la base de datos
 # Usar la ruta del proyecto para la base de datos
@@ -62,10 +116,10 @@ def init_database():
     """Inicializa la base de datos creando todas las tablas"""
     try:
         Base.metadata.create_all(bind=engine)
-        print(f"✅ Base de datos inicializada en: {DATABASE_PATH}")
+        print(f"Base de datos inicializada en: {DATABASE_PATH}")
         return True
     except Exception as e:
-        print(f"❌ Error al inicializar la base de datos: {str(e)}")
+        print(f"Error al inicializar la base de datos: {str(e)}")
         return False
 
 def get_database_info():

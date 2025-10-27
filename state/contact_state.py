@@ -23,7 +23,11 @@ class ContactState(rx.State):
     # Estados del formulario
     is_loading: bool = False
     show_success: bool = False
-    
+
+    # Estados de verificación de usuario
+    is_registered: bool = False
+    user_info: dict = {}
+
     # Campos de error
     email_error: str = ""
     phone_error: str = ""
@@ -42,6 +46,9 @@ class ContactState(rx.State):
             self.email_error = "Formato de email inválido"
         else:
             self.email_error = ""
+            # Verificar si el email está registrado cuando sea válido
+            if value and self.validate_email(value):
+                self.check_user_registration(value)
         
     def handle_phone_change(self, value: str):
         """Handler corregido para el teléfono"""
@@ -56,64 +63,94 @@ class ContactState(rx.State):
         print(f"💬 Cambiando mensaje: '{value}'")  # Debug
         self.message = value
     
+    def check_user_registration(self, email: str):
+        """
+        Verifica si un email está registrado en la base de datos de usuarios
+        """
+        try:
+            from models.user import UserRegistration
+
+            print(f"[CONTACT] Verificando registro de usuario: {email}")
+            result = UserRegistration.find_by_email(email)
+
+            if result["success"] and result["found"]:
+                self.is_registered = True
+                self.user_info = result["user"]
+                print(f"[CONTACT] Usuario registrado encontrado: {result['user']['nombre']}")
+            else:
+                self.is_registered = False
+                self.user_info = {}
+                print(f"[CONTACT] Usuario no registrado: {email}")
+
+        except Exception as e:
+            print(f"[CONTACT] Error verificando registro de usuario: {e}")
+            self.is_registered = False
+            self.user_info = {}
+
     async def submit_form(self):
-        """Procesar el envío del formulario - INTEGRADO CON EMAIL"""
+        """Procesar el envío del formulario - INTEGRADO CON EMAIL Y VERIFICACIÓN"""
         print("🚀 Enviando formulario...")  # Debug
-        
+
         # Limpiar errores anteriores
         self.form_error = ""
         self.email_error = ""
         self.phone_error = ""
-        
+
         # Validar campos requeridos
         if not self.name.strip():
             self.form_error = "El nombre es obligatorio"
             return
-            
+
         if not self.email.strip():
             self.form_error = "El email es obligatorio"
             return
-            
+
         if not self.message.strip():
             self.form_error = "El mensaje es obligatorio"
             return
-        
+
         # Validar formato de email
         if not self.validate_email(self.email):
             self.email_error = "Formato de email inválido"
             return
-            
+
         # Validar teléfono si se proporciona
         if self.phone and not self.validate_phone(self.phone):
             self.phone_error = "Formato de teléfono inválido"
             return
-        
+
+        # Verificar registro de usuario (última verificación antes de enviar)
+        self.check_user_registration(self.email)
+
         # Activar estado de carga
         self.is_loading = True
-        
+
         try:
-            # ENVIAR EMAIL REAL
+            # ENVIAR EMAIL REAL CON INFORMACIÓN DE REGISTRO
             from utils.email_service import send_contact_form_email
 
             print(f"[CONTACT] Enviando email a Astrotechreprogramaciones@gmail.com...")
+            print(f"[CONTACT] Usuario registrado: {self.is_registered}")
 
             email_result = await send_contact_form_email(
                 name=self.name,
                 email=self.email,
                 phone=self.phone,
-                message=self.message
+                message=self.message,
+                is_registered=self.is_registered,
+                user_info=self.user_info
             )
 
             if email_result["success"]:
                 print(f"[CONTACT] Email enviado correctamente: {email_result['message']}")
-                
+
                 # Mostrar éxito
                 self.show_success = True
                 self.is_loading = False
-                
+
                 # Limpiar formulario
                 self.reset_form()
-                
+
                 # Ocultar mensaje de éxito después de 5 segundos
                 await asyncio.sleep(5)
                 self.show_success = False
@@ -138,6 +175,9 @@ class ContactState(rx.State):
         self.email_error = ""
         self.phone_error = ""
         self.form_error = ""
+        # Resetear estados de verificación
+        self.is_registered = False
+        self.user_info = {}
     
     def validate_email(self, email: str) -> bool:
         """Validar formato de email"""
