@@ -35,8 +35,8 @@ class VehicleState(rx.State):
         """Inicializa los datos cuando el estado se carga en la aplicación"""
         if not self._data_loaded:
             try:
-                from services.vehicle_api_service import get_fuel_types
-                fuel_types = get_fuel_types()
+                from utils.vehicle_data_simple import get_vehicle_fuel_types
+                fuel_types = get_vehicle_fuel_types()
                 self.available_fuel_types = fuel_types
                 self._data_loaded = True
                 print(f"[VEHICLE_STATE] Datos cargados con {len(fuel_types)} tipos de combustible")

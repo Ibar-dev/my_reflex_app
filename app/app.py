@@ -17,7 +17,7 @@ from components.contact import contact
 from components.footer import footer
 from components.discount_popup import discount_popup, PopupState
 from components.cookie_banner import cookie_banner
-from state.vehicle_state import VehicleState
+from state.vehicle_state_simple import VehicleState
 from state.cookie_state import CookieState
 
 # Importar estados para que Reflex los reconozca
