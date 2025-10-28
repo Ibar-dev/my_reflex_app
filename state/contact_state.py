@@ -68,10 +68,12 @@ class ContactState(rx.State):
         Verifica si un email está registrado en la base de datos de usuarios
         """
         try:
-            from models.user import UserRegistration
+            from models.user import UserService
 
             print(f"[CONTACT] Verificando registro de usuario: {email}")
-            result = UserRegistration.find_by_email(email)
+
+            # Usar servicio optimizado para consistencia
+            result = UserService.find_by_email(email)
 
             if result["success"] and result["found"]:
                 self.is_registered = True

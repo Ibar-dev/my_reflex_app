@@ -13,30 +13,26 @@ from typing import Dict, Optional
 import logging
 from datetime import datetime
 
-# Cargar variables de entorno
-try:
-    from dotenv import load_dotenv
-    load_dotenv()  # Cargar archivo .env
-except ImportError:
-    pass  # python-dotenv no instalado, usar variables de entorno del sistema
+# Importar configuración centralizada
+import settings
 
-# Configurar logging
-logging.basicConfig(level=logging.INFO)
+# Configurar logging usando settings centralizado
+logging.basicConfig(level=getattr(logging, settings.LOGGING_LEVEL), format=settings.LOGGING_FORMAT)
 logger = logging.getLogger(__name__)
 
 class EmailConfig:
     """
     Configuración de correo electrónico centralizada.
-    Lee la configuración desde variables de entorno (.env)
+    Usa settings.py para consistencia perfecta.
     """
-    # Configuración SMTP desde .env
-    SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-    SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
-    
-    # Emails desde .env
-    SENDER_EMAIL = os.getenv("SENDER_EMAIL", "astrotechreprogramaciones@gmail.com")
-    SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "")
-    RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL", "Astrotechreprogramaciones@gmail.com")
+    # Configuración SMTP desde settings
+    SMTP_SERVER = settings.SMTP_SERVER
+    SMTP_PORT = settings.SMTP_PORT
+
+    # Emails desde settings
+    SENDER_EMAIL = settings.SENDER_EMAIL
+    SENDER_PASSWORD = settings.SENDER_PASSWORD
+    RECIPIENT_EMAIL = settings.RECIPIENT_EMAIL
 
     @classmethod
     def get_smtp_config(cls) -> Dict[str, any]:

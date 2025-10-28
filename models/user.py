@@ -3,14 +3,15 @@ Modelos de Base de Datos - Usuarios
 ===================================
 
 Definición de las tablas y modelos para almacenar información de usuarios
+Versión optimizada para sinergia perfecta con otros componentes.
 """
 
-import sqlalchemy as sa
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
 from datetime import datetime
-import os
+import settings
 
 Base = declarative_base()
 
@@ -43,6 +44,34 @@ class UserRegistration(Base):
             "updated_at": self.updated_at.isoformat() if self.updated_at else None
         }
 
+# Configuración de la base de datos usando settings centralizado
+engine = create_engine(
+    settings.DATABASE_URL,
+    connect_args={"check_same_thread": False},  # Necesario para SQLite
+    echo=False  # Cambiar a True para ver las consultas SQL en desarrollo
+)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+def init_database():
+    """Inicializa la base de datos creando todas las tablas"""
+    try:
+        Base.metadata.create_all(bind=engine)
+        print(f"Base de datos de usuarios inicializada en: {settings.DATABASE_PATH}")
+        return True
+    except Exception as e:
+        print(f"Error al inicializar la base de datos: {str(e)}")
+        return False
+
+def get_database_info():
+    """Información sobre la base de datos"""
+    info = settings.get_database_info()
+    info["tables"] = ["user_registrations"]
+    return info
+
+class UserService:
+    """Servicio para operaciones de usuarios con sinergia perfecta"""
+
     @staticmethod
     def find_by_email(email: str) -> dict:
         """
@@ -65,9 +94,9 @@ class UserRegistration(Base):
         # Limpiar email para búsqueda
         email_clean = email.strip().lower()
 
-        db = SessionLocal()
+        session = SessionLocal()
         try:
-            user = db.query(UserRegistration).filter(
+            user = session.query(UserRegistration).filter(
                 UserRegistration.email == email_clean
             ).first()
 
@@ -95,40 +124,65 @@ class UserRegistration(Base):
                 "message": f"Error en búsqueda: {str(e)}"
             }
         finally:
-            db.close()
+            session.close()
 
-# Configuración de la base de datos
-# Usar la ruta del proyecto para la base de datos
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATABASE_PATH = os.path.join(PROJECT_ROOT, "users.db")
-DATABASE_URL = f"sqlite:///{DATABASE_PATH}"
+    @staticmethod
+    def save_user(nombre: str, email: str, telefono: str, source: str = "contact_form") -> dict:
+        """
+        Guarda un nuevo usuario en la base de datos
 
-# Crear engine y sesión
-engine = create_engine(
-    DATABASE_URL,
-    connect_args={"check_same_thread": False},  # Necesario para SQLite
-    echo=False  # Cambiar a True para ver las consultas SQL en desarrollo
-)
+        Args:
+            nombre: Nombre del usuario
+            email: Email del usuario
+            telefono: Teléfono del usuario
+            source: Fuente del registro
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+        Returns:
+            dict: Resultado de la operación
+        """
+        session = SessionLocal()
+        try:
+            # Verificar si ya existe
+            existing = session.query(UserRegistration).filter(
+                UserRegistration.email == email.strip().lower()
+            ).first()
 
-def init_database():
-    """Inicializa la base de datos creando todas las tablas"""
-    try:
-        Base.metadata.create_all(bind=engine)
-        print(f"Base de datos inicializada en: {DATABASE_PATH}")
-        return True
-    except Exception as e:
-        print(f"Error al inicializar la base de datos: {str(e)}")
-        return False
+            if existing:
+                return {
+                    "success": False,
+                    "message": "Email ya registrado",
+                    "user_id": existing.id
+                }
 
-def get_database_info():
-    """Información sobre la base de datos"""
-    return {
-        "database_path": DATABASE_PATH,
-        "database_url": DATABASE_URL,
-        "tables": ["user_registrations"]
-    }
+            # Crear nuevo usuario
+            new_user = UserRegistration(
+                nombre=nombre.strip().title(),
+                email=email.strip().lower(),
+                telefono=telefono.strip(),
+                source=source
+            )
+
+            session.add(new_user)
+            session.commit()
+            session.refresh(new_user)
+
+            return {
+                "success": True,
+                "message": "Usuario registrado correctamente",
+                "user_id": new_user.id,
+                "user": new_user.to_dict()
+            }
+
+        except Exception as e:
+            session.rollback()
+            print(f"Error guardando usuario: {str(e)}")
+            return {
+                "success": False,
+                "message": f"Error: {str(e)}",
+                "user_id": None
+            }
+        finally:
+            session.close()
 
 # Inicializar la base de datos al importar el módulo
 if __name__ == "__main__":
