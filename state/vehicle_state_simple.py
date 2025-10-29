@@ -35,15 +35,26 @@ class VehicleState(rx.State):
             self.load_fuel_types()
             self.data_loaded = True
 
+    def __init__(self, *args, **kwargs):
+        """Inicializar estado y cargar datos inmediatamente"""
+        super().__init__(*args, **kwargs)
+        # Cargar tipos de combustible inmediatamente al crear el estado
+        if not self.data_loaded:
+            self.load_fuel_types()
+            self.data_loaded = True
+
     def load_fuel_types(self):
         """Cargar tipos de combustible disponibles"""
         try:
             from utils.vehicle_data_simple import get_vehicle_fuel_types
-            self.available_fuel_types = get_vehicle_fuel_types()
+            fuel_types = get_vehicle_fuel_types()
+            self.available_fuel_types = fuel_types if fuel_types else ["diesel"]
             print(f"[VEHICLE] Tipos de combustible cargados: {len(self.available_fuel_types)}")
+            print(f"[VEHICLE] Opciones: {self.available_fuel_types}")
         except Exception as e:
             print(f"[VEHICLE] Error cargando tipos de combustible: {e}")
-            self.available_fuel_types = ["gasolina", "diesel"]
+            self.available_fuel_types = ["diesel"]
+            print(f"[VEHICLE] Usando tipos de combustible por defecto: {self.available_fuel_types}")
 
     def select_fuel(self, fuel: str):
         """Seleccionar tipo de combustible y cargar marcas"""
