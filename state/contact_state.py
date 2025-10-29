@@ -8,6 +8,7 @@ SOLUCIÓN: Handlers simplificados sin yield para inputs reactivos
 import reflex as rx
 import re
 import asyncio
+from state.vehicle_state_simple import VehicleState
 
 class ContactState(rx.State):
     """
@@ -27,6 +28,9 @@ class ContactState(rx.State):
     # Estados de verificación de usuario
     is_registered: bool = False
     user_info: dict = {}
+
+    # Datos del vehículo seleccionado
+    vehicle_info: str = ""
 
     # Campos de error
     email_error: str = ""
@@ -62,6 +66,23 @@ class ContactState(rx.State):
         """Handler corregido para el mensaje"""
         print(f"💬 Cambiando mensaje: '{value}'")  # Debug
         self.message = value
+
+    def update_vehicle_info(self):
+        """Obtener información del vehículo seleccionado desde VehicleState"""
+        try:
+            # Obtener el VehicleState
+            vehicle_state = self.get_state(VehicleState)
+
+            if vehicle_state and vehicle_state.selected_vehicle_message:
+                self.vehicle_info = vehicle_state.selected_vehicle_message
+                print(f"[CONTACT] Datos del vehículo actualizados: {self.vehicle_info}")
+            else:
+                self.vehicle_info = ""
+                print("[CONTACT] No hay vehículo seleccionado")
+
+        except Exception as e:
+            print(f"[CONTACT] Error obteniendo datos del vehículo: {e}")
+            self.vehicle_info = ""
     
     def check_user_registration(self, email: str):
         """
@@ -124,6 +145,9 @@ class ContactState(rx.State):
         # Verificar registro de usuario (última verificación antes de enviar)
         self.check_user_registration(self.email)
 
+        # Obtener datos del vehículo seleccionado
+        self.update_vehicle_info()
+
         # Activar estado de carga
         self.is_loading = True
 
@@ -134,11 +158,16 @@ class ContactState(rx.State):
             print(f"[CONTACT] Enviando email a Astrotechreprogramaciones@gmail.com...")
             print(f"[CONTACT] Usuario registrado: {self.is_registered}")
 
+            # Combinar mensaje del usuario con datos del vehículo
+            full_message = self.message
+            if self.vehicle_info:
+                full_message = f"{self.message}\n\n{self.vehicle_info}"
+
             email_result = await send_contact_form_email(
                 name=self.name,
                 email=self.email,
                 phone=self.phone,
-                message=self.message,
+                message=full_message,
                 is_registered=self.is_registered,
                 user_info=self.user_info
             )

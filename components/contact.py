@@ -276,6 +276,42 @@ def contact() -> rx.Component:
                                         spacing="2",
                                         width="100%"
                                     ),
+
+                                    # Vehículo Seleccionado (si hay)
+                                    rx.cond(
+                                        ContactState.vehicle_info != "",
+                                        rx.box(
+                                            rx.vstack(
+                                                rx.hstack(
+                                                    rx.icon("car", size=16, color="#FF6B35"),
+                                                    rx.text(
+                                                        "Vehículo Seleccionado:",
+                                                        weight="bold",
+                                                        color="#FF6B35",
+                                                        font_size="0.9rem"
+                                                    ),
+                                                    spacing="2",
+                                                    align="center"
+                                                ),
+                                                rx.text(
+                                                    ContactState.vehicle_info,
+                                                    color="#CCCCCC",
+                                                    font_size="0.85rem",
+                                                    white_space="pre-line",
+                                                    bg="rgba(255, 107, 53, 0.1)",
+                                                    p="3",
+                                                    border_radius="6px",
+                                                    border="1px solid rgba(255, 107, 53, 0.3)"
+                                                ),
+                                                spacing="2",
+                                                align="start",
+                                                width="100%"
+                                            ),
+                                            width="100%",
+                                            mb="2"
+                                        )
+                                    ),
+
                                     # Campo Mensaje
                                     rx.text_area(
                                         placeholder="Mensaje",

@@ -2,7 +2,7 @@ import reflex as rx
 import os
 
 config = rx.Config(
-    app_name="astrotech",
+    app_name="app",
     db_url="sqlite:///astrotech.db",  # Base de datos unificada
 
     # Configuración optimizada para desarrollo local

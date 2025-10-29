@@ -26,6 +26,9 @@ class VehicleState(rx.State):
     loading: bool = False
     data_loaded: bool = False
 
+    # Mensaje del vehículo seleccionado para contacto
+    selected_vehicle_message: str = ""
+
     def on_load(self):
         """Cargar datos iniciales cuando el estado se carga"""
         if not self.data_loaded:
@@ -113,6 +116,30 @@ class VehicleState(rx.State):
         """Seleccionar versión final"""
         print(f"[VEHICLE] Versión seleccionada: {version}")
         self.selected_version = version
+
+    def submit_vehicle_selection(self):
+        """Enviar selección de vehículo al formulario de contacto"""
+        if self.is_complete_selection():
+            selection = self.get_current_selection()
+            print(f"[VEHICLE] Enviando selección: {selection}")
+
+            # Preparar mensaje con datos del vehículo
+            vehicle_message = (
+                f"VEHÍCULO SELECCIONADO:\n"
+                f"• Combustible: {selection['fuel_type']}\n"
+                f"• Marca: {selection['brand']}\n"
+                f"• Modelo: {selection['model']}\n"
+                f"• Versión: {selection['version']}"
+            )
+
+            # Almacenar en el estado para que el formulario de contacto lo use
+            self.selected_vehicle_message = vehicle_message
+            print(f"[VEHICLE] Mensaje preparado: {vehicle_message}")
+
+            return vehicle_message
+        else:
+            print("[VEHICLE] Error: Selección incompleta")
+            return None
 
     def reset_selection(self):
         """Reiniciar todas las selecciones"""
