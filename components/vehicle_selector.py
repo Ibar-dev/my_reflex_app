@@ -35,7 +35,7 @@ def vehicle_selector() -> rx.Component:
                         ),
                         # Botón de inicialización para forzar carga de datos
                         rx.button(
-                            rx.icon("refresh", size=16),
+                            rx.icon("refresh_cw", size=16),
                             "Cargar Datos",
                             on_click=VehicleState.load_fuel_types,
                             size="1",
@@ -44,7 +44,7 @@ def vehicle_selector() -> rx.Component:
                             border_radius="6px",
                             _hover={"bg": "#e55a2b"}
                         ),
-                        justify="space-between",
+                        justify="between",
                         align="center",
                         width="100%"
                     ),
