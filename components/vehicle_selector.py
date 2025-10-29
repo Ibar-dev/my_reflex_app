@@ -1,5 +1,5 @@
 import reflex as rx
-from state.vehicle_state import VehicleState
+from state.vehicle_state_simple import VehicleState
 
 
 def vehicle_selector() -> rx.Component:

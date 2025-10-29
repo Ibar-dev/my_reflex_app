@@ -15,7 +15,7 @@ from sqlalchemy.exc import IntegrityError
 from datetime import datetime, timedelta
 import re
 import json
-from logging_config import get_logger
+import logging
 
 # Configuración de bases de datos
 LEGACY_DATABASE_URL = "sqlite:///vehicles.db"
@@ -35,7 +35,7 @@ def init_db():
     Base.metadata.create_all(bind=expanded_engine)
 
 # Logger centralizado
-logger = get_logger("database_service")
+logger = logging.getLogger("database_service")
 
 # Comprobación exhaustiva de la tabla vehicles
 def check_vehicles_table(verbose: bool = True) -> dict:

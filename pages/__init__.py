@@ -1,1 +1,0 @@
-# Páginas de AstroTech

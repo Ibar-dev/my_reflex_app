@@ -47,7 +47,7 @@ def test_vehicle_state():
     print("=" * 50)
 
     try:
-        from state.vehicle_state import VehicleState
+        from state.vehicle_state_simple import VehicleState
 
         print("OK VehicleState importado correctamente")
         print("NOTA: VehicleState no se instancia directamente en Reflex")
