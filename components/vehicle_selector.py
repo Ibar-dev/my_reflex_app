@@ -26,11 +26,27 @@ def vehicle_selector() -> rx.Component:
 
                 # Selector de Combustible
                 rx.vstack(
-                    rx.text(
-                        "Paso 1: Tipo de Combustible",
-                        weight="bold",
-                        size="4",
-                        color="white"
+                    rx.hstack(
+                        rx.text(
+                            "Paso 1: Tipo de Combustible",
+                            weight="bold",
+                            size="4",
+                            color="white"
+                        ),
+                        # Botón de inicialización para forzar carga de datos
+                        rx.button(
+                            rx.icon("refresh", size=16),
+                            "Cargar Datos",
+                            on_click=VehicleState.load_fuel_types,
+                            size="1",
+                            bg="#FF6B35",
+                            color="white",
+                            border_radius="6px",
+                            _hover={"bg": "#e55a2b"}
+                        ),
+                        justify="space-between",
+                        align="center",
+                        width="100%"
                     ),
                     rx.cond(
                         VehicleState.available_fuel_types != [],
@@ -45,6 +61,7 @@ def vehicle_selector() -> rx.Component:
                         rx.vstack(
                             rx.spinner(size="3", color="#FF6B35"),
                             rx.text("Cargando tipos de combustible...", color="#CCCCCC"),
+                            rx.text("O haz clic en 'Cargar Datos'", color="#999999", font_size="0.85rem"),
                             spacing="2",
                             align="center",
                             padding="2rem"

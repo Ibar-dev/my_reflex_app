@@ -35,14 +35,7 @@ class VehicleState(rx.State):
             self.load_fuel_types()
             self.data_loaded = True
 
-    def __init__(self, *args, **kwargs):
-        """Inicializar estado y cargar datos inmediatamente"""
-        super().__init__(*args, **kwargs)
-        # Cargar tipos de combustible inmediatamente al crear el estado
-        if not self.data_loaded:
-            self.load_fuel_types()
-            self.data_loaded = True
-
+    
     def load_fuel_types(self):
         """Cargar tipos de combustible disponibles"""
         try:
