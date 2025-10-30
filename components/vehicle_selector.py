@@ -229,4 +229,5 @@ def vehicle_selector() -> rx.Component:
         bg="#1A1A1A",
         padding="20px",
         id="selector",
+        on_mount=VehicleState.load_fuel_types,  # Carga automática al montar componente
     )

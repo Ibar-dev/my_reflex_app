@@ -37,17 +37,28 @@ class VehicleState(rx.State):
 
     
     def load_fuel_types(self):
-        """Cargar tipos de combustible disponibles"""
+        """Cargar tipos de combustible disponibles con manejo robusto de errores"""
         try:
             from utils.vehicle_data_simple import get_vehicle_fuel_types
             fuel_types = get_vehicle_fuel_types()
-            self.available_fuel_types = fuel_types if fuel_types else ["diesel"]
-            print(f"[VEHICLE] Tipos de combustible cargados: {len(self.available_fuel_types)}")
-            print(f"[VEHICLE] Opciones: {self.available_fuel_types}")
+
+            if fuel_types and len(fuel_types) > 0:
+                self.available_fuel_types = fuel_types
+                print(f"[VEHICLE] ✅ Tipos de combustible cargados desde BD: {len(self.available_fuel_types)}")
+                print(f"[VEHICLE] Opciones: {self.available_fuel_types}")
+            else:
+                # Fallback si la BD está vacía
+                self.available_fuel_types = ["diesel", "gasolina", "hibrido", "electrico"]
+                print(f"[VEHICLE] ⚠️ BD vacía, usando fallback completo")
+
         except Exception as e:
-            print(f"[VEHICLE] Error cargando tipos de combustible: {e}")
-            self.available_fuel_types = ["diesel"]
-            print(f"[VEHICLE] Usando tipos de combustible por defecto: {self.available_fuel_types}")
+            print(f"[VEHICLE] ❌ Error cargando tipos de combustible: {e}")
+            # Fallback completo en caso de error
+            self.available_fuel_types = ["diesel", "gasolina", "hibrido", "electrico"]
+            print(f"[VEHICLE] ⚠️ Usando fallback por error")
+
+        # Marcar como cargado para evitar recargas innecesarias
+        self.data_loaded = True
 
     def select_fuel(self, fuel: str):
         """Seleccionar tipo de combustible y cargar marcas"""

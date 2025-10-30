@@ -16,7 +16,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def get_vehicle_fuel_types() -> List[str]:
     """
-    Obtener todos los tipos de combustible disponibles
+    Obtener todos los tipos de combustible disponibles con manejo de errores
 
     Returns:
         List[str]: Lista de tipos de combustible únicos
@@ -24,7 +24,18 @@ def get_vehicle_fuel_types() -> List[str]:
     session = SessionLocal()
     try:
         fuel_types = session.query(Vehicle.fuel_type).distinct().all()
-        return [ft[0] for ft in fuel_types if ft[0]]
+        result = [ft[0] for ft in fuel_types if ft[0]]
+
+        if not result:
+            print("[DB] ⚠️ No se encontraron tipos de combustible en la BD")
+            return []
+
+        print(f"[DB] ✅ Tipos de combustible encontrados: {result}")
+        return result
+
+    except Exception as e:
+        print(f"[DB] ❌ Error en consulta de combustibles: {e}")
+        return []  # Retornar lista vacía en caso de error
     finally:
         session.close()
 
