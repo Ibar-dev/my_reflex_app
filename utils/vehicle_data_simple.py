@@ -27,14 +27,14 @@ def get_vehicle_fuel_types() -> List[str]:
         result = [ft[0] for ft in fuel_types if ft[0]]
 
         if not result:
-            print("[DB] ⚠️ No se encontraron tipos de combustible en la BD")
+            print("[DB] No se encontraron tipos de combustible en la BD")
             return []
 
-        print(f"[DB] ✅ Tipos de combustible encontrados: {result}")
+        print(f"[DB] Tipos de combustible encontrados: {result}")
         return result
 
     except Exception as e:
-        print(f"[DB] ❌ Error en consulta de combustibles: {e}")
+        print(f"[DB] Error en consulta de combustibles: {e}")
         return []  # Retornar lista vacía en caso de error
     finally:
         session.close()
