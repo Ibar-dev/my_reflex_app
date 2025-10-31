@@ -6,6 +6,8 @@ def vehicle_selector() -> rx.Component:
     """Selector de vehículos FUNCIONAL con estilos de interacción mejorados y CENTRADO COMPLETO"""
 
     return rx.box(
+        # Contenedor principal con carga automática
+        on_mount=VehicleState.load_fuel_types,
         # Contenedor principal con centrado completo
         rx.container(
             rx.vstack(
@@ -42,7 +44,8 @@ def vehicle_selector() -> rx.Component:
                             bg="#FF6B35",
                             color="white",
                             border_radius="6px",
-                            _hover={"bg": "#e55a2b"}
+                            _hover={"bg": "#e55a2b"},
+                            data_state="load-fuel-btn"
                         ),
                         justify="between",
                         align="center",
