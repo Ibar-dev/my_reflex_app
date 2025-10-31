@@ -1,0 +1,111 @@
+.
+|-- README.md
+|-- __pycache__
+|   |-- rxconfig.cpython-313.pyc
+|   |-- rxconfig.cpython-314.pyc
+|   |-- settings.cpython-313.pyc
+|   `-- settings.cpython-314.pyc
+|-- app
+|   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-313.pyc
+|   |   |-- __init__.cpython-314.pyc
+|   |   |-- app.cpython-313.pyc
+|   |   `-- app.cpython-314.pyc
+|   `-- app.py
+|-- app.log
+|-- assets
+|   |-- components
+|   |-- images
+|   |   |-- bigstock-Technician-Is-Tuning-Engine-Ca-469398073.jpg
+|   |   |-- centralita-coche.jpg
+|   |   `-- logo_astrotech.png
+|   |-- selector-fix.css
+|   `-- styles.css
+|-- astrotech.db
+|-- backup
+|   |-- vehicles.db
+|   |-- vehicles_api_cache.json
+|   |-- vehicles_expanded.db
+|   `-- vehiculos_turismo.json
+|-- components
+|   |-- __pycache__
+|   |   |-- benefits.cpython-313.pyc
+|   |   |-- benefits.cpython-314.pyc
+|   |   |-- contact.cpython-313.pyc
+|   |   |-- contact.cpython-314.pyc
+|   |   |-- cookie_banner.cpython-313.pyc
+|   |   |-- cookie_banner.cpython-314.pyc
+|   |   |-- discount_popup.cpython-313.pyc
+|   |   |-- discount_popup.cpython-314.pyc
+|   |   |-- faq.cpython-313.pyc
+|   |   |-- faq.cpython-314.pyc
+|   |   |-- footer.cpython-313.pyc
+|   |   |-- footer.cpython-314.pyc
+|   |   |-- header.cpython-313.pyc
+|   |   |-- header.cpython-314.pyc
+|   |   |-- hero.cpython-313.pyc
+|   |   |-- hero.cpython-314.pyc
+|   |   |-- services.cpython-313.pyc
+|   |   |-- services.cpython-314.pyc
+|   |   |-- vehicle_selector.cpython-313.pyc
+|   |   `-- vehicle_selector.cpython-314.pyc
+|   |-- benefits.py
+|   |-- contact.py
+|   |-- cookie_banner.py
+|   |-- discount_popup.py
+|   |-- faq.py
+|   |-- footer.py
+|   |-- header.py
+|   |-- hero.py
+|   |-- services.py
+|   `-- vehicle_selector.py
+|-- config
+|-- data
+|   `-- vehiculos_turismo.json.backup
+|-- dev
+|   |-- download_vehicle_data.py
+|   |-- migrate_vehicle_data.py
+|   |-- populate_vehicles_db.py
+|   `-- test_vehicle_selector.py
+|-- diagnose_database.py
+|-- diagnose_db_css.py
+|-- docs
+|   |-- ARCHITECTURE_SYNC_REPORT.md
+|   `-- CLEANUP_PLAN.md
+|-- models
+|   |-- __pycache__
+|   |   |-- user.cpython-313.pyc
+|   |   |-- user.cpython-314.pyc
+|   |   |-- vehicle.cpython-313.pyc
+|   |   `-- vehicle.cpython-314.pyc
+|   |-- user.py
+|   `-- vehicle.py
+|-- requirements.txt
+|-- rxconfig.py
+|-- settings.py
+|-- simple_db_analysis.py
+|-- simple_diagnosis.py
+|-- state
+|   |-- __pycache__
+|   |   |-- contact_state.cpython-313.pyc
+|   |   |-- contact_state.cpython-314.pyc
+|   |   |-- cookie_state.cpython-313.pyc
+|   |   |-- cookie_state.cpython-314.pyc
+|   |   |-- vehicle_state_simple.cpython-313.pyc
+|   |   `-- vehicle_state_simple.cpython-314.pyc
+|   |-- contact_state.py
+|   |-- cookie_state.py
+|   `-- vehicle_state_simple.py
+`-- utils
+    |-- __pycache__
+    |   |-- database_service.cpython-313.pyc
+    |   |-- database_service.cpython-314.pyc
+    |   |-- email_service.cpython-313.pyc
+    |   |-- vehicle_data_simple.cpython-313.pyc
+    |   `-- vehicle_data_simple.cpython-314.pyc
+    |-- database_service.py
+    |-- email_service.py
+    `-- vehicle_data_simple.py
+
+19 directories, 89 files
