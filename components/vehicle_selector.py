@@ -6,8 +6,6 @@ def vehicle_selector() -> rx.Component:
     """Selector de vehículos FUNCIONAL con estilos de interacción mejorados y CENTRADO COMPLETO"""
 
     return rx.box(
-        # Contenedor principal con carga automática
-        on_mount=VehicleState.load_fuel_types,
         # Contenedor principal con centrado completo
         rx.container(
             rx.vstack(
@@ -206,31 +204,34 @@ def vehicle_selector() -> rx.Component:
                             box_shadow="0 4px 15px rgba(255, 107, 53, 0.3)",
                         ),
 
-                        spacing="4",
-                        width="100%",
-                    ),
+                    spacing="4",
+                    width="100%",
                 ),
-
-                spacing="5",
-                width="100%",
-                align="center",
             ),
 
-            # Parámetros de centrado del contenedor
-            max_width="600px",
-            margin="0 auto",
-            padding="40px 20px",
-            center_content=True,
+            spacing="5",
+            width="100%",
+            align="center",
         ),
 
-        # Parámetros del box principal para centrado completo
-        width="100%",
-        min_height="80vh",
-        display="flex",
-        justify_content="center",
-        align_items="center",
-        bg="#1A1A1A",
-        padding="20px",
-        id="selector",
-        on_mount=VehicleState.load_fuel_types,  # Carga automática al montar componente
-    )
+        # Parámetros de centrado del contenedor
+        max_width="600px",
+        margin="0 auto",
+        padding="40px 20px",
+        center_content=True,
+    ),
+
+    # Parámetros del box principal para centrado completo
+    width="100%",
+    min_height="80vh",
+    bg="#1A1A1A",
+    padding="20px",
+    id="selector",
+    style={
+        "display": "flex",
+        "justify_content": "center",
+        "align_items": "center"
+    },
+    # Eventos del componente
+    on_mount=VehicleState.load_fuel_types  # Carga automática al montar componente
+)
