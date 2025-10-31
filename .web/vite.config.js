@@ -45,6 +45,7 @@ export default defineConfig((config) => ({
   ].concat([]),
   build: {
     assetsDir: "/assets".slice(1),
+    sourcemap: false,
     rollupOptions: {
       onwarn(warning, warn) {
         if (warning.code === "EVAL" && warning.id && warning.id.endsWith("state.js")) return;
@@ -65,6 +66,7 @@ export default defineConfig((config) => ({
   },
   experimental: {
     enableNativePlugin: false,
+    hmr: false,
   },
   server: {
     port: process.env.PORT,
