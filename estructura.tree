@@ -1,10 +1,13 @@
 .
+|-- Dockerfile
 |-- README.md
 |-- __pycache__
+|   |-- create_local_db.cpython-313.pyc
 |   |-- rxconfig.cpython-313.pyc
 |   |-- rxconfig.cpython-314.pyc
 |   |-- settings.cpython-313.pyc
 |   `-- settings.cpython-314.pyc
+|-- api_endpoints.py
 |-- app
 |   |-- __init__.py
 |   |-- __pycache__
@@ -61,8 +64,10 @@
 |   |-- services.py
 |   `-- vehicle_selector.py
 |-- config
+|-- create_local_db.py
 |-- data
 |   `-- vehiculos_turismo.json.backup
+|-- deploy-guide.md
 |-- dev
 |   |-- download_vehicle_data.py
 |   |-- migrate_vehicle_data.py
@@ -70,9 +75,16 @@
 |   `-- test_vehicle_selector.py
 |-- diagnose_database.py
 |-- diagnose_db_css.py
+|-- docker-compose.prod.yml
+|-- docker-compose.test.yml
+|-- docker-compose.yml
+|-- docker-instructions.md
 |-- docs
 |   |-- ARCHITECTURE_SYNC_REPORT.md
 |   `-- CLEANUP_PLAN.md
+|-- estructura.tree
+|-- integration_test.py
+|-- logs
 |-- models
 |   |-- __pycache__
 |   |   |-- user.cpython-313.pyc
@@ -81,11 +93,16 @@
 |   |   `-- vehicle.cpython-314.pyc
 |   |-- user.py
 |   `-- vehicle.py
+|-- nginx.conf
+|-- nginx.prod.conf
+|-- quick_e2e_test.py
 |-- requirements.txt
+|-- run_e2e_tests.py
 |-- rxconfig.py
 |-- settings.py
 |-- simple_db_analysis.py
 |-- simple_diagnosis.py
+|-- simple_test.py
 |-- state
 |   |-- __pycache__
 |   |   |-- contact_state.cpython-313.pyc
@@ -97,15 +114,24 @@
 |   |-- contact_state.py
 |   |-- cookie_state.py
 |   `-- vehicle_state_simple.py
-`-- utils
-    |-- __pycache__
-    |   |-- database_service.cpython-313.pyc
-    |   |-- database_service.cpython-314.pyc
-    |   |-- email_service.cpython-313.pyc
-    |   |-- vehicle_data_simple.cpython-313.pyc
-    |   `-- vehicle_data_simple.cpython-314.pyc
-    |-- database_service.py
-    |-- email_service.py
-    `-- vehicle_data_simple.py
+|-- test_summary.md
+|-- tests
+|   |-- __init__.py
+|   |-- conftest.py
+|   |-- requirements.txt
+|   |-- test_api_endpoints.py
+|   |-- test_integration.py
+|   `-- test_vehicle_selector_ui.py
+|-- utils
+|   |-- __pycache__
+|   |   |-- database_service.cpython-313.pyc
+|   |   |-- database_service.cpython-314.pyc
+|   |   |-- email_service.cpython-313.pyc
+|   |   |-- vehicle_data_simple.cpython-313.pyc
+|   |   `-- vehicle_data_simple.cpython-314.pyc
+|   |-- database_service.py
+|   |-- email_service.py
+|   `-- vehicle_data_simple.py
+`-- vehicles_local.db
 
-19 directories, 89 files
+21 directories, 113 files
