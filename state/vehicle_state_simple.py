@@ -173,10 +173,11 @@ class VehicleState(rx.State):
             self.selected_vehicle_message = vehicle_message
             print(f"[VEHICLE] Mensaje preparado: {vehicle_message}")
 
-            return vehicle_message
+            # No devolver nada para evitar el error de Reflex
+            return
         else:
             print("[VEHICLE] Error: Selección incompleta")
-            return None
+            return
 
     def reset_selection(self):
         """Reiniciar todas las selecciones"""
