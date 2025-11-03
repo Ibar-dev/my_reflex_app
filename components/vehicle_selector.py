@@ -24,7 +24,7 @@ def vehicle_selector() -> rx.Component:
                     width="100%"
                 ),
 
-                # Selector de Combustible
+                # Selector de Combustible - CORREGIDO
                 rx.vstack(
                     rx.hstack(
                         rx.text(
@@ -51,7 +51,8 @@ def vehicle_selector() -> rx.Component:
                         width="100%"
                     ),
                     rx.cond(
-                        VehicleState.available_fuel_types != [],
+                        VehicleState.data_loaded & (VehicleState.available_fuel_types.length() > 0),
+                        # ✅ DATOS CARGADOS Y DISPONIBLES
                         rx.select.root(
                             rx.select.trigger(
                                 placeholder="Selecciona el tipo de combustible",
@@ -68,13 +69,32 @@ def vehicle_selector() -> rx.Component:
                             width="100%",
                             size="3",
                         ),
-                        rx.vstack(
-                            rx.spinner(size="3", color="#FF6B35"),
-                            rx.text("Cargando tipos de combustible...", color="#CCCCCC"),
-                            rx.text("O haz clic en 'Cargar Datos'", color="#999999", font_size="0.85rem"),
-                            spacing="2",
-                            align="center",
-                            padding="2rem"
+                        rx.cond(
+                            VehicleState.data_loaded,
+                            # ❌ DATOS CARGADOS PERO VACÍOS (error de conexión)
+                            rx.vstack(
+                                rx.icon("alert_circle", size=32, color="#FF6B35"),
+                                rx.text("No se pudieron cargar los datos", color="#FF6B35", weight="bold"),
+                                rx.text("Verifica la conexión a la base de datos", color="#CCCCCC"),
+                                rx.button(
+                                    "Reintentar",
+                                    on_click=VehicleState.load_fuel_types,
+                                    bg="#FF6B35",
+                                    color="white",
+                                ),
+                                spacing="2",
+                                align="center",
+                                padding="2rem"
+                            ),
+                            # ⏳ CARGANDO DATOS
+                            rx.vstack(
+                                rx.spinner(size="3", color="#FF6B35"),
+                                rx.text("Cargando tipos de combustible...", color="#CCCCCC"),
+                                rx.text("O haz clic en 'Cargar Datos'", color="#999999", font_size="0.85rem"),
+                                spacing="2",
+                                align="center",
+                                padding="2rem"
+                            )
                         )
                     ),
                     width="100%",
@@ -237,34 +257,34 @@ def vehicle_selector() -> rx.Component:
                             box_shadow="0 4px 15px rgba(255, 107, 53, 0.3)",
                         ),
 
-                    spacing="4",
-                    width="100%",
+                        spacing="4",
+                        width="100%",
+                    ),
                 ),
+
+                spacing="5",
+                width="100%",
+                align="center",
             ),
 
-            spacing="5",
-            width="100%",
-            align="center",
+            # Parámetros de centrado del contenedor
+            max_width="600px",
+            margin="0 auto",
+            padding="40px 20px",
+            center_content=True,
         ),
 
-        # Parámetros de centrado del contenedor
-        max_width="600px",
-        margin="0 auto",
-        padding="40px 20px",
-        center_content=True,
-    ),
-
-    # Parámetros del box principal para centrado completo
-    width="100%",
-    min_height="80vh",
-    bg="#1A1A1A",
-    padding="20px",
-    id="selector",
-    style={
-        "display": "flex",
-        "justify_content": "center",
-        "align_items": "center"
-    },
-    # Eventos del componente
-    on_mount=VehicleState.load_fuel_types  # Carga automática al montar componente
-)
+        # Parámetros del box principal para centrado completo
+        width="100%",
+        min_height="80vh",
+        bg="#1A1A1A",
+        padding="20px",
+        id="selector",
+        style={
+            "display": "flex",
+            "justify_content": "center",
+            "align_items": "center"
+        },
+        # Eventos del componente
+        on_mount=VehicleState.load_fuel_types  # Carga automática al montar componente
+    )
