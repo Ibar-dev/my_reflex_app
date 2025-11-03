@@ -39,6 +39,18 @@ class VehicleState(rx.State):
         """Cargar tipos de combustible desde la base de datos"""
         logger.info("[VEHICLE] Iniciando carga de tipos de combustible")
 
+        # Agregar diagnóstico de entorno
+        import os
+        env_type = os.getenv("RX_ENV", "DEV")
+        logger.info(f"[VEHICLE] Entorno actual: {env_type}")
+
+        # Verificar variables de Supabase
+        supabase_url = os.getenv("SUPABASE_URL")
+        if supabase_url:
+            logger.info(f"[VEHICLE] SUPABASE_URL configurada: {supabase_url[:20]}...")
+        else:
+            logger.warning("[VEHICLE] SUPABASE_URL no configurada")
+
         try:
             from utils.vehicle_data_supabase import get_vehicle_fuel_types
             fuel_types = get_vehicle_fuel_types()
