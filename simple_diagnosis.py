@@ -28,7 +28,7 @@ def main():
 
         # Verificar datos
         print("\nVerificando contenido de la base de datos...")
-        from utils.vehicle_data_simple import get_vehicle_count
+        from utils.vehicle_data_supabase import get_vehicle_count
 
         total_vehicles = get_vehicle_count()
         print(f"Total de vehiculos en BD: {total_vehicles:,}")
@@ -38,13 +38,13 @@ def main():
             return False
 
         # Verificar tipos de combustible
-        from utils.vehicle_data_simple import get_vehicle_fuel_types
+        from utils.vehicle_data_supabase import get_vehicle_fuel_types
         fuel_types = get_vehicle_fuel_types()
         print(f"Tipos de combustible: {fuel_types}")
 
         # Verificar marcas
         if fuel_types:
-            from utils.vehicle_data_simple import get_vehicle_brands
+            from utils.vehicle_data_supabase import get_vehicle_brands
             brands = get_vehicle_brands(fuel_types[0])
             print(f"Marcas ({fuel_types[0]}): {len(brands)} encontradas")
             if brands:
@@ -52,7 +52,7 @@ def main():
 
         # Verificar modelos
         if fuel_types and brands:
-            from utils.vehicle_data_simple import get_vehicle_models
+            from utils.vehicle_data_supabase import get_vehicle_models
             models = get_vehicle_models(fuel_types[0], brands[0])
             print(f"Modelos ({brands[0]}): {len(models)} encontrados")
             if models:

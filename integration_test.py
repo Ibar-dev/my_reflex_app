@@ -17,7 +17,7 @@ def test_complete_vehicle_flow():
 
     try:
         sys.path.append('.')
-        from utils.vehicle_data_simple import (
+        from utils.vehicle_data_supabase import (
             get_vehicle_fuel_types,
             get_vehicle_brands,
             get_vehicle_models,
@@ -83,7 +83,7 @@ def test_data_consistency():
 
     try:
         sys.path.append('.')
-        from utils.vehicle_data_simple import (
+        from utils.vehicle_data_supabase import (
             get_vehicle_fuel_types,
             get_vehicle_brands,
             get_vehicle_models,
@@ -126,7 +126,7 @@ def test_performance_benchmarks():
 
     try:
         sys.path.append('.')
-        from utils.vehicle_data_simple import (
+        from utils.vehicle_data_supabase import (
             get_vehicle_fuel_types,
             get_vehicle_brands,
             get_vehicle_models,
@@ -185,7 +185,7 @@ def test_error_handling():
 
     try:
         sys.path.append('.')
-        from utils.vehicle_data_simple import (
+        from utils.vehicle_data_supabase import (
             get_vehicle_brands,
             get_vehicle_models,
             get_vehicle_versions

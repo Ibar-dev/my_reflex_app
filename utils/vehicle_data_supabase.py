@@ -208,33 +208,88 @@ def search_vehicles(search_term: str) -> List[Dict]:
         db.disconnect()
 
 
+def get_vehicles_data(limit: int = 100, fuel_type: str = None, brand: str = None, model: str = None) -> List[Dict]:
+    """
+    Obtiene datos de vehículos con filtros opcionales.
+
+    Args:
+        limit: Límite de resultados
+        fuel_type: Filtrar por tipo de combustible (opcional)
+        brand: Filtrar por marca (opcional)
+        model: Filtrar por modelo (opcional)
+
+    Returns:
+        Lista de vehículos con sus datos
+    """
+    if not db.connect():
+        return []
+
+    try:
+        # Construir consulta base
+        query = """
+        SELECT id, fuel_type, brand, model, version
+        FROM vehicles
+        """
+        params = []
+        conditions = []
+
+        # Agregar filtros si se proporcionan
+        if fuel_type:
+            conditions.append("fuel_type = %s")
+            params.append(fuel_type)
+        if brand:
+            conditions.append("brand = %s")
+            params.append(brand)
+        if model:
+            conditions.append("model = %s")
+            params.append(model)
+
+        # Agregar condiciones a la consulta
+        if conditions:
+            query += " WHERE " + " AND ".join(conditions)
+
+        # Agregar ordenamiento y límite
+        query += " ORDER BY brand, model, version LIMIT %s"
+        params.append(limit)
+
+        results = db.execute_query(query, tuple(params))
+        return results
+
+    except Exception as e:
+        logger.error(f"❌ Error al obtener vehículos: {e}")
+        return []
+
+    finally:
+        db.disconnect()
+
+
 def add_vehicle(fuel_type: str, brand: str, model: str, version: str) -> bool:
     """
     Añade un nuevo vehículo a la base de datos.
-    
+
     Args:
         fuel_type: Tipo de combustible (Diesel o Gasolina)
         brand: Marca del vehículo
         model: Modelo del vehículo
         version: Versión del vehículo
-    
+
     Returns:
         True si se insertó correctamente, False en caso contrario
     """
     if not db.connect():
         return False
-    
+
     try:
         query = """
         INSERT INTO vehicles (fuel_type, brand, model, version)
         VALUES (%s, %s, %s, %s);
         """
         return db.execute_update(query, (fuel_type, brand, model, version))
-    
+
     except Exception as e:
         logger.error(f"❌ Error al añadir vehículo: {e}")
         return False
-    
+
     finally:
         db.disconnect()
 

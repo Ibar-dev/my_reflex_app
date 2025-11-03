@@ -96,7 +96,7 @@ def test_vehicle_data_api():
     """Verificar que los datos de vehículos son accesibles"""
     try:
         sys.path.insert(0, '.')
-        from utils.vehicle_data_simple import get_vehicle_fuel_types
+        from utils.vehicle_data_supabase import get_vehicle_fuel_types
 
         fuel_types = get_vehicle_fuel_types()
         print(f"API de vehículos responde: {fuel_types}")

@@ -68,7 +68,7 @@ def analyze_db():
 
     # Verificar que datos devuelve la app
     try:
-        from utils.vehicle_data_simple import get_vehicle_fuel_types, get_vehicle_count
+        from utils.vehicle_data_supabase import get_vehicle_fuel_types, get_vehicle_count
         fuels = get_vehicle_fuel_types()
         total = get_vehicle_count()
         print(f"\nDATOS EN APP:")

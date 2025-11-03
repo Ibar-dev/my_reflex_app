@@ -37,7 +37,7 @@ def test_database():
 
     try:
         sys.path.append('.')
-        from utils.vehicle_data_simple import (
+        from utils.vehicle_data_supabase import (
             get_vehicle_fuel_types,
             get_vehicle_brands,
             get_vehicle_models,
@@ -95,7 +95,7 @@ def test_imports():
         from state.vehicle_state_simple import VehicleState
         print("PASS: Vehicle state imported")
 
-        from utils.vehicle_data_simple import get_vehicle_fuel_types
+        from utils.vehicle_data_supabase import get_vehicle_fuel_types
         print("PASS: Vehicle data utils imported")
 
         from models.vehicle import Vehicle

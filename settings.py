@@ -11,10 +11,11 @@ from pathlib import Path
 
 # Rutas del proyecto
 PROJECT_ROOT = Path(__file__).parent
-DATABASE_PATH = PROJECT_ROOT / "astrotech.db"  # Nueva base de datos local
 
-# Configuración de Base de Datos
-DATABASE_URL = f"sqlite:///{DATABASE_PATH}"
+# Configuración de Base de Datos - Ahora usa Supabase
+# DATABASE_URL ya no se usa para vehículos, solo para legacy si es necesario
+DATABASE_PATH = PROJECT_ROOT / "astrotech.db"  # Archivo ya no utilizado
+DATABASE_URL = f"sqlite:///{DATABASE_PATH}"  # Mantenido por compatibilidad legacy
 
 # Configuración de Email
 SMTP_SERVER = "smtp.gmail.com"
@@ -61,7 +62,7 @@ def print_startup_info():
     print("=" * 50)
     print(f"🚗 {APP_CONFIG['name']} v{APP_CONFIG['version']}")
     print("=" * 50)
-    print(f"📊 Base de Datos: {DATABASE_URL}")
+    print(f"📊 Base de Datos: Supabase (PostgreSQL)")
     print(f"📧 Email: {'Configurado' if is_email_configured() else 'Modo Simulación'}")
     print(f"🔧 Debug: {'Activado' if APP_CONFIG['debug'] else 'Desactivado'}")
     print(f"💰 Descuento Contacto: {APP_CONFIG['contact_discount']}%")

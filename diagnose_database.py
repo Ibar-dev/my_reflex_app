@@ -19,7 +19,7 @@ def check_database_status():
     try:
         # 1. Verificar conexión a la BD
         print("\n1. Verificando conexión a base de datos...")
-        from utils.vehicle_data_simple import get_vehicle_count
+        from utils.vehicle_data_supabase import get_vehicle_count
 
         total_vehicles = get_vehicle_count()
         print(f"   OK: Conexión exitosa")
@@ -32,7 +32,7 @@ def check_database_status():
 
         # 2. Verificar tipos de combustible
         print("\n2. Verificando tipos de combustible...")
-        from utils.vehicle_data_simple import get_vehicle_fuel_types
+        from utils.vehicle_data_supabase import get_vehicle_fuel_types
 
         fuel_types = get_vehicle_fuel_types()
         print(f"   OK: Tipos disponibles: {fuel_types}")
@@ -43,7 +43,7 @@ def check_database_status():
 
         # 3. Verificar marcas por combustible
         print("\n3. Verificando marcas disponibles...")
-        from utils.vehicle_data_simple import get_vehicle_brands
+        from utils.vehicle_data_supabase import get_vehicle_brands
 
         for fuel in fuel_types:
             brands = get_vehicle_brands(fuel)
@@ -53,7 +53,7 @@ def check_database_status():
 
         # 4. Verificar modelos para una marca
         print("\n4. Verificando modelos disponibles...")
-        from utils.vehicle_data_simple import get_vehicle_models
+        from utils.vehicle_data_supabase import get_vehicle_models
 
         test_fuel = fuel_types[0] if fuel_types else None
         test_brands = get_vehicle_brands(test_fuel) if test_fuel else []
@@ -67,7 +67,7 @@ def check_database_status():
 
         # 5. Verificar versiones
         print("\n5. Verificando versiones disponibles...")
-        from utils.vehicle_data_simple import get_vehicle_versions
+        from utils.vehicle_data_supabase import get_vehicle_versions
 
         if test_brands and models:
             test_model = models[0]

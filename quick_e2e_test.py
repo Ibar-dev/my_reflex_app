@@ -21,7 +21,7 @@ def test_database_connectivity():
     try:
         # Importar funciones de la base de datos
         sys.path.append('.')
-        from utils.vehicle_data_simple import (
+        from utils.vehicle_data_supabase import (
             get_vehicle_fuel_types,
             get_vehicle_brands,
             get_vehicle_models,
@@ -131,7 +131,7 @@ def test_vehicle_selector_logic():
         print("✅ VehicleState class found")
 
         # Verificar que las funciones existan
-        from utils.vehicle_data_simple import (
+        from utils.vehicle_data_supabase import (
             get_vehicle_fuel_types,
             get_vehicle_brands,
             get_vehicle_models,
@@ -177,7 +177,7 @@ def test_components_import():
         from state.vehicle_state_simple import VehicleState
         print("✅ Vehicle state imported")
 
-        from utils.vehicle_data_simple import get_vehicle_fuel_types
+        from utils.vehicle_data_supabase import get_vehicle_fuel_types
         print("✅ Vehicle data utils imported")
 
         from models.vehicle import Vehicle

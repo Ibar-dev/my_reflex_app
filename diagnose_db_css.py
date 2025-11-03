@@ -241,7 +241,7 @@ def main():
     print("-"*50)
 
     try:
-        from utils.vehicle_data_simple import get_vehicle_fuel_types, get_vehicle_count
+        from utils.vehicle_data_supabase import get_vehicle_fuel_types, get_vehicle_count
         fuel_types = get_vehicle_fuel_types()
         total_vehicles = get_vehicle_count()
 
@@ -250,7 +250,7 @@ def main():
         print(f"   Tipos de combustible: {fuel_types}")
 
         if fuel_types:
-            from utils.vehicle_data_simple import get_vehicle_brands
+            from utils.vehicle_data_supabase import get_vehicle_brands
             brands = get_vehicle_brands(fuel_types[0])
             print(f"   Marcas ({fuel_types[0]}): {len(brands)} encontradas")
 

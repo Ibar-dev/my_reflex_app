@@ -119,7 +119,7 @@ def test_vehicle_data_utils():
     """Verificar que las utilidades de datos de vehículos funcionan"""
     try:
         sys.path.insert(0, '.')
-        from utils.vehicle_data_simple import (
+        from utils.vehicle_data_supabase import (
             get_vehicle_fuel_types,
             get_vehicle_brands,
             get_vehicle_models,

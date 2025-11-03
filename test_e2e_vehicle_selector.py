@@ -48,48 +48,61 @@ def test_backend_running():
         return False
 
 def test_database_exists():
-    """Verificar que la base de datos existe y tiene datos"""
-    db_file = Path("astrotech.db")
-    if not db_file.exists():
-        print("❌ Base de datos astrotech.db no existe")
-        return False
+    """Verificar que la conexión a Supabase funciona"""
+    try:
+        sys.path.insert(0, '.')
+        from utils.vehicle_data_supabase import get_vehicle_count
 
-    size = db_file.stat().st_size
-    if size < 1000:  # Menos de 1KB probablemente está vacía
-        print(f"❌ Base de datos demasiado pequeña: {size} bytes")
-        return False
+        count = get_vehicle_count()
+        if count > 0:
+            print(f"✅ Conexión a Supabase establecida: {count:,} vehículos encontrados")
+            return True
+        else:
+            print("❌ No se encontraron vehículos en Supabase")
+            return False
 
-    print(f"✅ Base de datos encontrada: {size:,} bytes")
-    return True
+    except Exception as e:
+        print(f"❌ Error conectando a Supabase: {e}")
+        return False
 
 def test_database_content():
-    """Verificar el contenido de la base de datos"""
+    """Verificar el contenido de Supabase"""
     try:
-        # Usar el diagnóstico existente
-        result = subprocess.run([
-            sys.executable, "diagnose_database.py"
-        ], capture_output=True, text=True, timeout=30)
+        sys.path.insert(0, '.')
+        from utils.vehicle_data_supabase import (
+            get_vehicle_count,
+            get_vehicle_fuel_types,
+            get_vehicle_brands
+        )
 
-        output = result.stdout
+        # Verificar cantidad de vehículos
+        count = get_vehicle_count()
+        if count <= 0:
+            print("❌ No hay vehículos en la base de datos")
+            return False
 
-        # Verificar indicadores de éxito
-        success_indicators = [
-            "Total de vehículos en BD:",
-            "OK: Tipos disponibles:",
-            "SISTEMA COMPLETAMENTE FUNCIONAL"
-        ]
+        # Verificar tipos de combustible
+        fuel_types = get_vehicle_fuel_types()
+        if not fuel_types:
+            print("❌ No hay tipos de combustible disponibles")
+            return False
 
-        for indicator in success_indicators:
-            if indicator not in output:
-                print(f"❌ No se encontró indicador: {indicator}")
-                print("Output:", output[-500:])  # Últimos 500 caracteres
-                return False
+        # Verificar marcas para primer tipo de combustible
+        brands = get_vehicle_brands(fuel_types[0])
+        if not brands:
+            print("❌ No hay marcas disponibles")
+            return False
 
-        print("✅ Contenido de base de datos verificado")
+        print(f"✅ Contenido de Supabase verificado:")
+        print(f"   - Total vehículos: {count:,}")
+        print(f"   - Tipos de combustible: {fuel_types}")
+        print(f"   - Marcas para {fuel_types[0]}: {len(brands)}")
         return True
 
     except Exception as e:
-        print(f"❌ Error verificando contenido BD: {e}")
+        print(f"❌ Error verificando contenido Supabase: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 def test_import_vehicle_state():
@@ -127,7 +140,7 @@ def test_vehicle_data_utils():
     """Verificar que las utilidades de datos de vehículos funcionan"""
     try:
         sys.path.insert(0, '.')
-        from utils.vehicle_data_simple import (
+        from utils.vehicle_data_supabase import (
             get_vehicle_fuel_types,
             get_vehicle_brands,
             get_vehicle_models,

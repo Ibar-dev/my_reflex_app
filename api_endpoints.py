@@ -7,7 +7,7 @@ el funcionamiento de la aplicación.
 """
 
 import reflex as rx
-from utils.vehicle_data_simple import (
+from utils.vehicle_data_supabase import (
     get_vehicle_fuel_types,
     get_vehicle_brands,
     get_vehicle_models,
@@ -69,7 +69,7 @@ def api_versions(fuel_type: str, brand: str, model: str):
 def api_vehicles(limit: int = 100):
     """Obtener lista de vehículos con filtros opcionales."""
     try:
-        from utils.vehicle_data_simple import get_vehicles_data
+        from utils.vehicle_data_supabase import get_vehicles_data
         vehicles = get_vehicles_data(limit=limit)
         return vehicles
     except Exception as e:
