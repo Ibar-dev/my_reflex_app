@@ -6,6 +6,10 @@ Funciona con la base de datos unificada astrotech.db
 """
 
 import reflex as rx
+import logging
+
+# Obtener logger para este módulo
+logger = logging.getLogger(__name__)
 
 class VehicleState(rx.State):
     """Estado del selector de vehículos optimizado para base de datos unificada"""
@@ -29,36 +33,39 @@ class VehicleState(rx.State):
     # Mensaje del vehículo seleccionado para contacto
     selected_vehicle_message: str = ""
 
-    def on_load(self):
-        """Cargar datos iniciales cuando el estado se carga"""
-        if not self.data_loaded:
-            self.load_fuel_types()
-            self.data_loaded = True
-
+  
     
     def load_fuel_types(self):
-        """Cargar tipos de combustible disponibles con manejo robusto de errores"""
+        """Cargar tipos de combustible desde la base de datos"""
+        logger.info("[VEHICLE] Iniciando carga de tipos de combustible")
+
         try:
             from utils.vehicle_data_simple import get_vehicle_fuel_types
             fuel_types = get_vehicle_fuel_types()
+            logger.info(f"[VEHICLE] Tipos obtenidos de BD: {fuel_types}")
 
             if fuel_types and len(fuel_types) > 0:
-                self.available_fuel_types = fuel_types
+                self.available_fuel_types = list(fuel_types)  # Crear nueva lista para forzar re-render
+                logger.info(f"[VEHICLE] Tipos de combustible cargados: {len(self.available_fuel_types)}")
+                logger.info(f"[VEHICLE] Opciones disponibles: {self.available_fuel_types}")
                 print(f"[VEHICLE] ✅ Tipos de combustible cargados desde BD: {len(self.available_fuel_types)}")
                 print(f"[VEHICLE] Opciones: {self.available_fuel_types}")
             else:
-                # Fallback si la BD está vacía
-                self.available_fuel_types = ["diesel", "gasolina", "hibrido", "electrico"]
-                print(f"[VEHICLE] ⚠️ BD vacía, usando fallback completo")
+                # Si no hay datos, dejar la lista vacía para mostrar el error real
+                self.available_fuel_types = list()
+                logger.warning("[VEHICLE] Base de datos sin tipos de combustible")
+                print(f"[VEHICLE] ⚠️ Base de datos sin tipos de combustible")
 
         except Exception as e:
+            logger.error(f"[VEHICLE] Error cargando tipos de combustible: {e}", exc_info=True)
+            # Dejar vacío para mostrar si hay un error real
+            self.available_fuel_types = list()
             print(f"[VEHICLE] ❌ Error cargando tipos de combustible: {e}")
-            # Fallback completo en caso de error
-            self.available_fuel_types = ["diesel", "gasolina", "hibrido", "electrico"]
-            print(f"[VEHICLE] ⚠️ Usando fallback por error")
+            print(f"[VEHICLE] ❌ Base de datos no disponible")
 
         # Marcar como cargado para evitar recargas innecesarias
         self.data_loaded = True
+        logger.info(f"[VEHICLE] Estado data_loaded: {self.data_loaded}")
 
     def select_fuel(self, fuel: str):
         """Seleccionar tipo de combustible y cargar marcas"""
@@ -75,11 +82,12 @@ class VehicleState(rx.State):
         """Cargar marcas disponibles"""
         try:
             from utils.vehicle_data_simple import get_vehicle_brands
-            self.available_brands = get_vehicle_brands(fuel_type or self.selected_fuel)
+            brands = get_vehicle_brands(fuel_type or self.selected_fuel)
+            self.available_brands = list(brands)  # Crear nueva lista para forzar re-render
             print(f"[VEHICLE] Marcas cargadas: {len(self.available_brands)}")
         except Exception as e:
             print(f"[VEHICLE] Error cargando marcas: {e}")
-            self.available_brands = []
+            self.available_brands = list()  # Lista vacía nueva
 
     def select_brand(self, brand: str):
         """Seleccionar marca y cargar modelos"""
@@ -95,14 +103,15 @@ class VehicleState(rx.State):
         """Cargar modelos disponibles"""
         try:
             from utils.vehicle_data_simple import get_vehicle_models
-            self.available_models = get_vehicle_models(
+            models = get_vehicle_models(
                 fuel_type or self.selected_fuel,
                 brand or self.selected_brand
             )
+            self.available_models = list(models)  # Crear nueva lista para forzar re-render
             print(f"[VEHICLE] Modelos cargados: {len(self.available_models)}")
         except Exception as e:
             print(f"[VEHICLE] Error cargando modelos: {e}")
-            self.available_models = []
+            self.available_models = list()  # Lista vacía nueva
 
     def select_model(self, model: str):
         """Seleccionar modelo y cargar versiones"""
@@ -117,15 +126,16 @@ class VehicleState(rx.State):
         """Cargar versiones disponibles"""
         try:
             from utils.vehicle_data_simple import get_vehicle_versions
-            self.available_versions = get_vehicle_versions(
+            versions = get_vehicle_versions(
                 fuel_type or self.selected_fuel,
                 brand or self.selected_brand,
                 model or self.selected_model
             )
+            self.available_versions = list(versions)  # Crear nueva lista para forzar re-render
             print(f"[VEHICLE] Versiones cargadas: {len(self.available_versions)}")
         except Exception as e:
             print(f"[VEHICLE] Error cargando versiones: {e}")
-            self.available_versions = []
+            self.available_versions = list()  # Lista vacía nueva
 
     def select_version(self, version: str):
         """Seleccionar versión final"""
@@ -163,9 +173,9 @@ class VehicleState(rx.State):
         self.selected_brand = ""
         self.selected_model = ""
         self.selected_version = ""
-        self.available_brands = []
-        self.available_models = []
-        self.available_versions = []
+        self.available_brands = list()
+        self.available_models = list()
+        self.available_versions = list()
 
     def get_current_selection(self) -> dict:
         """Obtener la selección actual"""

@@ -7,6 +7,9 @@ animaciones suaves y experiencia de usuario optimizada.
 """
 
 import reflex as rx
+import logging
+import sys
+from datetime import datetime
 from components.header import header
 from components.hero import hero
 from components.vehicle_selector import vehicle_selector
@@ -23,6 +26,26 @@ from state.cookie_state import CookieState
 # Importar estados para que Reflex los reconozca
 from state.contact_state import ContactState
 
+# Configuración de logging para diagnóstico
+def setup_logging():
+    """Configura el sistema de logs para depuración"""
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s | %(levelname)s | %(name)s | %(message)s',
+        handlers=[
+            logging.StreamHandler(sys.stdout),  # Enviar logs a la terminal
+            logging.FileHandler('astrotech.log', encoding='utf-8')  # También a archivo
+        ]
+    )
+
+    # Silenciar logs muy verbosos
+    logging.getLogger('urllib3.connectionpool').setLevel(logging.WARNING)
+    logging.getLogger('websockets.protocol').setLevel(logging.WARNING)
+
+    logging.info("Sistema de logging activado para AstroTech")
+
+# Activar logging
+setup_logging()
 
 # Estado global de la aplicación
 class AppState(rx.State):

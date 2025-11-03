@@ -5,7 +5,8 @@
 .states
 *.db
 reflex.db
-
+claude.md
+claude
 # Assets externos
 assets/external/
 

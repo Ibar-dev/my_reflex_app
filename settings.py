@@ -11,7 +11,7 @@ from pathlib import Path
 
 # Rutas del proyecto
 PROJECT_ROOT = Path(__file__).parent
-DATABASE_PATH = PROJECT_ROOT / "vehicles_local.db"  # Nueva base de datos local
+DATABASE_PATH = PROJECT_ROOT / "astrotech.db"  # Nueva base de datos local
 
 # Configuración de Base de Datos
 DATABASE_URL = f"sqlite:///{DATABASE_PATH}"
