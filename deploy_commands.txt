@@ -1,0 +1,13 @@
+# COMANDOS PARA CONFIGURAR VARIABLES DE ENTORNO EN REFLEX
+# Ejecuta estos comandos uno por uno en la terminal
+
+reflex set env SUPABASE_URL=https://piexexjrjdgkunlezwcv.supabase.co
+reflex set env SUPABASE_KEY=sbp_cbb2e381d1c44fcb8975f1272390433684c46451
+reflex set env DB_USER=postgres.piexexjrjdgkunlezwcv
+reflex set env DB_PASSWORD=CN2t6dlUk8zwTlx7
+reflex set env DB_HOST=aws-1-eu-north-1.pooler.supabase.com
+reflex set env DB_PORT=6543
+reflex set env DB_NAME=postgres
+
+# Después de configurar las variables, ejecuta el deploy:
+# reflex deploy --project fdb58d37-e45b-4e5f-8197-213cff0219be
