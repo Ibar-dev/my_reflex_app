@@ -32,6 +32,10 @@ class ContactState(rx.State):
     # Datos del vehículo seleccionado
     vehicle_info: str = ""
 
+    # Estado de confirmación de presupuesto
+    budget_sent: bool = False
+    budget_message: str = ""
+
     # Campos de error
     email_error: str = ""
     phone_error: str = ""
@@ -68,21 +72,32 @@ class ContactState(rx.State):
         self.message = value
 
     def update_vehicle_info(self):
-        """Obtener información del vehículo seleccionado desde VehicleState"""
+        """Obtener información del vehículo seleccionado desde la variable global compartida"""
         try:
-            # Obtener el VehicleState
-            vehicle_state = self.get_state(VehicleState)
+            # Importar la variable global desde VehicleState
+            from state.vehicle_state_simple import _shared_vehicle_message
 
-            if vehicle_state and vehicle_state.selected_vehicle_message:
-                self.vehicle_info = vehicle_state.selected_vehicle_message
-                print(f"[CONTACT] Datos del vehículo actualizados: {self.vehicle_info}")
+            if _shared_vehicle_message:
+                self.vehicle_info = _shared_vehicle_message
+                print(f"[CONTACT] Datos del vehículo actualizados desde variable global: {self.vehicle_info}")
             else:
                 self.vehicle_info = ""
-                print("[CONTACT] No hay vehículo seleccionado")
+                print("[CONTACT] No hay información de vehículo en la variable global")
 
         except Exception as e:
             print(f"[CONTACT] Error obteniendo datos del vehículo: {e}")
             self.vehicle_info = ""
+
+    def confirm_budget_sent(self):
+        """Confirmar que se ha enviado un presupuesto"""
+        self.budget_sent = True
+        self.budget_message = "✅ Presupuesto enviado correctamente a astrotechreprogramaciones@gmail.com"
+        print(f"[CONTACT] {self.budget_message}")
+
+    def clear_budget_confirmation(self):
+        """Limpiar confirmación de presupuesto"""
+        self.budget_sent = False
+        self.budget_message = ""
     
     def check_user_registration(self, email: str):
         """

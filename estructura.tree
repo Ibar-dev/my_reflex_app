@@ -6,12 +6,12 @@
 |-- SUPABASE_INTEGRATION.md
 |-- TEST_E2E_REPORT.md
 |-- __pycache__
+|   |-- api_endpoints.cpython-313.pyc
 |   |-- create_local_db.cpython-313.pyc
 |   |-- rxconfig.cpython-313.pyc
 |   |-- rxconfig.cpython-314.pyc
 |   |-- settings.cpython-313.pyc
 |   `-- settings.cpython-314.pyc
-|-- api_endpoints.py
 |-- app
 |   |-- __init__.py
 |   |-- __pycache__
@@ -32,10 +32,9 @@
 |-- astrotech.db
 |-- astrotech.log
 |-- backup
-|   |-- vehicles.db
 |   |-- vehicles_api_cache.json
-|   |-- vehicles_expanded.db
 |   `-- vehiculos_turismo.json
+|-- check_supabase_config.py
 |-- claude.md
 |-- components
 |   |-- __pycache__
@@ -73,7 +72,10 @@
 |-- create_local_db.py
 |-- data
 |   `-- vehiculos_turismo.json.backup
+|-- debug_browser.py
+|-- debug_production.py
 |-- deploy-guide.md
+|-- deploy_commands.txt
 |-- dev
 |   |-- download_vehicle_data.py
 |   |-- migrate_vehicle_data.py
@@ -105,6 +107,8 @@
 |-- nginx.prod.conf
 |-- quick_e2e_test.py
 |-- requirements.txt
+|-- requirements_backup.txt
+|-- requirements_new.txt
 |-- run_e2e_tests.py
 |-- rxconfig.py
 |-- settings.py
@@ -125,8 +129,11 @@
 |   `-- vehicle_state_simple.py
 |-- test_browser_interaction.py
 |-- test_e2e_simple.py
+|-- test_e2e_supabase.py
 |-- test_e2e_vehicle_selector.py
+|-- test_production_setup.py
 |-- test_selector_clicks.py
+|-- test_simple_supabase.py
 |-- test_summary.md
 |-- test_supabase_integration.py
 |-- tests
@@ -142,16 +149,18 @@
 |   |   |-- database_service.cpython-314.pyc
 |   |   |-- email_service.cpython-313.pyc
 |   |   |-- supabase_connection.cpython-313.pyc
+|   |   |-- supabase_connection.cpython-314.pyc
 |   |   |-- vehicle_data_simple.cpython-313.pyc
 |   |   |-- vehicle_data_simple.cpython-314.pyc
-|   |   `-- vehicle_data_supabase.cpython-313.pyc
+|   |   |-- vehicle_data_supabase.cpython-313.pyc
+|   |   `-- vehicle_data_supabase.cpython-314.pyc
 |   |-- create_vehicles_table.py
 |   |-- database_service.py
 |   |-- email_service.py
 |   |-- logging_utils.py
 |   |-- supabase_connection.py
-|   |-- vehicle_data_simple.py
 |   `-- vehicle_data_supabase.py
-`-- vehicles_local.db
+|-- vehicles_local.db
+`-- verify_production.py
 
-21 directories, 133 files
+22 directories, 141 files

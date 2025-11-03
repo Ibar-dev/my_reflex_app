@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Selector de Vehículos</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #1a1a1a; color: white; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .test-step { margin: 20px 0; padding: 20px; background: #2d2d2d; border-radius: 8px; }
+        .success { color: #4CAF50; }
+        .error { color: #f44336; }
+        .info { color: #FF6B35; }
+        code { background: #1a1a1a; padding: 2px 6px; border-radius: 4px; }
+        .expected { background: rgba(255, 107, 53, 0.1); padding: 15px; border-left: 4px solid #FF6B35; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test Manual del Selector de Vehículos</h1>
+        <p>Esta página guía la verificación manual de que el selector de vehículos funciona correctamente.</p>
+
+        <div class="test-step">
+            <h2 class="info">Paso 1: Abrir la Aplicación</h2>
+            <p>Abre la aplicación en: <a href="http://localhost:3001/" target="_blank">http://localhost:3001/</a></p>
+            <p>Asegúrate de ver la página principal de AstroTech.</p>
+        </div>
+
+        <div class="test-step">
+            <h2 class="info">Paso 2: Ir al Selector de Vehículos</h2>
+            <p>Busca y haz clic en la sección del selector de vehículos (donde dice "Configurador de Centralitas").</p>
+        </div>
+
+        <div class="test-step">
+            <h2 class="info">Paso 3: Seleccionar un Vehículo</h2>
+            <ol>
+                <li>Selecciona "Gasolina" en el tipo de combustible</li>
+                <li>Selecciona "Ford" en la marca</li>
+                <li>Selecciona "Focus" en el modelo</li>
+                <li>Selecciona una versión (ej: "1.5 EcoBoost 150CV")</li>
+            </ol>
+            <p>Deberías ver un resumen del vehículo seleccionado en una tarjeta naranja.</p>
+        </div>
+
+        <div class="test-step">
+            <h2 class="info">Paso 4: Enviar Selección</h2>
+            <p>Haz clic en el botón "Solicitar Presupuesto".</p>
+            <p>En la consola del navegador (F12), deberías ver mensajes como:</p>
+            <div class="expected">
+                <code>[VEHICLE] Enviando selección: {'fuel_type': 'Gasolina', 'brand': 'Ford', ...}</code><br>
+                <code>[VEHICLE] Mensaje preparado: VEHÍCULO SELECCIONADO: ...</code><br>
+                <code>[VEHICLE] ContactState actualizado con información del vehículo</code>
+            </div>
+        </div>
+
+        <div class="test-step">
+            <h2 class="info">Paso 5: Verificar Formulario de Contacto</h2>
+            <p>Desplázate hacia abajo hasta la sección de contacto.</p>
+            <p><strong>¡ESTE ES EL PASO CRÍTICO!</strong></p>
+            <p>Deberías ver un recuadro naranja con la información del vehículo, justo encima del campo "Mensaje".</p>
+            <div class="expected">
+                <strong>El recuadro debería mostrar:</strong><br>
+                VEHÍCULO SELECCIONADO:<br>
+                • Combustible: Gasolina<br>
+                • Marca: Ford<br>
+                • Modelo: Focus<br>
+                • Versión: [la versión que seleccionaste]
+            </div>
+        </div>
+
+        <div class="test-step">
+            <h2 class="success">Resultado Esperado</h2>
+            <p>Si todo funciona correctamente, la información del vehículo aparece automáticamente en el formulario de contacto cuando haces clic en "Solicitar Presupuesto".</p>
+
+            <h3 class="error">Si no funciona:</h3>
+            <ul>
+                <li>No ves el recuadro naranja en el formulario de contacto</li>
+                <li>Los mensajes en consola no aparecen</li>
+                <li>El selector se reinicia o no funciona</li>
+            </ul>
+        </div>
+
+        <div class="test-step">
+            <h2 class="info">Información Técnica del Fix</h2>
+            <p><strong>Problema original:</strong> La selección del vehículo se preparaba correctamente pero no se transfería al formulario de contacto.</p>
+            <p><strong>Solución implementada:</strong> En <code>state/vehicle_state_simple.py</code>, el método <code>submit_vehicle_selection()</code> ahora llama automáticamente a <code>ContactState.update_vehicle_info()</code> para transferir los datos.</p>
+            <p><strong>Código clave añadido:</strong></p>
+            <div class="expected">
+                <pre>
+# Actualizar el estado del formulario de contacto
+try:
+    from state.contact_state import ContactState
+    contact_state = self.get_state(ContactState)
+    if contact_state:
+        contact_state.update_vehicle_info()
+        print("[VEHICLE] ContactState actualizado")
+except Exception as e:
+    print(f"[VEHICLE] Error: {e}")
+                </pre>
+            </div>
+        </div>
+
+        <div class="test-step">
+            <h2 class="info">Siguiente Paso</h2>
+            <p>Si el test local funciona correctamente, el mismo fix debería resolver el problema en producción.</p>
+            <p>Para deploy: <code>reflex deploy --project fdb58d37-e45b-4e5f-8197-213cff0219be</code></p>
+        </div>
+    </div>
+</body>
+</html>

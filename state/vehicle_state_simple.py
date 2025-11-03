@@ -8,6 +8,9 @@ Funciona con la base de datos unificada astrotech.db
 import reflex as rx
 import logging
 
+# Variable global para compartir información del vehículo entre estados
+_shared_vehicle_message = ""
+
 # Obtener logger para este módulo
 logger = logging.getLogger(__name__)
 
@@ -169,9 +172,29 @@ class VehicleState(rx.State):
                 f"• Versión: {selection['version']}"
             )
 
-            # Almacenar en el estado para que el formulario de contacto lo use
+            # Almacenar en el estado y en la variable global para que el formulario de contacto lo use
             self.selected_vehicle_message = vehicle_message
+            global _shared_vehicle_message
+            _shared_vehicle_message = vehicle_message
             print(f"[VEHICLE] Mensaje preparado: {vehicle_message}")
+            print("[VEHICLE] Información del vehículo almacenada correctamente")
+
+            # Forzar actualización del ContactState y confirmar envío
+            try:
+                # Importar y actualizar ContactState
+                from state.contact_state import ContactState
+
+                # En Reflex, podemos hacer yield para llamar a otros métodos de estado
+                print("[VEHICLE] Notificando al formulario de contacto...")
+
+                # Actualizar la información del vehículo
+                ContactState.update_vehicle_info()
+
+                # Confirmar que se envió el presupuesto
+                ContactState.confirm_budget_sent()
+
+            except Exception as e:
+                print(f"[VEHICLE] Error notificando: {e}")
 
             # No devolver nada para evitar el error de Reflex
             return

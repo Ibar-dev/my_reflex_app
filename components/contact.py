@@ -277,6 +277,40 @@ def contact() -> rx.Component:
                                         width="100%"
                                     ),
 
+                                    # Confirmación de presupuesto enviado
+                                    rx.cond(
+                                        ContactState.budget_sent,
+                                        rx.box(
+                                            rx.vstack(
+                                                rx.hstack(
+                                                    rx.icon("check_circle", size=16, color="#4CAF50"),
+                                                    rx.text(
+                                                        ContactState.budget_message,
+                                                        weight="bold",
+                                                        color="#4CAF50",
+                                                        font_size="0.9rem"
+                                                    ),
+                                                    spacing="2",
+                                                    align="center"
+                                                ),
+                                                rx.text(
+                                                    "Tu solicitud de presupuesto ha sido registrada. Nos pondremos en contacto contigo pronto.",
+                                                    color="#CCCCCC",
+                                                    font_size="0.85rem"
+                                                ),
+                                                spacing="2",
+                                                align="start",
+                                                width="100%"
+                                            ),
+                                            width="100%",
+                                            bg="rgba(76, 175, 80, 0.1)",
+                                            p="3",
+                                            border_radius="6px",
+                                            border="1px solid rgba(76, 175, 80, 0.3)",
+                                            mb="2"
+                                        )
+                                    ),
+
                                     # Vehículo Seleccionado (si hay)
                                     rx.cond(
                                         ContactState.vehicle_info != "",
