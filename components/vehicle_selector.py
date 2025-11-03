@@ -43,7 +43,8 @@ def vehicle_selector() -> rx.Component:
                             color="white",
                             border_radius="6px",
                             _hover={"bg": "#e55a2b"},
-                            data_state="load-fuel-btn"
+                            data_state="load-fuel-btn",
+                            cursor="pointer",
                         ),
                         justify="between",
                         align="center",
@@ -51,9 +52,17 @@ def vehicle_selector() -> rx.Component:
                     ),
                     rx.cond(
                         VehicleState.available_fuel_types != [],
-                        rx.select(
-                            VehicleState.available_fuel_types,
-                            placeholder="Selecciona el tipo de combustible",
+                        rx.select.root(
+                            rx.select.trigger(
+                                placeholder="Selecciona el tipo de combustible",
+                                width="100%",
+                            ),
+                            rx.select.content(
+                                rx.foreach(
+                                    VehicleState.available_fuel_types,
+                                    lambda fuel: rx.select.item(fuel, value=fuel)
+                                )
+                            ),
                             value=VehicleState.selected_fuel,
                             on_change=VehicleState.select_fuel,
                             width="100%",
@@ -81,11 +90,19 @@ def vehicle_selector() -> rx.Component:
                         size="4",
                         color="white"
                     ),
-                    rx.select(
-                        VehicleState.available_brands,
-                        placeholder="Selecciona la marca",
+                    rx.select.root(
+                        rx.select.trigger(
+                            placeholder="Selecciona la marca",
+                            width="100%",
+                        ),
+                        rx.select.content(
+                            rx.foreach(
+                                VehicleState.available_brands,
+                                lambda brand: rx.select.item(brand, value=brand)
+                            )
+                        ),
                         value=VehicleState.selected_brand,
-                        on_change=lambda value: VehicleState.select_brand(value),
+                        on_change=VehicleState.select_brand,
                         disabled=VehicleState.selected_fuel == "",
                         width="100%",
                         size="3",
@@ -103,11 +120,19 @@ def vehicle_selector() -> rx.Component:
                         size="4",
                         color="white"
                     ),
-                    rx.select(
-                        VehicleState.available_models,
-                        placeholder="Selecciona el modelo",
+                    rx.select.root(
+                        rx.select.trigger(
+                            placeholder="Selecciona el modelo",
+                            width="100%",
+                        ),
+                        rx.select.content(
+                            rx.foreach(
+                                VehicleState.available_models,
+                                lambda model: rx.select.item(model, value=model)
+                            )
+                        ),
                         value=VehicleState.selected_model,
-                        on_change=lambda value: VehicleState.select_model(value),
+                        on_change=VehicleState.select_model,
                         disabled=VehicleState.selected_brand == "",
                         width="100%",
                         size="3",
@@ -125,11 +150,19 @@ def vehicle_selector() -> rx.Component:
                         size="4",
                         color="white"
                     ),
-                    rx.select(
-                        VehicleState.available_versions,
-                        placeholder="Selecciona la versión",
+                    rx.select.root(
+                        rx.select.trigger(
+                            placeholder="Selecciona la versión",
+                            width="100%",
+                        ),
+                        rx.select.content(
+                            rx.foreach(
+                                VehicleState.available_versions,
+                                lambda version: rx.select.item(version, value=version)
+                            )
+                        ),
                         value=VehicleState.selected_version,
-                        on_change=lambda value: VehicleState.select_version(value),
+                        on_change=VehicleState.select_version,
                         disabled=VehicleState.selected_model == "",
                         width="100%",
                         size="3",

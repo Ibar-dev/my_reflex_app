@@ -1,12 +1,13 @@
-/* ✅ ESTILOS OPTIMIZADOS PARA SELECTORES REFLEX - Máxima Compatibilidad */
+/* ✅ ESTILOS CRÍTICOS PARA SELECTORES REFLEX - Solución de Interactividad */
 
-/* Asegurar que TODOS los triggers de select sean clickeables */
+/* CRÍTICO: Asegurar que TODOS los triggers de select sean clickeables */
 .rt-SelectTrigger,
 .rt-Select,
 [data-radix-select-trigger],
 button[role="combobox"],
 [role="combobox"],
-.rt-Button[role="combobox"] {
+.rt-Button[role="combobox"],
+.rt-BaseButton[role="combobox"] {
     pointer-events: auto !important;
     cursor: pointer !important;
     -webkit-user-select: none !important;
@@ -15,9 +16,19 @@ button[role="combobox"],
     user-select: none !important;
     position: relative !important;
     z-index: 10 !important;
-    background: transparent !important;
-    border: none !important;
-    outline: none !important;
+    touch-action: manipulation !important;
+}
+
+/* Asegurar que los elementos hijos del trigger también sean clickeables */
+.rt-SelectTrigger *,
+.rt-Select *,
+[data-radix-select-trigger] *,
+button[role="combobox"] *,
+[role="combobox"] *,
+.rt-Button[role="combobox"] *,
+.rt-BaseButton[role="combobox"] * {
+    pointer-events: auto !important;
+    cursor: pointer !important;
 }
 
 /* Contenido del dropdown - máxima prioridad visual */
@@ -58,16 +69,34 @@ button[role="combobox"],
 /* CRÍTICO: Container del selector NO debe bloquear */
 #selector,
 .vehicle-selector-container,
-[id*="selector"] {
+[id*="selector"],
+#selector .rt-Box,
+#selector .rt-VStack,
+#selector .rt-Container {
     position: relative !important;
     z-index: 1 !important;
     pointer-events: auto !important;
 }
 
-/* Todos los hijos deben ser clickeables */
+/* Todos los hijos deben ser clickeables - MÁXIMA PRIORIDAD */
 #selector *,
-.vehicle-selector-container * {
+.vehicle-selector-container *,
+#selector .rt-Box *,
+#selector .rt-VStack *,
+#selector .rt-Container * {
     pointer-events: auto !important;
+}
+
+/* Asegurar que botones y elementos interactivos funcionen */
+button,
+a,
+[role="button"],
+[role="combobox"],
+input,
+select,
+textarea {
+    pointer-events: auto !important;
+    cursor: pointer !important;
 }
 
 /* Remover estilos que puedan bloquear - Reflex específico */

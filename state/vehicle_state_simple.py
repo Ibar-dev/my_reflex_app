@@ -40,9 +40,9 @@ class VehicleState(rx.State):
         logger.info("[VEHICLE] Iniciando carga de tipos de combustible")
 
         try:
-            from utils.vehicle_data_simple import get_vehicle_fuel_types
+            from utils.vehicle_data_supabase import get_vehicle_fuel_types
             fuel_types = get_vehicle_fuel_types()
-            logger.info(f"[VEHICLE] Tipos obtenidos de BD: {fuel_types}")
+            logger.info(f"[VEHICLE] Tipos obtenidos de Supabase: {fuel_types}")
 
             if fuel_types and len(fuel_types) > 0:
                 self.available_fuel_types = list(fuel_types)  # Crear nueva lista para forzar re-render
@@ -81,7 +81,7 @@ class VehicleState(rx.State):
     def load_brands(self, fuel_type: str = None):
         """Cargar marcas disponibles"""
         try:
-            from utils.vehicle_data_simple import get_vehicle_brands
+            from utils.vehicle_data_supabase import get_vehicle_brands
             brands = get_vehicle_brands(fuel_type or self.selected_fuel)
             self.available_brands = list(brands)  # Crear nueva lista para forzar re-render
             print(f"[VEHICLE] Marcas cargadas: {len(self.available_brands)}")
@@ -102,7 +102,7 @@ class VehicleState(rx.State):
     def load_models(self, fuel_type: str = None, brand: str = None):
         """Cargar modelos disponibles"""
         try:
-            from utils.vehicle_data_simple import get_vehicle_models
+            from utils.vehicle_data_supabase import get_vehicle_models
             models = get_vehicle_models(
                 fuel_type or self.selected_fuel,
                 brand or self.selected_brand
@@ -125,7 +125,7 @@ class VehicleState(rx.State):
     def load_versions(self, fuel_type: str = None, brand: str = None, model: str = None):
         """Cargar versiones disponibles"""
         try:
-            from utils.vehicle_data_simple import get_vehicle_versions
+            from utils.vehicle_data_supabase import get_vehicle_versions
             versions = get_vehicle_versions(
                 fuel_type or self.selected_fuel,
                 brand or self.selected_brand,

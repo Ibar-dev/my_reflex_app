@@ -1,6 +1,10 @@
 .
 |-- Dockerfile
+|-- INSTRUCCIONES_LOGS.md
+|-- MANUAL_CHANGES_REQUIRED.md
 |-- README.md
+|-- SUPABASE_INTEGRATION.md
+|-- TEST_E2E_REPORT.md
 |-- __pycache__
 |   |-- create_local_db.cpython-313.pyc
 |   |-- rxconfig.cpython-313.pyc
@@ -26,11 +30,13 @@
 |   |-- selector-fix.css
 |   `-- styles.css
 |-- astrotech.db
+|-- astrotech.log
 |-- backup
 |   |-- vehicles.db
 |   |-- vehicles_api_cache.json
 |   |-- vehicles_expanded.db
 |   `-- vehiculos_turismo.json
+|-- claude.md
 |-- components
 |   |-- __pycache__
 |   |   |-- benefits.cpython-313.pyc
@@ -83,6 +89,7 @@
 |   |-- ARCHITECTURE_SYNC_REPORT.md
 |   `-- CLEANUP_PLAN.md
 |-- estructura.tree
+|-- install_supabase.py
 |-- integration_test.py
 |-- logs
 |-- models
@@ -93,6 +100,7 @@
 |   |   `-- vehicle.cpython-314.pyc
 |   |-- user.py
 |   `-- vehicle.py
+|-- monitor_logs.py
 |-- nginx.conf
 |-- nginx.prod.conf
 |-- quick_e2e_test.py
@@ -102,6 +110,7 @@
 |-- settings.py
 |-- simple_db_analysis.py
 |-- simple_diagnosis.py
+|-- simple_monitor.py
 |-- simple_test.py
 |-- state
 |   |-- __pycache__
@@ -114,7 +123,12 @@
 |   |-- contact_state.py
 |   |-- cookie_state.py
 |   `-- vehicle_state_simple.py
+|-- test_browser_interaction.py
+|-- test_e2e_simple.py
+|-- test_e2e_vehicle_selector.py
+|-- test_selector_clicks.py
 |-- test_summary.md
+|-- test_supabase_integration.py
 |-- tests
 |   |-- __init__.py
 |   |-- conftest.py
@@ -127,11 +141,17 @@
 |   |   |-- database_service.cpython-313.pyc
 |   |   |-- database_service.cpython-314.pyc
 |   |   |-- email_service.cpython-313.pyc
+|   |   |-- supabase_connection.cpython-313.pyc
 |   |   |-- vehicle_data_simple.cpython-313.pyc
-|   |   `-- vehicle_data_simple.cpython-314.pyc
+|   |   |-- vehicle_data_simple.cpython-314.pyc
+|   |   `-- vehicle_data_supabase.cpython-313.pyc
+|   |-- create_vehicles_table.py
 |   |-- database_service.py
 |   |-- email_service.py
-|   `-- vehicle_data_simple.py
+|   |-- logging_utils.py
+|   |-- supabase_connection.py
+|   |-- vehicle_data_simple.py
+|   `-- vehicle_data_supabase.py
 `-- vehicles_local.db
 
-21 directories, 113 files
+21 directories, 133 files
