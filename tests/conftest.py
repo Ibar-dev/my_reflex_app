@@ -51,7 +51,7 @@ def setup_test_environment():
     for dir_path in test_dirs:
         Path(dir_path).mkdir(parents=True, exist_ok=True)
 
-    print("\n🚀 Iniciando entorno de testing...")
+    print("\nIniciando entorno de testing...")
 
     # Esperar que la aplicación esté lista
     max_wait = 60  # 60 segundos máximo
@@ -61,18 +61,18 @@ def setup_test_environment():
         try:
             response = requests.get(f"{BASE_URL}", timeout=5)
             if response.status_code == 200:
-                print(f"✅ Aplicación lista después de {i} segundos")
+                print(f"Aplicacion lista despues de {i} segundos")
                 break
         except requests.exceptions.RequestException:
             if i % 10 == 0:
-                print(f"⏳ Esperando aplicación... {i}/{max_wait}s")
+                print(f"Esperando aplicacion... {i}/{max_wait}s")
             time.sleep(wait_interval)
     else:
-        pytest.fail("❌ La aplicación no estuvo lista después de 60 segundos")
+        pytest.fail("La aplicacion no estuvo lista despues de 60 segundos")
 
     yield
 
-    print("🧹 Limpiando entorno de testing...")
+    print("Limpiando entorno de testing...")
 
 @pytest.fixture(scope="session")
 def test_data():
@@ -80,39 +80,21 @@ def test_data():
     return {
         "vehicles": {
             "diesel": {
-                "brands": ["Audi", "BMW", "Mercedes-Benz", "Volkswagen", "Seat", "Skoda", "Renault"],
+                "brands": ["Audi", "BMW", "Ford", "Mercedes-Benz", "Volkswagen", "Seat", "Skoda", "Renault", "Opel", "Peugeot"],
                 "sample_selection": {
-                    "fuel_type": "diesel",
-                    "brand": "Audi",
-                    "model": "A3",
-                    "version": "1.6 TDI 115 CV"
+                    "fuel_type": "Diesel",
+                    "brand": "BMW",
+                    "model": "Serie 3",
+                    "version": "320d 190CV"
                 }
             },
             "gasolina": {
-                "brands": ["Audi", "BMW", "Mercedes-Benz", "Volkswagen"],
+                "brands": ["Audi", "BMW", "Ford", "Mercedes-Benz", "Volkswagen", "Seat", "Skoda", "Renault", "Opel", "Peugeot"],
                 "sample_selection": {
-                    "fuel_type": "gasolina",
-                    "brand": "Audi",
-                    "model": "A3",
-                    "version": "1.0 TFSI 110 CV"
-                }
-            },
-            "hibrido": {
-                "brands": ["Toyota", "Hyundai"],
-                "sample_selection": {
-                    "fuel_type": "hibrido",
-                    "brand": "Toyota",
-                    "model": "Prius",
-                    "version": "1.8 Hybrid 122 CV"
-                }
-            },
-            "electrico": {
-                "brands": ["Tesla", "Nissan", "Renault", "Hyundai"],
-                "sample_selection": {
-                    "fuel_type": "electrico",
-                    "brand": "Tesla",
-                    "model": "Model 3",
-                    "version": "Standard Range Plus"
+                    "fuel_type": "Gasolina",
+                    "brand": "Ford",
+                    "model": "Focus",
+                    "version": "1.5 EcoBoost 150CV"
                 }
             }
         },
@@ -172,4 +154,4 @@ def pytest_runtest_makereport(item, call):
             rep.extra_html = f'<img src="{screenshot_path}" width="800">'
 
         except Exception as e:
-            print(f"⚠️ No se pudo capturar screenshot: {e}")
+            print(f"No se pudo capturar screenshot: {e}")
