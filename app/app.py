@@ -10,6 +10,10 @@ import reflex as rx
 import logging
 import sys
 from datetime import datetime
+
+# Importar endpoints para que se registren automáticamente
+import api_endpoints
+
 from components.header import header
 from components.hero import hero
 from components.vehicle_selector import vehicle_selector
