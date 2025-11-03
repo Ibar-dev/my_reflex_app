@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app-test:
+    build: .
+    container_name: astrotech-reflex-app-test
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=sqlite:///app/vehicles_test.db
+      - REFLEX_ENV=test
+    volumes:
+      - ./vehicles_test.db:/app/vehicles_test.db
+      - ./tests:/app/tests
+      - ./test-results:/app/test-results
+    ports:
+      - "3001:3000"
+      - "8001:8000"
+    networks:
+      - test-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # Servidor de screenshots para visual testing
+  screenshot-service:
+    image: alpine/socat
+    container_name: screenshot-saver
+    command: tcp-listen:8080,fork,reuseaddr STDOUT
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
