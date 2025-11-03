@@ -71,6 +71,10 @@ def get_vehicle_models(fuel_type: str = None, brand: str = None) -> List[str]:
     Returns:
         List[str]: Lista de modelos únicos
     """
+    # Si no se proporcionan parámetros requeridos, retornar lista vacía
+    if not fuel_type or not brand:
+        return []
+
     session = SessionLocal()
     try:
         query = session.query(Vehicle.model).distinct()
@@ -97,6 +101,10 @@ def get_vehicle_versions(fuel_type: str = None, brand: str = None, model: str = 
     Returns:
         List[str]: Lista de versiones únicas
     """
+    # Si no se proporcionan parámetros requeridos, retornar lista vacía
+    if not fuel_type or not brand or not model:
+        return []
+
     session = SessionLocal()
     try:
         query = session.query(Vehicle.version).distinct()
