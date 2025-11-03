@@ -136,8 +136,13 @@
 |-- test_simple_supabase.py
 |-- test_summary.md
 |-- test_supabase_integration.py
+|-- test_vehicle_fix.py
+|-- test_vehicle_selector.html
 |-- tests
 |   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-313.pyc
+|   |   `-- conftest.cpython-313.pyc
 |   |-- conftest.py
 |   |-- requirements.txt
 |   |-- test_api_endpoints.py
@@ -161,6 +166,7 @@
 |   |-- supabase_connection.py
 |   `-- vehicle_data_supabase.py
 |-- vehicles_local.db
-`-- verify_production.py
+|-- verify_production.py
+`-- verify_tests.py
 
-22 directories, 141 files
+23 directories, 146 files

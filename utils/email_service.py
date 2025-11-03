@@ -14,7 +14,7 @@ import logging
 from datetime import datetime
 
 # Importar configuración centralizada
-import settings
+from config import settings
 
 # Configurar logging usando settings centralizado
 logging.basicConfig(level=getattr(logging, settings.LOGGING_LEVEL), format=settings.LOGGING_FORMAT)
