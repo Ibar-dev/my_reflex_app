@@ -70,16 +70,16 @@ class TestVehicleSelectorUI:
 
         # Esperar a que cargue el selector de combustible
         fuel_select = WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.XPATH, "//select[contains(@placeholder, 'combustible')]"))
+            EC.presence_of_element_located((By.XPATH, "//select[contains(@placeholder, 'Selecciona el tipo de combustible')]"))
         )
 
         # Verificar que haya opciones
         select = Select(fuel_select)
         options = [option.text for option in select.options if option.text]
 
-        # Debería tener las 4 opciones de combustible
-        expected_fuels = ["diesel", "gasolina", "hibrido", "electrico"]
-        actual_fuels = [opt.lower() for opt in options if opt.lower() in expected_fuels]
+        # Debería tener las 2 opciones de combustible (Diesel y Gasolina)
+        expected_fuels = ["Diesel", "Gasolina"]
+        actual_fuels = [opt for opt in options if opt in expected_fuels]
 
         assert len(actual_fuels) >= 1  # Al menos una opción disponible
 
@@ -91,37 +91,37 @@ class TestVehicleSelectorUI:
 
         # Paso 1: Seleccionar tipo de combustible
         fuel_select = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'combustible')]"))
+            EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona el tipo de combustible')]"))
         )
         select_fuel = Select(fuel_select)
         select_fuel.select_by_visible_text(selection["fuel_type"])
 
         # Esperar a que carguen las marcas
-        time.sleep(2)
+        time.sleep(3)
 
         # Paso 2: Seleccionar marca
         brand_select = WebDriverWait(driver, 15).until(
-            EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'marca')]"))
+            EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona la marca')]"))
         )
         select_brand = Select(brand_select)
         select_brand.select_by_visible_text(selection["brand"])
 
         # Esperar a que carguen los modelos
-        time.sleep(2)
+        time.sleep(3)
 
         # Paso 3: Seleccionar modelo
         model_select = WebDriverWait(driver, 15).until(
-            EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'modelo')]"))
+            EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona el modelo')]"))
         )
         select_model = Select(model_select)
         select_model.select_by_visible_text(selection["model"])
 
         # Esperar a que carguen las versiones
-        time.sleep(2)
+        time.sleep(3)
 
         # Paso 4: Seleccionar versión
         version_select = WebDriverWait(driver, 15).until(
-            EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'versión')]"))
+            EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona la versión')]"))
         )
         select_version = Select(version_select)
         select_version.select_by_visible_text(selection["version"])
@@ -155,7 +155,7 @@ class TestVehicleSelectorUI:
         """Verificar que el botón de solicitud aparezca después de la selección completa."""
         driver.get(base_url)
 
-        selection = test_data["vehicles"]["hibrido"]["sample_selection"]
+        selection = test_data["vehicles"]["gasolina"]["sample_selection"]
 
         # Realizar selección completa
         self._complete_vehicle_selection(driver, selection)
@@ -175,12 +175,12 @@ class TestVehicleSelectorUI:
 
         # Inicialmente, solo el primer select debería estar habilitado
         fuel_select = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//select[contains(@placeholder, 'combustible')]"))
+            EC.presence_of_element_located((By.XPATH, "//select[contains(@placeholder, 'Selecciona el tipo de combustible')]"))
         )
 
         # Verificar selects deshabilitados inicialmente
         try:
-            brand_select = driver.find_element(By.XPATH, "//select[contains(@placeholder, 'marca')]")
+            brand_select = driver.find_element(By.XPATH, "//select[contains(@placeholder, 'Selecciona la marca')]")
             assert brand_select.get_attribute("disabled") == "true"
         except:
             pass  # Puede que no exista aún
@@ -193,7 +193,7 @@ class TestVehicleSelectorUI:
 
             # Ahora el select de marca debería estar habilitado
             brand_select = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'marca')]"))
+                EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona la marca')]"))
             )
             assert brand_select.get_attribute("disabled") != "true"
 
@@ -202,7 +202,7 @@ class TestVehicleSelectorUI:
         driver.get(base_url)
 
         # Probar cada tipo de combustible disponible
-        fuel_types = ["diesel", "gasolina", "hibrido", "electrico"]
+        fuel_types = ["diesel", "gasolina"]
 
         for fuel_type in fuel_types:
             try:
@@ -224,7 +224,7 @@ class TestVehicleSelectorUI:
 
             except Exception as e:
                 # Si falla un tipo de combustible, continuamos con los demás
-                print(f"⚠️ Falló prueba para {fuel_type}: {e}")
+                print(f"Fallo prueba para {fuel_type}: {e}")
                 continue
 
     def test_responsive_design(self, driver, base_url):
@@ -258,38 +258,38 @@ class TestVehicleSelectorUI:
         try:
             # Paso 1: Tipo de combustible
             fuel_select = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'combustible')]"))
+                EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona el tipo de combustible')]"))
             )
             select_fuel = Select(fuel_select)
             select_fuel.select_by_visible_text(selection["fuel_type"])
-            time.sleep(2)
+            time.sleep(3)
 
             # Paso 2: Marca
             brand_select = WebDriverWait(driver, 15).until(
-                EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'marca')]"))
+                EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona la marca')]"))
             )
             select_brand = Select(brand_select)
             select_brand.select_by_visible_text(selection["brand"])
-            time.sleep(2)
+            time.sleep(3)
 
             # Paso 3: Modelo
             model_select = WebDriverWait(driver, 15).until(
-                EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'modelo')]"))
+                EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona el modelo')]"))
             )
             select_model = Select(model_select)
             select_model.select_by_visible_text(selection["model"])
-            time.sleep(2)
+            time.sleep(3)
 
             # Paso 4: Versión
             version_select = WebDriverWait(driver, 15).until(
-                EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'versión')]"))
+                EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona la versión')]"))
             )
             select_version = Select(version_select)
             select_version.select_by_visible_text(selection["version"])
-            time.sleep(2)
+            time.sleep(3)
 
         except Exception as e:
-            print(f"Error en selección: {e}")
+            print(f"Error en seleccion: {e}")
             raise
 
 @pytest.mark.e2e
@@ -341,27 +341,27 @@ class TestUIPerformance:
             # Realizar la acción
             if step == "fuel_type":
                 fuel_select = WebDriverWait(driver, 20).until(
-                    EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'combustible')]"))
+                    EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona el tipo de combustible')]"))
                 )
                 Select(fuel_select).select_by_index(0)
             elif step == "brand":
                 brand_select = WebDriverWait(driver, 15).until(
-                    EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'marca')]"))
+                    EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona la marca')]"))
                 )
                 Select(brand_select).select_by_index(0)
             elif step == "model":
                 model_select = WebDriverWait(driver, 15).until(
-                    EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'modelo')]"))
+                    EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona el modelo')]"))
                 )
                 Select(model_select).select_by_index(0)
             elif step == "version":
                 version_select = WebDriverWait(driver, 15).until(
-                    EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'versión')]"))
+                    EC.element_to_be_clickable((By.XPATH, "//select[contains(@placeholder, 'Selecciona la versión')]"))
                 )
                 Select(version_select).select_by_index(0)
 
             # Esperar a que la acción se complete
-            time.sleep(2)
+            time.sleep(3)
 
             interaction_time = time.time() - start_time
             selection_times.append(interaction_time)

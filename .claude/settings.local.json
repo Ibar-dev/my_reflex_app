@@ -1,0 +1,45 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(pip:*)",
+      "Bash(reflex:*)",
+      "Bash(git:*)",
+      "Bash(docker:*)",
+      "Bash(docker-compose:*)",
+      "Bash(mv:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(rm:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(dir:*)",
+      "Bash(tree:*)",
+      "Bash(sqlite3:*)",
+      "Bash(curl:*)",
+      "Bash(awk:*)",
+      "Bash(xargs:*)",
+      "Bash(timeout:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell:*)",
+      "Bash(chcp:*)",
+      "Bash(printf:*)",
+      "Bash(start:*)",
+      "Bash(claude:*)",
+      "Read(*)",
+      "Write(*)",
+      "Edit(*)"
+    ],
+    "deny": [
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf C:\\*)",
+      "Bash(del C:\\*)",
+      "Bash(format:*)",
+      "Bash(shutdown:*)",
+      "Bash(reboot:*)"
+    ],
+    "ask": []
+  }
+}

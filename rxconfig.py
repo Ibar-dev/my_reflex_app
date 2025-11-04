@@ -10,7 +10,7 @@ if env == rx.Env.PROD:
     db_url = None
 else:
     # En desarrollo mantener compatibilidad (aunque ya no se usa)
-    db_url = "sqlite:///astrotech.db"
+    db_url = "sqlite:///data/astrotech.db"
 
 config = rx.Config(
     app_name="app",

@@ -16,7 +16,7 @@ from datetime import datetime, timedelta
 import re
 import json
 import logging
-import settings
+from config import settings
 
 # Configuración unificada de base de datos - Solo astrotech.db
 DATABASE_URL = settings.DATABASE_URL
