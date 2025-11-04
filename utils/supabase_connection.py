@@ -23,9 +23,9 @@ class SupabaseConnection:
             env = os.getenv("RX_ENV", "DEV")
             if env != "PROD":
                 load_dotenv()
-                logger.info("📁 Cargando variables desde .env (modo desarrollo)")
+                logger.info("Cargando variables desde .env (modo desarrollo)")
         except ImportError:
-            logger.info("📦 dotenv no disponible (producción)")
+            logger.info("dotenv no disponible (producción)")
         
         # Leer variables de entorno (ahora funcionan en prod y dev)
         self.user = os.getenv("DB_USER")
@@ -36,31 +36,31 @@ class SupabaseConnection:
         self.connection = None
         self.cursor = None
         
-        # ✅ Diagnóstico mejorado
+        # Diagnóstico mejorado (sin emojis para evitar errores de encoding)
         env_status = {
-            "DB_USER": "✅" if self.user else "❌",
-            "DB_PASSWORD": "✅" if self.password else "❌",
-            "DB_HOST": "✅" if self.host else "❌",
-            "DB_PORT": "✅" if self.port else "❌",
-            "DB_NAME": "✅" if self.dbname else "❌",
+            "DB_USER": "OK" if self.user else "MISSING",
+            "DB_PASSWORD": "OK" if self.password else "MISSING",
+            "DB_HOST": "OK" if self.host else "MISSING",
+            "DB_PORT": "OK" if self.port else "MISSING",
+            "DB_NAME": "OK" if self.dbname else "MISSING",
         }
         logger.info(f"[SUPABASE] Variables de entorno: {env_status}")
-        
+
         # Verificar que todas las variables estén configuradas
-        missing_vars = [k for k, v in env_status.items() if v == "❌"]
+        missing_vars = [k for k, v in env_status.items() if v == "MISSING"]
         if missing_vars:
-            logger.error(f"[SUPABASE] ❌ Variables faltantes: {missing_vars}")
-            print(f"[SUPABASE] ❌ CRÍTICO: Faltan variables: {missing_vars}")
+            logger.error(f"[SUPABASE] Variables faltantes: {missing_vars}")
+            print(f"[SUPABASE] CRITICO: Faltan variables: {missing_vars}")
     
     def connect(self):
         """Establece conexión con la base de datos"""
         # Verificar que tenemos todas las credenciales
         if not all([self.user, self.password, self.host, self.port, self.dbname]):
-            logger.error("[SUPABASE] ❌ Credenciales incompletas")
-            print("[SUPABASE] ❌ ERROR: Credenciales de Supabase no configuradas")
+            logger.error("[SUPABASE] Credenciales incompletas")
+            print("[SUPABASE] ERROR: Credenciales de Supabase no configuradas")
             print("[SUPABASE] Configura las variables de entorno en Reflex Dashboard")
             return False
-        
+
         try:
             self.connection = psycopg2.connect(
                 user=self.user,
@@ -72,12 +72,12 @@ class SupabaseConnection:
                 cursor_factory=RealDictCursor  # Devuelve diccionarios
             )
             self.cursor = self.connection.cursor()
-            logger.info("[SUPABASE] ✅ Conexión exitosa")
-            print("[SUPABASE] ✅ Conectado correctamente")
+            logger.info("[SUPABASE] Conexión exitosa")
+            print("[SUPABASE] Conectado correctamente")
             return True
         except Exception as e:
-            logger.error(f"[SUPABASE] ❌ Error al conectar: {e}")
-            print(f"[SUPABASE] ❌ ERROR DE CONEXIÓN: {e}")
+            logger.error(f"[SUPABASE] Error al conectar: {e}")
+            print(f"[SUPABASE] ERROR DE CONEXIÓN: {e}")
             return False
     
     def disconnect(self):
@@ -87,7 +87,7 @@ class SupabaseConnection:
                 self.cursor.close()
             if self.connection:
                 self.connection.close()
-            logger.info("[SUPABASE] 🔌 Conexión cerrada")
+            logger.info("[SUPABASE] Conexión cerrada")
         except Exception as e:
             logger.error(f"[SUPABASE] Error al cerrar: {e}")
     
@@ -96,23 +96,23 @@ class SupabaseConnection:
         try:
             self.cursor.execute(query, params)
             results = self.cursor.fetchall()
-            logger.info(f"[SUPABASE] ✅ Query ejecutada: {len(results)} resultados")
+            logger.info(f"[SUPABASE] Query ejecutada: {len(results)} resultados")
             return results
         except Exception as e:
-            logger.error(f"[SUPABASE] ❌ Error en consulta: {e}")
-            print(f"[SUPABASE] ❌ ERROR EN QUERY: {e}")
+            logger.error(f"[SUPABASE] Error en consulta: {e}")
+            print(f"[SUPABASE] ERROR EN QUERY: {e}")
             return []
-    
+
     def execute_update(self, query: str, params: tuple = None) -> bool:
         """Ejecuta INSERT, UPDATE o DELETE"""
         try:
             self.cursor.execute(query, params)
             self.connection.commit()
-            logger.info("[SUPABASE] ✅ Operación ejecutada")
+            logger.info("[SUPABASE] Operación ejecutada")
             return True
         except Exception as e:
-            logger.error(f"[SUPABASE] ❌ Error en operación: {e}")
-            print(f"[SUPABASE] ❌ ERROR: {e}")
+            logger.error(f"[SUPABASE] Error en operación: {e}")
+            print(f"[SUPABASE] ERROR: {e}")
             self.connection.rollback()
             return False
 

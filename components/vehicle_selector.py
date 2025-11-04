@@ -1,11 +1,15 @@
 import reflex as rx
 from state.vehicle_state_simple import VehicleState
+from components.vehicle_confirmation_modal import vehicle_confirmation_modal
 
 
 def vehicle_selector() -> rx.Component:
     """Selector de vehículos FUNCIONAL con estilos de interacción mejorados y CENTRADO COMPLETO"""
 
     return rx.box(
+        # Modal de confirmación
+        vehicle_confirmation_modal(),
+
         # Contenedor principal con centrado completo
         rx.container(
             rx.vstack(
@@ -73,7 +77,7 @@ def vehicle_selector() -> rx.Component:
                             VehicleState.data_loaded,
                             # ❌ DATOS CARGADOS PERO VACÍOS (error de conexión)
                             rx.vstack(
-                                rx.icon("alert_circle", size=32, color="#FF6B35"),
+                                rx.icon("circle_help", size=32, color="#FF6B35"),
                                 rx.text("No se pudieron cargar los datos", color="#FF6B35", weight="bold"),
                                 rx.text("Verifica la conexión a la base de datos", color="#CCCCCC"),
                                 rx.button(

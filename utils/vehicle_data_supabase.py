@@ -29,11 +29,11 @@ def get_vehicle_fuel_types() -> List[str]:
         """
         results = db.execute_query(query)
         fuel_types = [row['fuel_type'] for row in results]
-        logger.info(f"✅ Tipos de combustible obtenidos: {fuel_types}")
+        logger.info(f"Tipos de combustible obtenidos: {fuel_types}")
         return fuel_types
-    
+
     except Exception as e:
-        logger.error(f"❌ Error al obtener tipos de combustible: {e}")
+        logger.error(f"Error al obtener tipos de combustible: {e}")
         return []
     
     finally:
@@ -72,11 +72,11 @@ def get_vehicle_brands(fuel_type: Optional[str] = None) -> List[str]:
             results = db.execute_query(query)
         
         brands = [row['brand'] for row in results]
-        logger.info(f"✅ Marcas obtenidas: {len(brands)}")
+        logger.info(f"Marcas obtenidas: {len(brands)}")
         return brands
-    
+
     except Exception as e:
-        logger.error(f"❌ Error al obtener marcas: {e}")
+        logger.error(f"Error al obtener marcas: {e}")
         return []
     
     finally:
@@ -107,11 +107,11 @@ def get_vehicle_models(fuel_type: str, brand: str) -> List[str]:
         """
         results = db.execute_query(query, (fuel_type, brand))
         models = [row['model'] for row in results]
-        logger.info(f"✅ Modelos obtenidos: {len(models)}")
+        logger.info(f"Modelos obtenidos: {len(models)}")
         return models
-    
+
     except Exception as e:
-        logger.error(f"❌ Error al obtener modelos: {e}")
+        logger.error(f"Error al obtener modelos: {e}")
         return []
     
     finally:
@@ -143,11 +143,11 @@ def get_vehicle_versions(fuel_type: str, brand: str, model: str) -> List[str]:
         """
         results = db.execute_query(query, (fuel_type, brand, model))
         versions = [row['version'] for row in results if row['version']]
-        logger.info(f"✅ Versiones obtenidas: {len(versions)}")
+        logger.info(f"Versiones obtenidas: {len(versions)}")
         return versions
-    
+
     except Exception as e:
-        logger.error(f"❌ Error al obtener versiones: {e}")
+        logger.error(f"Error al obtener versiones: {e}")
         return []
     
     finally:
@@ -166,7 +166,7 @@ def get_vehicle_count() -> int:
         return total
     
     except Exception as e:
-        logger.error(f"❌ Error al contar vehículos: {e}")
+        logger.error(f"Error al contar vehículos: {e}")
         return 0
     
     finally:
@@ -201,7 +201,7 @@ def search_vehicles(search_term: str) -> List[Dict]:
         return results
     
     except Exception as e:
-        logger.error(f"❌ Error en búsqueda: {e}")
+        logger.error(f"Error en búsqueda: {e}")
         return []
     
     finally:
@@ -256,7 +256,7 @@ def get_vehicles_data(limit: int = 100, fuel_type: str = None, brand: str = None
         return results
 
     except Exception as e:
-        logger.error(f"❌ Error al obtener vehículos: {e}")
+        logger.error(f"Error al obtener vehículos: {e}")
         return []
 
     finally:
@@ -287,7 +287,7 @@ def add_vehicle(fuel_type: str, brand: str, model: str, version: str) -> bool:
         return db.execute_update(query, (fuel_type, brand, model, version))
 
     except Exception as e:
-        logger.error(f"❌ Error al añadir vehículo: {e}")
+        logger.error(f"Error al añadir vehículo: {e}")
         return False
 
     finally:

@@ -7,6 +7,7 @@ Funciona con la base de datos unificada astrotech.db
 
 import reflex as rx
 import logging
+import asyncio
 
 # Variable global para compartir información del vehículo entre estados
 _shared_vehicle_message = ""
@@ -35,6 +36,11 @@ class VehicleState(rx.State):
 
     # Mensaje del vehículo seleccionado para contacto
     selected_vehicle_message: str = ""
+
+    # Estados para el modal de confirmación
+    show_confirmation_modal: bool = False
+    confirmation_message: str = ""
+    confirmation_error: bool = False
 
   
     
@@ -157,11 +163,12 @@ class VehicleState(rx.State):
         print(f"[VEHICLE] Versión seleccionada: {version}")
         self.selected_version = version
 
-    def submit_vehicle_selection(self):
+    async def submit_vehicle_selection(self):
         """Enviar selección de vehículo al formulario de contacto"""
         if self.is_complete_selection():
             selection = self.get_current_selection()
-            print(f"[VEHICLE] Enviando selección: {selection}")
+            logger.info(f"[VEHICLE] 🚀 Iniciando envío de presupuesto")
+            logger.info(f"[VEHICLE] 📋 Datos: {selection}")
 
             # Preparar mensaje con datos del vehículo
             vehicle_message = (
@@ -172,35 +179,88 @@ class VehicleState(rx.State):
                 f"• Versión: {selection['version']}"
             )
 
-            # Almacenar en el estado y en la variable global para que el formulario de contacto lo use
+            # Almacenar en el estado y en la variable global
             self.selected_vehicle_message = vehicle_message
             global _shared_vehicle_message
             _shared_vehicle_message = vehicle_message
-            print(f"[VEHICLE] Mensaje preparado: {vehicle_message}")
-            print("[VEHICLE] Información del vehículo almacenada correctamente")
 
-            # Forzar actualización del ContactState y confirmar envío
+            logger.info("[VEHICLE] 📝 Mensaje preparado correctamente")
+            logger.info("[VEHICLE] 🔄 Notificando al formulario de contacto...")
+
             try:
-                # Importar y actualizar ContactState
-                from state.contact_state import ContactState
+                # Importar el servicio de email
+                from utils.email_service import send_contact_form_email
 
-                # En Reflex, podemos hacer yield para llamar a otros métodos de estado
-                print("[VEHICLE] Notificando al formulario de contacto...")
+                logger.info("[VEHICLE] 📧 Preparando envío de email...")
+                logger.info("[VEHICLE] 📬 Destinatario: astrotechreprogramaciones@gmail.com")
 
-                # Actualizar la información del vehículo
-                ContactState.update_vehicle_info()
+                # Enviar email con la información del vehículo
+                email_result = await send_contact_form_email(
+                    name="Cliente - Solicitud desde Selector",
+                    email="info@astrotech.com",  # Email temporal
+                    phone="",
+                    message=vehicle_message,
+                    is_registered=False,
+                    user_info={}
+                )
 
-                # Confirmar que se envió el presupuesto
-                ContactState.confirm_budget_sent()
+                if email_result["success"]:
+                    logger.info("[VEHICLE] ✅ EMAIL ENVIADO EXITOSAMENTE")
+                    logger.info(f"[VEHICLE] 📨 Detalles: {email_result['message']}")
+
+                    # Actualizar ContactState
+                    from state.contact_state import ContactState
+                    ContactState.update_vehicle_info()
+                    ContactState.confirm_budget_sent()
+
+                    logger.info("[VEHICLE] ✅ Estado del formulario actualizado")
+
+                    # Mostrar modal de éxito
+                    self.confirmation_message = "¡Solicitud enviada exitosamente! Nos pondremos en contacto contigo pronto."
+                    self.confirmation_error = False
+                    self.show_confirmation_modal = True
+
+                    logger.info("[VEHICLE] 🎉 Proceso completado exitosamente")
+
+                    # Limpiar selectores después de 2 segundos
+                    await asyncio.sleep(2)
+                    self.reset_selection()
+                    logger.info("[VEHICLE] 🧹 Selectores limpiados")
+
+                else:
+                    logger.error(f"[VEHICLE] ❌ ERROR AL ENVIAR EMAIL: {email_result['message']}")
+                    logger.error("[VEHICLE] 🔍 Verifica la configuración de SMTP en settings.py")
+
+                    # Mostrar modal de error
+                    self.confirmation_message = f"Error al enviar: {email_result['message']}"
+                    self.confirmation_error = True
+                    self.show_confirmation_modal = True
 
             except Exception as e:
-                print(f"[VEHICLE] Error notificando: {e}")
+                logger.error(f"[VEHICLE] ❌ EXCEPCIÓN CRÍTICA: {str(e)}")
+                logger.error("[VEHICLE] 🔧 Posibles causas:")
+                logger.error("[VEHICLE]    • Configuración de email incorrecta")
+                logger.error("[VEHICLE]    • Sin conexión a internet")
+                logger.error("[VEHICLE]    • Credenciales SMTP inválidas")
 
-            # No devolver nada para evitar el error de Reflex
+                import traceback
+                logger.error(f"[VEHICLE] 📋 Stack trace: {traceback.format_exc()}")
+
+                # Mostrar modal de error
+                self.confirmation_message = f"Error al procesar la solicitud: {str(e)}"
+                self.confirmation_error = True
+                self.show_confirmation_modal = True
+
             return
         else:
-            print("[VEHICLE] Error: Selección incompleta")
+            logger.warning("[VEHICLE] ⚠️ Selección incompleta - no se puede enviar")
             return
+
+    def close_confirmation_modal(self):
+        """Cerrar el modal de confirmación"""
+        self.show_confirmation_modal = False
+        self.confirmation_message = ""
+        logger.info("[VEHICLE] 🔒 Modal de confirmación cerrado")
 
     def reset_selection(self):
         """Reiniciar todas las selecciones"""

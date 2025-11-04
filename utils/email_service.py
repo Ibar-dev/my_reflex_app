@@ -337,19 +337,33 @@ email_service = EmailService()
 # Función de conveniencia para usar desde el estado
 async def send_contact_form_email(name: str, email: str, phone: str, message: str, is_registered: bool = False, user_info: dict = None) -> Dict[str, any]:
     """
-    Función helper para enviar email desde el formulario de contacto
-
-    Args:
-        name: Nombre del contacto
-        email: Email del contacto
-        phone: Teléfono del contacto (opcional)
-        message: Mensaje del contacto
-        is_registered: Si el usuario está registrado en la base de datos
-        user_info: Información adicional del usuario si está registrado
-
-    Returns:
-        Dict con success (bool) y message (str)
+    Envía un email desde el formulario de contacto con logging detallado
     """
+    logger.info("=" * 60)
+    logger.info("[EMAIL] 📧 INICIANDO PROCESO DE ENVÍO")
+    logger.info("=" * 60)
+
+    # Verificar configuración
+    logger.info("[EMAIL] 🔍 Verificando configuración de email...")
+
+    if not EmailConfig.is_configured():
+        logger.warning("[EMAIL] ⚠️ Email NO configurado - Modo simulación")
+        logger.info("[EMAIL] 📋 Para configurar el email:")
+        logger.info("[EMAIL]    1. Edita el archivo .env")
+        logger.info("[EMAIL]    2. Configura SMTP_SERVER, SMTP_PORT, etc.")
+        logger.info("[EMAIL]    3. Reinicia la aplicación")
+        logger.info("=" * 60)
+
+        return {
+            "success": False,
+            "message": "Configuración de email pendiente. Contacta al administrador."
+        }
+
+    logger.info("[EMAIL] ✅ Configuración de email encontrada")
+    logger.info(f"[EMAIL] 📬 Servidor SMTP: {EmailConfig.SMTP_SERVER}:{EmailConfig.SMTP_PORT}")
+    logger.info(f"[EMAIL] 👤 Usuario: {EmailConfig.SMTP_USER}")
+    logger.info(f"[EMAIL] 🎯 Destinatario: {EmailConfig.RECIPIENT_EMAIL}")
+
     if user_info is None:
         user_info = {}
 
@@ -362,4 +376,47 @@ async def send_contact_form_email(name: str, email: str, phone: str, message: st
         "user_info": user_info
     }
 
-    return await email_service.send_contact_email(contact_data)
+    try:
+        logger.info("[EMAIL] 🔌 Conectando al servidor SMTP...")
+
+        # Verificar conexión a internet
+        import socket
+        try:
+            socket.create_connection((EmailConfig.SMTP_SERVER, EmailConfig.SMTP_PORT), timeout=5)
+            logger.info("[EMAIL] ✅ Conexión a internet verificada")
+        except OSError:
+            logger.error("[EMAIL] ❌ Sin conexión a internet")
+            logger.error("[EMAIL] 🔧 Verifica tu conexión de red")
+            return {
+                "success": False,
+                "message": "Sin conexión a internet. Verifica tu red."
+            }
+
+        # Enviar email
+        result = await email_service.send_contact_email(contact_data)
+
+        if result["success"]:
+            logger.info("[EMAIL] ✅ EMAIL ENVIADO EXITOSAMENTE")
+            logger.info(f"[EMAIL] 📨 {result['message']}")
+            logger.info("[EMAIL] 🎉 El presupuesto ha sido recibido")
+            logger.info("=" * 60)
+        else:
+            logger.error(f"[EMAIL] ❌ ERROR: {result['message']}")
+            logger.info("=" * 60)
+
+        return result
+
+    except Exception as e:
+        logger.error("[EMAIL] ❌ EXCEPCIÓN AL ENVIAR EMAIL")
+        logger.error(f"[EMAIL] 📋 Error: {str(e)}")
+        logger.error("[EMAIL] 🔧 Posibles soluciones:")
+        logger.error("[EMAIL]    • Verifica las credenciales SMTP en .env")
+        logger.error("[EMAIL]    • Confirma que el puerto SMTP está abierto")
+        logger.error("[EMAIL]    • Revisa los permisos de la aplicación")
+        logger.error("[EMAIL]    • Comprueba que no hay firewall bloqueando")
+        logger.info("=" * 60)
+
+        return {
+            "success": False,
+            "message": f"Error técnico: {str(e)}"
+        }
