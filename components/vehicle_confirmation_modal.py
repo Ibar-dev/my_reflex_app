@@ -17,16 +17,17 @@ def vehicle_confirmation_modal() -> rx.Component:
     return rx.cond(
         VehicleState.show_confirmation_modal,
         rx.box(
-            # Overlay oscuro de fondo
+            # Overlay oscuro de fondo - MÁS OPACO
             rx.box(
-                bg="rgba(0, 0, 0, 0.85)",
+                bg="rgba(0, 0, 0, 0.95)",  # Aumentado de 0.85 a 0.95
                 position="fixed",
                 top="0",
                 left="0",
                 right="0",
                 bottom="0",
-                z_index="9998",
+                z_index="99999",  # Aumentado a 99999 para asegurar capa superior
                 on_click=VehicleState.close_confirmation_modal,
+                backdrop_filter="blur(4px)",  # Añadido efecto de desenfoque
             ),
 
             # Modal centrado
@@ -36,17 +37,23 @@ def vehicle_confirmation_modal() -> rx.Component:
                         # Icono y título
                         rx.cond(
                             VehicleState.confirmation_error,
-                            # Error
+                            # Error - CON FONDO MÁS VISIBLE
                             rx.vstack(
-                                rx.icon(
-                                    "x_circle",
-                                    size=60,
-                                    color="#F44336"
+                                rx.box(
+                                    rx.icon(
+                                        "x_circle",
+                                        size=60,
+                                        color="white"
+                                    ),
+                                    bg="linear-gradient(135deg, #F44336 0%, #D32F2F 100%)",
+                                    border_radius="50%",
+                                    padding="1.5rem",
+                                    box_shadow="0 0 30px rgba(244, 67, 54, 0.5)",
                                 ),
                                 rx.heading(
                                     "Error al Enviar",
                                     size="7",
-                                    color="#F44336",
+                                    color="white",  # Cambiado a blanco
                                     font_weight="700",
                                     text_align="center"
                                 ),
@@ -55,15 +62,21 @@ def vehicle_confirmation_modal() -> rx.Component:
                             ),
                             # Éxito
                             rx.vstack(
-                                rx.icon(
-                                    "check_circle",
-                                    size=60,
-                                    color="#FF6B35"
+                                rx.box(
+                                    rx.icon(
+                                        "check_circle",
+                                        size=60,
+                                        color="white"
+                                    ),
+                                    bg="linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%)",
+                                    border_radius="50%",
+                                    padding="1.5rem",
+                                    box_shadow="0 0 30px rgba(255, 107, 53, 0.5)",
                                 ),
                                 rx.heading(
                                     "¡Solicitud Enviada!",
                                     size="7",
-                                    color="#FF6B35",
+                                    color="white",  # Cambiado a blanco
                                     font_weight="700",
                                     text_align="center"
                                 ),
@@ -72,13 +85,29 @@ def vehicle_confirmation_modal() -> rx.Component:
                             )
                         ),
 
-                        # Mensaje
-                        rx.text(
-                            VehicleState.confirmation_message,
-                            color="#CCCCCC",
-                            font_size="1.1rem",
-                            text_align="center",
-                            line_height="1.6"
+                        # Mensaje - CON MEJOR CONTRASTE
+                        rx.box(
+                            rx.text(
+                                VehicleState.confirmation_message,
+                                color="white",  # Cambiado de #CCCCCC a white
+                                font_size="1.1rem",
+                                text_align="center",
+                                line_height="1.6",
+                                font_weight="500"
+                            ),
+                            bg=rx.cond(
+                                VehicleState.confirmation_error,
+                                "rgba(244, 67, 54, 0.1)",  # Fondo rojizo suave para errores
+                                "rgba(255, 107, 53, 0.1)"   # Fondo naranja suave para éxito
+                            ),
+                            border_left=rx.cond(
+                                VehicleState.confirmation_error,
+                                "4px solid #F44336",
+                                "4px solid #FF6B35"
+                            ),
+                            padding="1.5rem",
+                            border_radius="8px",
+                            width="100%"
                         ),
 
                         # Información adicional (solo en éxito)
@@ -91,7 +120,7 @@ def vehicle_confirmation_modal() -> rx.Component:
                                         rx.icon("mail", size=20, color="#FF6B35"),
                                         rx.text(
                                             "Correo enviado a:",
-                                            color="#999999",
+                                            color="#BBBBBB",
                                             font_size="0.9rem"
                                         ),
                                         spacing="2",
@@ -108,7 +137,7 @@ def vehicle_confirmation_modal() -> rx.Component:
                                 ),
                                 rx.text(
                                     "Te contactaremos en las próximas 24-48 horas",
-                                    color="#999999",
+                                    color="#BBBBBB",
                                     font_size="0.9rem",
                                     text_align="center"
                                 ),
@@ -128,10 +157,11 @@ def vehicle_confirmation_modal() -> rx.Component:
                                 rx.text(
                                     rx.cond(
                                         VehicleState.confirmation_error,
-                                        "Reintentar",
+                                        "Cerrar",
                                         "Entendido"
                                     ),
-                                    font_weight="600"
+                                    font_weight="600",
+                                    font_size="1rem"
                                 ),
                                 spacing="2",
                                 align="center"
@@ -139,7 +169,7 @@ def vehicle_confirmation_modal() -> rx.Component:
                             on_click=VehicleState.close_confirmation_modal,
                             bg=rx.cond(
                                 VehicleState.confirmation_error,
-                                "#F44336",
+                                "linear-gradient(135deg, #F44336 0%, #D32F2F 100%)",
                                 "linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%)"
                             ),
                             color="white",
@@ -149,7 +179,11 @@ def vehicle_confirmation_modal() -> rx.Component:
                             cursor="pointer",
                             _hover={
                                 "transform": "translateY(-2px)",
-                                "box_shadow": "0 6px 20px rgba(255, 107, 53, 0.4)"
+                                "box_shadow": rx.cond(
+                                    VehicleState.confirmation_error,
+                                    "0 6px 20px rgba(244, 67, 54, 0.6)",
+                                    "0 6px 20px rgba(255, 107, 53, 0.6)"
+                                )
                             },
                             transition="all 0.3s ease"
                         ),
@@ -159,21 +193,29 @@ def vehicle_confirmation_modal() -> rx.Component:
                         width="100%"
                     ),
                     bg="#1A1A1A",
-                    border="2px solid #FF6B35",
+                    border=rx.cond(
+                        VehicleState.confirmation_error,
+                        "2px solid #F44336",
+                        "2px solid #FF6B35"
+                    ),
                     border_radius="20px",
                     padding="3rem",
-                    max_width="500px",
+                    max_width="550px",
                     width="90%",
-                    box_shadow="0 10px 40px rgba(0, 0, 0, 0.5)",
+                    box_shadow=rx.cond(
+                        VehicleState.confirmation_error,
+                        "0 10px 60px rgba(244, 67, 54, 0.3), 0 0 0 1px rgba(244, 67, 54, 0.2)",
+                        "0 10px 60px rgba(255, 107, 53, 0.3), 0 0 0 1px rgba(255, 107, 53, 0.2)"
+                    ),
                     position="relative",
-                    z_index="9999"
+                    z_index="100001"  # Z-index más alto para el modal en sí
                 ),
                 position="fixed",
                 top="0",
                 left="0",
                 right="0",
                 bottom="0",
-                z_index="9999",
+                z_index="100000",  # Aumentado a 100000 para asegurar que esté por encima de todo
                 pointer_events="none",
                 style={
                     "& > div": {
